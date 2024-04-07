@@ -1,0 +1,17 @@
+syntax = "proto3";
+package aptcaller.aptcaller;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+import "aptcaller/aptcaller/params.proto";
+
+option go_package = "aptcaller/x/aptcaller/types";
+
+// GenesisState defines the aptcaller module's genesis state.
+message GenesisState {
+  // params defines all the parameters of the module.
+  Params params = 1 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true
+  ];
+}
