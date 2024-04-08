@@ -1,0 +1,11 @@
+syntax = "proto3";
+package aptcaller.aptcaller;
+
+option go_package = "aptcaller/x/aptcaller/types";
+
+message AptRes {
+  
+  string header = 1; 
+  string body = 2; 
+  uint32 code = 3;
+}
