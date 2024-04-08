@@ -22,6 +22,7 @@ const (
 	Query_Params_FullMethodName              = "/aptcaller.aptcaller.Query/Params"
 	Query_GetAccount_FullMethodName          = "/aptcaller.aptcaller.Query/GetAccount"
 	Query_GetAccountResources_FullMethodName = "/aptcaller.aptcaller.Query/GetAccountResources"
+	Query_GetAccountModules_FullMethodName   = "/aptcaller.aptcaller.Query/GetAccountModules"
 )
 
 // QueryClient is the client API for Query service.
@@ -34,6 +35,8 @@ type QueryClient interface {
 	GetAccount(ctx context.Context, in *QueryGetAccountRequest, opts ...grpc.CallOption) (*QueryGetAccountResponse, error)
 	// Queries a list of GetAccountResources items.
 	GetAccountResources(ctx context.Context, in *QueryGetAccountResourcesRequest, opts ...grpc.CallOption) (*QueryGetAccountResourcesResponse, error)
+	// Queries a list of GetAccountModules items.
+	GetAccountModules(ctx context.Context, in *QueryGetAccountModulesRequest, opts ...grpc.CallOption) (*QueryGetAccountModulesResponse, error)
 }
 
 type queryClient struct {
@@ -71,6 +74,15 @@ func (c *queryClient) GetAccountResources(ctx context.Context, in *QueryGetAccou
 	return out, nil
 }
 
+func (c *queryClient) GetAccountModules(ctx context.Context, in *QueryGetAccountModulesRequest, opts ...grpc.CallOption) (*QueryGetAccountModulesResponse, error) {
+	out := new(QueryGetAccountModulesResponse)
+	err := c.cc.Invoke(ctx, Query_GetAccountModules_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 // All implementations must embed UnimplementedQueryServer
 // for forward compatibility
@@ -81,6 +93,8 @@ type QueryServer interface {
 	GetAccount(context.Context, *QueryGetAccountRequest) (*QueryGetAccountResponse, error)
 	// Queries a list of GetAccountResources items.
 	GetAccountResources(context.Context, *QueryGetAccountResourcesRequest) (*QueryGetAccountResourcesResponse, error)
+	// Queries a list of GetAccountModules items.
+	GetAccountModules(context.Context, *QueryGetAccountModulesRequest) (*QueryGetAccountModulesResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }
 
@@ -96,6 +110,9 @@ func (UnimplementedQueryServer) GetAccount(context.Context, *QueryGetAccountRequ
 }
 func (UnimplementedQueryServer) GetAccountResources(context.Context, *QueryGetAccountResourcesRequest) (*QueryGetAccountResourcesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAccountResources not implemented")
+}
+func (UnimplementedQueryServer) GetAccountModules(context.Context, *QueryGetAccountModulesRequest) (*QueryGetAccountModulesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAccountModules not implemented")
 }
 func (UnimplementedQueryServer) mustEmbedUnimplementedQueryServer() {}
 
@@ -164,6 +181,24 @@ func _Query_GetAccountResources_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_GetAccountModules_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetAccountModulesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).GetAccountModules(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_GetAccountModules_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).GetAccountModules(ctx, req.(*QueryGetAccountModulesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Query_ServiceDesc is the grpc.ServiceDesc for Query service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -182,6 +217,10 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetAccountResources",
 			Handler:    _Query_GetAccountResources_Handler,
+		},
+		{
+			MethodName: "GetAccountModules",
+			Handler:    _Query_GetAccountModules_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
