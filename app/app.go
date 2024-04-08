@@ -77,8 +77,6 @@ import (
 
 	aptcallermodulekeeper "aptcaller/x/aptcaller/keeper"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
-
-	"aptcaller/docs"
 )
 
 const (
@@ -437,8 +435,6 @@ func (app *App) RegisterAPIRoutes(apiSvr *api.Server, apiConfig config.APIConfig
 		panic(err)
 	}
 
-	// register app's OpenAPI routes.
-	docs.RegisterOpenAPIService(Name, apiSvr.Router)
 }
 
 // GetMaccPerms returns a copy of the module account permissions

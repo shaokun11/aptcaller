@@ -665,6 +665,52 @@ paths:
                   additionalProperties: {}
       tags:
         - Query
+  /aptcaller/aptcaller/get_transaction_by_count/{count}:
+    get:
+      summary: Queries a list of GetTransactionByCount items.
+      operationId: AptcallerAptcallerQuery_GetTransactionByCount
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              aptRes:
+                type: object
+                properties:
+                  header:
+                    type: string
+                  body:
+                    type: string
+                  code:
+                    type: integer
+                    format: int64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: count
+          in: path
+          required: true
+          type: string
+          format: uint64
+      tags:
+        - Query
   /aptcaller/aptcaller/get_transaction_by_hash/{txnHash}:
     get:
       summary: Queries a list of GetTransactionByHash items.
@@ -990,10 +1036,9 @@ paths:
           type: string
       tags:
         - Query
-  /aptcaller/aptcaller/submit_transaction/{body}:
-    get:
-      summary: Queries a list of SubmitTransaction items.
-      operationId: AptcallerAptcallerQuery_SubmitTransaction
+  /aptcaller.aptcaller.Msg/SubmitTransaction:
+    post:
+      operationId: AptcallerAptcallerMsg_SubmitTransaction
       responses:
         '200':
           description: A successful response.
@@ -1030,11 +1075,17 @@ paths:
                   additionalProperties: {}
       parameters:
         - name: body
-          in: path
+          in: body
           required: true
-          type: string
+          schema:
+            type: object
+            properties:
+              creator:
+                type: string
+              body:
+                type: string
       tags:
-        - Query
+        - Msg
   /aptcaller.aptcaller.Msg/UpdateParams:
     post:
       summary: |-
@@ -1083,10 +1134,7 @@ paths:
                   authority is the address that controls the module (defaults to
                   x/gov unless overwritten).
               params:
-                description: |-
-                  params defines the module parameters to update.
-
-                  NOTE: All parameters must be supplied.
+                description: 'NOTE: All parameters must be supplied.'
                 type: object
             description: MsgUpdateParams is the Msg/UpdateParams request type.
       tags:
@@ -17824,6 +17872,19 @@ definitions:
           code:
             type: integer
             format: int64
+  aptcaller.aptcaller.QueryGetTransactionByCountResponse:
+    type: object
+    properties:
+      aptRes:
+        type: object
+        properties:
+          header:
+            type: string
+          body:
+            type: string
+          code:
+            type: integer
+            format: int64
   aptcaller.aptcaller.QueryGetTransactionByHashResponse:
     type: object
     properties:
@@ -17909,7 +17970,14 @@ definitions:
           code:
             type: integer
             format: int64
-  aptcaller.aptcaller.QuerySubmitTransactionResponse:
+  aptcaller.aptcaller.MsgSubmitTransaction:
+    type: object
+    properties:
+      creator:
+        type: string
+      body:
+        type: string
+  aptcaller.aptcaller.MsgSubmitTransactionResponse:
     type: object
     properties:
       aptRes:
@@ -17931,10 +17999,7 @@ definitions:
           authority is the address that controls the module (defaults to x/gov
           unless overwritten).
       params:
-        description: |-
-          params defines the module parameters to update.
-
-          NOTE: All parameters must be supplied.
+        description: 'NOTE: All parameters must be supplied.'
         type: object
     description: MsgUpdateParams is the Msg/UpdateParams request type.
   aptcaller.aptcaller.MsgUpdateParamsResponse:

@@ -130,13 +130,6 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 				},
 
 				{
-					RpcMethod:      "SubmitTransaction",
-					Use:            "submit-transaction [body]",
-					Short:          "Query submit-transaction",
-					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "body"}},
-				},
-
-				{
 					RpcMethod:      "SubmitBatchTransaction",
 					Use:            "submit-batch-transaction [body]",
 					Short:          "Query submit-batch-transaction",
@@ -157,6 +150,13 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "body"}},
 				},
 
+				{
+					RpcMethod:      "GetTransactionByCount",
+					Use:            "get-transaction-by-count [count]",
+					Short:          "Query get-transaction-by-count",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "count"}},
+				},
+
 				// this line is used by ignite scaffolding # autocli/query
 			},
 		},
@@ -167,6 +167,12 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 				{
 					RpcMethod: "UpdateParams",
 					Skip:      true, // skipped because authority gated
+				},
+				{
+					RpcMethod:      "SubmitTransaction",
+					Use:            "submit-transaction [body]",
+					Short:          "Send a submit-transaction tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "body"}},
 				},
 				// this line is used by ignite scaffolding # autocli/tx
 			},

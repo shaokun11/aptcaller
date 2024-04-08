@@ -116,12 +116,6 @@ service Query {
   
   }
   
-  // Queries a list of SubmitTransaction items.
-  rpc SubmitTransaction (QuerySubmitTransactionRequest) returns (QuerySubmitTransactionResponse) {
-    option (google.api.http).get = "/aptcaller/aptcaller/submit_transaction/{body}";
-  
-  }
-  
   // Queries a list of SubmitBatchTransaction items.
   rpc SubmitBatchTransaction (QuerySubmitBatchTransactionRequest) returns (QuerySubmitBatchTransactionResponse) {
     option (google.api.http).get = "/aptcaller/aptcaller/submit_batch_transaction/{body}";
@@ -137,6 +131,12 @@ service Query {
   // Queries a list of EncodeSubmission items.
   rpc EncodeSubmission (QueryEncodeSubmissionRequest) returns (QueryEncodeSubmissionResponse) {
     option (google.api.http).get = "/aptcaller/aptcaller/encode_submission/{body}";
+  
+  }
+  
+  // Queries a list of GetTransactionByCount items.
+  rpc GetTransactionByCount (QueryGetTransactionByCountRequest) returns (QueryGetTransactionByCountResponse) {
+    option (google.api.http).get = "/aptcaller/aptcaller/get_transaction_by_count/{count}";
   
   }
 }
@@ -296,14 +296,6 @@ message QueryEstimateGasPriceResponse {
   AptRes aptRes = 1;
 }
 
-message QuerySubmitTransactionRequest {
-  string body = 1;
-}
-
-message QuerySubmitTransactionResponse {
-  AptRes aptRes = 1;
-}
-
 message QuerySubmitBatchTransactionRequest {
   string body = 1;
 }
@@ -328,6 +320,14 @@ message QueryEncodeSubmissionRequest {
 }
 
 message QueryEncodeSubmissionResponse {
+  AptRes aptRes = 1;
+}
+
+message QueryGetTransactionByCountRequest {
+  uint64 count = 1;
+}
+
+message QueryGetTransactionByCountResponse {
   AptRes aptRes = 1;
 }
 
