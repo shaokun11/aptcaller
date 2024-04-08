@@ -1,3 +1,3 @@
 package apt
 
-var Url = "https://api.devnet.aptoslabs.com/v1"
+var Url = "https://api.mainnet.aptoslabs.com/v1"

@@ -37,6 +37,12 @@ service Query {
     option (google.api.http).get = "/aptcaller/aptcaller/get_account_modules/{address}/{ledgerVersion}/{limit}/{start}";
   
   }
+  
+  // Queries a list of GetAccountResource items.
+  rpc GetAccountResource (QueryGetAccountResourceRequest) returns (QueryGetAccountResourceResponse) {
+    option (google.api.http).get = "/aptcaller/aptcaller/get_account_resource/{address}/{resourceType}";
+  
+  }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
@@ -75,6 +81,15 @@ message QueryGetAccountModulesRequest {
 }
 
 message QueryGetAccountModulesResponse {
+  AptRes aptRes = 1;
+}
+
+message QueryGetAccountResourceRequest {
+  string address      = 1;
+  string resourceType = 2;
+}
+
+message QueryGetAccountResourceResponse {
   AptRes aptRes = 1;
 }
 
