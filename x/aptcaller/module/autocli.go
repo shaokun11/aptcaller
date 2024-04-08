@@ -59,6 +59,13 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "blockHeight"}},
 				},
 
+				{
+					RpcMethod:      "GetBlockByVersion",
+					Use:            "get-block-by-version [version] [with-transactions]",
+					Short:          "Query get-block-by-version",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "version"}, {ProtoField: "withTransactions"}},
+				},
+
 				// this line is used by ignite scaffolding # autocli/query
 			},
 		},

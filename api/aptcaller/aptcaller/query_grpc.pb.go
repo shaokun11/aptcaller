@@ -26,6 +26,7 @@ const (
 	Query_GetAccountResource_FullMethodName  = "/aptcaller.aptcaller.Query/GetAccountResource"
 	Query_GetAccountModule_FullMethodName    = "/aptcaller.aptcaller.Query/GetAccountModule"
 	Query_GetBlockByHeight_FullMethodName    = "/aptcaller.aptcaller.Query/GetBlockByHeight"
+	Query_GetBlockByVersion_FullMethodName   = "/aptcaller.aptcaller.Query/GetBlockByVersion"
 )
 
 // QueryClient is the client API for Query service.
@@ -46,6 +47,8 @@ type QueryClient interface {
 	GetAccountModule(ctx context.Context, in *QueryGetAccountModuleRequest, opts ...grpc.CallOption) (*QueryGetAccountModuleResponse, error)
 	// Queries a list of GetBlockByHeight items.
 	GetBlockByHeight(ctx context.Context, in *QueryGetBlockByHeightRequest, opts ...grpc.CallOption) (*QueryGetBlockByHeightResponse, error)
+	// Queries a list of GetBlockByVersion items.
+	GetBlockByVersion(ctx context.Context, in *QueryGetBlockByVersionRequest, opts ...grpc.CallOption) (*QueryGetBlockByVersionResponse, error)
 }
 
 type queryClient struct {
@@ -119,6 +122,15 @@ func (c *queryClient) GetBlockByHeight(ctx context.Context, in *QueryGetBlockByH
 	return out, nil
 }
 
+func (c *queryClient) GetBlockByVersion(ctx context.Context, in *QueryGetBlockByVersionRequest, opts ...grpc.CallOption) (*QueryGetBlockByVersionResponse, error) {
+	out := new(QueryGetBlockByVersionResponse)
+	err := c.cc.Invoke(ctx, Query_GetBlockByVersion_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 // All implementations must embed UnimplementedQueryServer
 // for forward compatibility
@@ -137,6 +149,8 @@ type QueryServer interface {
 	GetAccountModule(context.Context, *QueryGetAccountModuleRequest) (*QueryGetAccountModuleResponse, error)
 	// Queries a list of GetBlockByHeight items.
 	GetBlockByHeight(context.Context, *QueryGetBlockByHeightRequest) (*QueryGetBlockByHeightResponse, error)
+	// Queries a list of GetBlockByVersion items.
+	GetBlockByVersion(context.Context, *QueryGetBlockByVersionRequest) (*QueryGetBlockByVersionResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }
 
@@ -164,6 +178,9 @@ func (UnimplementedQueryServer) GetAccountModule(context.Context, *QueryGetAccou
 }
 func (UnimplementedQueryServer) GetBlockByHeight(context.Context, *QueryGetBlockByHeightRequest) (*QueryGetBlockByHeightResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBlockByHeight not implemented")
+}
+func (UnimplementedQueryServer) GetBlockByVersion(context.Context, *QueryGetBlockByVersionRequest) (*QueryGetBlockByVersionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetBlockByVersion not implemented")
 }
 func (UnimplementedQueryServer) mustEmbedUnimplementedQueryServer() {}
 
@@ -304,6 +321,24 @@ func _Query_GetBlockByHeight_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_GetBlockByVersion_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetBlockByVersionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).GetBlockByVersion(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_GetBlockByVersion_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).GetBlockByVersion(ctx, req.(*QueryGetBlockByVersionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Query_ServiceDesc is the grpc.ServiceDesc for Query service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -338,6 +373,10 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetBlockByHeight",
 			Handler:    _Query_GetBlockByHeight_Handler,
+		},
+		{
+			MethodName: "GetBlockByVersion",
+			Handler:    _Query_GetBlockByVersion_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

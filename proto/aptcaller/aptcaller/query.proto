@@ -55,6 +55,12 @@ service Query {
     option (google.api.http).get = "/aptcaller/aptcaller/get_block_by_height/{blockHeight}/{withTransactions}";
   
   }
+  
+  // Queries a list of GetBlockByVersion items.
+  rpc GetBlockByVersion (QueryGetBlockByVersionRequest) returns (QueryGetBlockByVersionResponse) {
+    option (google.api.http).get = "/aptcaller/aptcaller/get_block_by_version/{version}/{withTransactions}";
+  
+  }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
@@ -117,11 +123,20 @@ message QueryGetAccountModuleResponse {
 }
 
 message QueryGetBlockByHeightRequest {
-  string blockHeight = 1;
+  string blockHeight      = 1;
   uint64 withTransactions = 2;
 }
 
 message QueryGetBlockByHeightResponse {
+  AptRes aptRes = 1;
+}
+
+message QueryGetBlockByVersionRequest {
+  string version          = 1;
+  uint64 withTransactions = 2;
+}
+
+message QueryGetBlockByVersionResponse {
   AptRes aptRes = 1;
 }
 
