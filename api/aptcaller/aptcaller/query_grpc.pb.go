@@ -19,8 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Query_Params_FullMethodName     = "/aptcaller.aptcaller.Query/Params"
-	Query_GetAccount_FullMethodName = "/aptcaller.aptcaller.Query/GetAccount"
+	Query_Params_FullMethodName              = "/aptcaller.aptcaller.Query/Params"
+	Query_GetAccount_FullMethodName          = "/aptcaller.aptcaller.Query/GetAccount"
+	Query_GetAccountResources_FullMethodName = "/aptcaller.aptcaller.Query/GetAccountResources"
 )
 
 // QueryClient is the client API for Query service.
@@ -31,6 +32,8 @@ type QueryClient interface {
 	Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error)
 	// Queries a list of GetAccount items.
 	GetAccount(ctx context.Context, in *QueryGetAccountRequest, opts ...grpc.CallOption) (*QueryGetAccountResponse, error)
+	// Queries a list of GetAccountResources items.
+	GetAccountResources(ctx context.Context, in *QueryGetAccountResourcesRequest, opts ...grpc.CallOption) (*QueryGetAccountResourcesResponse, error)
 }
 
 type queryClient struct {
@@ -59,6 +62,15 @@ func (c *queryClient) GetAccount(ctx context.Context, in *QueryGetAccountRequest
 	return out, nil
 }
 
+func (c *queryClient) GetAccountResources(ctx context.Context, in *QueryGetAccountResourcesRequest, opts ...grpc.CallOption) (*QueryGetAccountResourcesResponse, error) {
+	out := new(QueryGetAccountResourcesResponse)
+	err := c.cc.Invoke(ctx, Query_GetAccountResources_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 // All implementations must embed UnimplementedQueryServer
 // for forward compatibility
@@ -67,6 +79,8 @@ type QueryServer interface {
 	Params(context.Context, *QueryParamsRequest) (*QueryParamsResponse, error)
 	// Queries a list of GetAccount items.
 	GetAccount(context.Context, *QueryGetAccountRequest) (*QueryGetAccountResponse, error)
+	// Queries a list of GetAccountResources items.
+	GetAccountResources(context.Context, *QueryGetAccountResourcesRequest) (*QueryGetAccountResourcesResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }
 
@@ -79,6 +93,9 @@ func (UnimplementedQueryServer) Params(context.Context, *QueryParamsRequest) (*Q
 }
 func (UnimplementedQueryServer) GetAccount(context.Context, *QueryGetAccountRequest) (*QueryGetAccountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAccount not implemented")
+}
+func (UnimplementedQueryServer) GetAccountResources(context.Context, *QueryGetAccountResourcesRequest) (*QueryGetAccountResourcesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAccountResources not implemented")
 }
 func (UnimplementedQueryServer) mustEmbedUnimplementedQueryServer() {}
 
@@ -129,6 +146,24 @@ func _Query_GetAccount_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_GetAccountResources_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetAccountResourcesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).GetAccountResources(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_GetAccountResources_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).GetAccountResources(ctx, req.(*QueryGetAccountResourcesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Query_ServiceDesc is the grpc.ServiceDesc for Query service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -143,6 +178,10 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetAccount",
 			Handler:    _Query_GetAccount_Handler,
+		},
+		{
+			MethodName: "GetAccountResources",
+			Handler:    _Query_GetAccountResources_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
