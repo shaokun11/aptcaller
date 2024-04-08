@@ -49,6 +49,59 @@ paths:
           type: string
       tags:
         - Query
+  /aptcaller/aptcaller/get_account_module/{address}/{moduleName}/{ledgerVersion}:
+    get:
+      summary: Queries a list of GetAccountModule items.
+      operationId: AptcallerAptcallerQuery_GetAccountModule
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              aptRes:
+                type: object
+                properties:
+                  header:
+                    type: string
+                  body:
+                    type: string
+                  code:
+                    type: integer
+                    format: int64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: address
+          in: path
+          required: true
+          type: string
+        - name: moduleName
+          in: path
+          required: true
+          type: string
+        - name: ledgerVersion
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
   /aptcaller/aptcaller/get_account_modules/{address}/{ledgerVersion}/{limit}/{start}:
     get:
       summary: Queries a list of GetAccountModules items.
@@ -16872,6 +16925,19 @@ definitions:
   aptcaller.aptcaller.Params:
     type: object
     description: Params defines the parameters for the module.
+  aptcaller.aptcaller.QueryGetAccountModuleResponse:
+    type: object
+    properties:
+      aptRes:
+        type: object
+        properties:
+          header:
+            type: string
+          body:
+            type: string
+          code:
+            type: integer
+            format: int64
   aptcaller.aptcaller.QueryGetAccountModulesResponse:
     type: object
     properties:

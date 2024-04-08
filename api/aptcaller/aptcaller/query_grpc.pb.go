@@ -24,6 +24,7 @@ const (
 	Query_GetAccountResources_FullMethodName = "/aptcaller.aptcaller.Query/GetAccountResources"
 	Query_GetAccountModules_FullMethodName   = "/aptcaller.aptcaller.Query/GetAccountModules"
 	Query_GetAccountResource_FullMethodName  = "/aptcaller.aptcaller.Query/GetAccountResource"
+	Query_GetAccountModule_FullMethodName    = "/aptcaller.aptcaller.Query/GetAccountModule"
 )
 
 // QueryClient is the client API for Query service.
@@ -40,6 +41,8 @@ type QueryClient interface {
 	GetAccountModules(ctx context.Context, in *QueryGetAccountModulesRequest, opts ...grpc.CallOption) (*QueryGetAccountModulesResponse, error)
 	// Queries a list of GetAccountResource items.
 	GetAccountResource(ctx context.Context, in *QueryGetAccountResourceRequest, opts ...grpc.CallOption) (*QueryGetAccountResourceResponse, error)
+	// Queries a list of GetAccountModule items.
+	GetAccountModule(ctx context.Context, in *QueryGetAccountModuleRequest, opts ...grpc.CallOption) (*QueryGetAccountModuleResponse, error)
 }
 
 type queryClient struct {
@@ -95,6 +98,15 @@ func (c *queryClient) GetAccountResource(ctx context.Context, in *QueryGetAccoun
 	return out, nil
 }
 
+func (c *queryClient) GetAccountModule(ctx context.Context, in *QueryGetAccountModuleRequest, opts ...grpc.CallOption) (*QueryGetAccountModuleResponse, error) {
+	out := new(QueryGetAccountModuleResponse)
+	err := c.cc.Invoke(ctx, Query_GetAccountModule_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 // All implementations must embed UnimplementedQueryServer
 // for forward compatibility
@@ -109,6 +121,8 @@ type QueryServer interface {
 	GetAccountModules(context.Context, *QueryGetAccountModulesRequest) (*QueryGetAccountModulesResponse, error)
 	// Queries a list of GetAccountResource items.
 	GetAccountResource(context.Context, *QueryGetAccountResourceRequest) (*QueryGetAccountResourceResponse, error)
+	// Queries a list of GetAccountModule items.
+	GetAccountModule(context.Context, *QueryGetAccountModuleRequest) (*QueryGetAccountModuleResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }
 
@@ -130,6 +144,9 @@ func (UnimplementedQueryServer) GetAccountModules(context.Context, *QueryGetAcco
 }
 func (UnimplementedQueryServer) GetAccountResource(context.Context, *QueryGetAccountResourceRequest) (*QueryGetAccountResourceResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAccountResource not implemented")
+}
+func (UnimplementedQueryServer) GetAccountModule(context.Context, *QueryGetAccountModuleRequest) (*QueryGetAccountModuleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAccountModule not implemented")
 }
 func (UnimplementedQueryServer) mustEmbedUnimplementedQueryServer() {}
 
@@ -234,6 +251,24 @@ func _Query_GetAccountResource_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_GetAccountModule_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetAccountModuleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).GetAccountModule(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_GetAccountModule_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).GetAccountModule(ctx, req.(*QueryGetAccountModuleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Query_ServiceDesc is the grpc.ServiceDesc for Query service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -260,6 +295,10 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetAccountResource",
 			Handler:    _Query_GetAccountResource_Handler,
+		},
+		{
+			MethodName: "GetAccountModule",
+			Handler:    _Query_GetAccountModule_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

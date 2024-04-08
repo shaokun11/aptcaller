@@ -45,6 +45,13 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "address"}, {ProtoField: "resourceType"}},
 				},
 
+				{
+					RpcMethod:      "GetAccountModule",
+					Use:            "get-account-module [address] [module-name] [ledger-version]",
+					Short:          "Query get-account-module",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "address"}, {ProtoField: "moduleName"}, {ProtoField: "ledgerVersion"}},
+				},
+
 				// this line is used by ignite scaffolding # autocli/query
 			},
 		},
