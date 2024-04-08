@@ -87,6 +87,7 @@ message QueryGetAccountModulesResponse {
 message QueryGetAccountResourceRequest {
   string address      = 1;
   string resourceType = 2;
+  string ledgerVersion = 3;
 }
 
 message QueryGetAccountResourceResponse {

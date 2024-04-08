@@ -3,6 +3,7 @@ package keeper
 import (
 	"context"
 	"fmt"
+	"net/url"
 
 	"aptcaller/apt"
 	"aptcaller/x/aptcaller/types"
@@ -20,8 +21,15 @@ func (k Keeper) GetAccountResource(goCtx context.Context, req *types.QueryGetAcc
 	// TODO: Process the query
 	_ = ctx
 	addr := req.Address
-	url := fmt.Sprintf("%s/accounts/%s/resource/%s", apt.Url, addr, req.ResourceType)
-	res, err := apt.Call(url)
+	baseURL := fmt.Sprintf("%s/accounts/%s/resource/%s", apt.Url, addr, req.ResourceType)
+	urlObj, _ := url.Parse(baseURL)
+	params := url.Values{}
+	if apt.IsValidQueryStringNum(req.LedgerVersion) {
+		params.Add("ledger_version", req.LedgerVersion)
+	}
+	urlObj.RawQuery = params.Encode()
+	finalURL := urlObj.String()
+	res, err := apt.Call(finalURL)
 	ret := types.QueryGetAccountResourceResponse(*res)
 	return &ret, err
 }

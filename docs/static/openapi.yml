@@ -153,6 +153,10 @@ paths:
           in: path
           required: true
           type: string
+        - name: ledgerVersion
+          in: query
+          required: false
+          type: string
       tags:
         - Query
   /aptcaller/aptcaller/get_account_resources/{address}/{ledgerVersion}/{limit}/{start}:

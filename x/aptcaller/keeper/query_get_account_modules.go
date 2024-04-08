@@ -35,7 +35,7 @@ func (k Keeper) GetAccountModules(goCtx context.Context, req *types.QueryGetAcco
 		params.Add("start", req.Start)
 	}
 	if apt.IsValidQueryStringNum(req.LedgerVersion) {
-		params.Add("ledger_version", req.Limit)
+		params.Add("ledger_version", req.LedgerVersion)
 	}
 	urlObj.RawQuery = params.Encode()
 	finalURL := urlObj.String()
