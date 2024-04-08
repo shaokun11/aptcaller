@@ -52,6 +52,13 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "address"}, {ProtoField: "moduleName"}, {ProtoField: "ledgerVersion"}},
 				},
 
+				{
+					RpcMethod:      "GetBlockByHeight",
+					Use:            "get-block-by-height [block-height]",
+					Short:          "Query get-block-by-height",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "blockHeight"}},
+				},
+
 				// this line is used by ignite scaffolding # autocli/query
 			},
 		},

@@ -269,6 +269,56 @@ paths:
           type: string
       tags:
         - Query
+  /aptcaller/aptcaller/get_block_by_height/{blockHeight}/{withTransactions}:
+    get:
+      summary: Queries a list of GetBlockByHeight items.
+      operationId: AptcallerAptcallerQuery_GetBlockByHeight
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              aptRes:
+                type: object
+                properties:
+                  header:
+                    type: string
+                  body:
+                    type: string
+                  code:
+                    type: integer
+                    format: int64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: blockHeight
+          in: path
+          required: true
+          type: string
+        - name: withTransactions
+          in: path
+          required: true
+          type: string
+          format: uint64
+      tags:
+        - Query
   /aptcaller/aptcaller/params:
     get:
       summary: Parameters queries the parameters of the module.
@@ -16978,6 +17028,19 @@ definitions:
             type: integer
             format: int64
   aptcaller.aptcaller.QueryGetAccountResponse:
+    type: object
+    properties:
+      aptRes:
+        type: object
+        properties:
+          header:
+            type: string
+          body:
+            type: string
+          code:
+            type: integer
+            format: int64
+  aptcaller.aptcaller.QueryGetBlockByHeightResponse:
     type: object
     properties:
       aptRes:
