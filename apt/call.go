@@ -2,6 +2,7 @@ package apt
 
 import (
 	"aptcaller/x/aptcaller/types"
+	"bytes"
 	"encoding/json"
 	"io"
 	"net/http"
@@ -29,6 +30,34 @@ func Call(url string) (*types.QueryGetAccountResponse, error) {
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 
+		return nil, status.Error(codes.Internal, err.Error())
+	}
+	headerBytes, _ := json.Marshal(Header{
+		Epoch:      resp.Header.Get("X-Aptos-Epoch"),
+		Height:     resp.Header.Get("X-Aptos-Block-Height"),
+		OldHeight:  resp.Header.Get("X-Aptos-Oldest-Block-Height"),
+		ChainId:    resp.Header.Get("X-Aptos-Chain-Id"),
+		Version:    resp.Header.Get("X-Aptos-Ledger-Version"),
+		OldVersion: resp.Header.Get("X-Aptos-Ledger-Oldest-Version"),
+		Ts:         resp.Header.Get("X-Aptos-Ledger-Timestampusec"),
+	})
+	return &types.QueryGetAccountResponse{
+		AptRes: &types.AptRes{
+			Header: string(headerBytes),
+			Body:   string(body),
+			Code:   uint32(resp.StatusCode),
+		},
+	}, nil
+}
+
+func Post(url string, payload string) (*types.QueryGetAccountResponse, error) {
+	resp, err := http.Post(url, "application/json", bytes.NewBuffer([]byte(payload)))
+	if err != nil {
+		return nil, status.Error(codes.Unavailable, err.Error())
+	}
+	defer resp.Body.Close()
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}
 	headerBytes, _ := json.Marshal(Header{

@@ -36,6 +36,10 @@ const (
 	Query_GetTransactionByVersion_FullMethodName   = "/aptcaller.aptcaller.Query/GetTransactionByVersion"
 	Query_GetAccountTransaction_FullMethodName     = "/aptcaller.aptcaller.Query/GetAccountTransaction"
 	Query_EstimateGasPrice_FullMethodName          = "/aptcaller.aptcaller.Query/EstimateGasPrice"
+	Query_SubmitTransaction_FullMethodName         = "/aptcaller.aptcaller.Query/SubmitTransaction"
+	Query_SubmitBatchTransaction_FullMethodName    = "/aptcaller.aptcaller.Query/SubmitBatchTransaction"
+	Query_SimulateTransaction_FullMethodName       = "/aptcaller.aptcaller.Query/SimulateTransaction"
+	Query_EncodeSubmission_FullMethodName          = "/aptcaller.aptcaller.Query/EncodeSubmission"
 )
 
 // QueryClient is the client API for Query service.
@@ -76,6 +80,14 @@ type QueryClient interface {
 	GetAccountTransaction(ctx context.Context, in *QueryGetAccountTransactionRequest, opts ...grpc.CallOption) (*QueryGetAccountTransactionResponse, error)
 	// Queries a list of EstimateGasPrice items.
 	EstimateGasPrice(ctx context.Context, in *QueryEstimateGasPriceRequest, opts ...grpc.CallOption) (*QueryEstimateGasPriceResponse, error)
+	// Queries a list of SubmitTransaction items.
+	SubmitTransaction(ctx context.Context, in *QuerySubmitTransactionRequest, opts ...grpc.CallOption) (*QuerySubmitTransactionResponse, error)
+	// Queries a list of SubmitBatchTransaction items.
+	SubmitBatchTransaction(ctx context.Context, in *QuerySubmitBatchTransactionRequest, opts ...grpc.CallOption) (*QuerySubmitBatchTransactionResponse, error)
+	// Queries a list of SimulateTransaction items.
+	SimulateTransaction(ctx context.Context, in *QuerySimulateTransactionRequest, opts ...grpc.CallOption) (*QuerySimulateTransactionResponse, error)
+	// Queries a list of EncodeSubmission items.
+	EncodeSubmission(ctx context.Context, in *QueryEncodeSubmissionRequest, opts ...grpc.CallOption) (*QueryEncodeSubmissionResponse, error)
 }
 
 type queryClient struct {
@@ -239,6 +251,42 @@ func (c *queryClient) EstimateGasPrice(ctx context.Context, in *QueryEstimateGas
 	return out, nil
 }
 
+func (c *queryClient) SubmitTransaction(ctx context.Context, in *QuerySubmitTransactionRequest, opts ...grpc.CallOption) (*QuerySubmitTransactionResponse, error) {
+	out := new(QuerySubmitTransactionResponse)
+	err := c.cc.Invoke(ctx, Query_SubmitTransaction_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) SubmitBatchTransaction(ctx context.Context, in *QuerySubmitBatchTransactionRequest, opts ...grpc.CallOption) (*QuerySubmitBatchTransactionResponse, error) {
+	out := new(QuerySubmitBatchTransactionResponse)
+	err := c.cc.Invoke(ctx, Query_SubmitBatchTransaction_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) SimulateTransaction(ctx context.Context, in *QuerySimulateTransactionRequest, opts ...grpc.CallOption) (*QuerySimulateTransactionResponse, error) {
+	out := new(QuerySimulateTransactionResponse)
+	err := c.cc.Invoke(ctx, Query_SimulateTransaction_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) EncodeSubmission(ctx context.Context, in *QueryEncodeSubmissionRequest, opts ...grpc.CallOption) (*QueryEncodeSubmissionResponse, error) {
+	out := new(QueryEncodeSubmissionResponse)
+	err := c.cc.Invoke(ctx, Query_EncodeSubmission_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 // All implementations must embed UnimplementedQueryServer
 // for forward compatibility
@@ -277,6 +325,14 @@ type QueryServer interface {
 	GetAccountTransaction(context.Context, *QueryGetAccountTransactionRequest) (*QueryGetAccountTransactionResponse, error)
 	// Queries a list of EstimateGasPrice items.
 	EstimateGasPrice(context.Context, *QueryEstimateGasPriceRequest) (*QueryEstimateGasPriceResponse, error)
+	// Queries a list of SubmitTransaction items.
+	SubmitTransaction(context.Context, *QuerySubmitTransactionRequest) (*QuerySubmitTransactionResponse, error)
+	// Queries a list of SubmitBatchTransaction items.
+	SubmitBatchTransaction(context.Context, *QuerySubmitBatchTransactionRequest) (*QuerySubmitBatchTransactionResponse, error)
+	// Queries a list of SimulateTransaction items.
+	SimulateTransaction(context.Context, *QuerySimulateTransactionRequest) (*QuerySimulateTransactionResponse, error)
+	// Queries a list of EncodeSubmission items.
+	EncodeSubmission(context.Context, *QueryEncodeSubmissionRequest) (*QueryEncodeSubmissionResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }
 
@@ -334,6 +390,18 @@ func (UnimplementedQueryServer) GetAccountTransaction(context.Context, *QueryGet
 }
 func (UnimplementedQueryServer) EstimateGasPrice(context.Context, *QueryEstimateGasPriceRequest) (*QueryEstimateGasPriceResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method EstimateGasPrice not implemented")
+}
+func (UnimplementedQueryServer) SubmitTransaction(context.Context, *QuerySubmitTransactionRequest) (*QuerySubmitTransactionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SubmitTransaction not implemented")
+}
+func (UnimplementedQueryServer) SubmitBatchTransaction(context.Context, *QuerySubmitBatchTransactionRequest) (*QuerySubmitBatchTransactionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SubmitBatchTransaction not implemented")
+}
+func (UnimplementedQueryServer) SimulateTransaction(context.Context, *QuerySimulateTransactionRequest) (*QuerySimulateTransactionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SimulateTransaction not implemented")
+}
+func (UnimplementedQueryServer) EncodeSubmission(context.Context, *QueryEncodeSubmissionRequest) (*QueryEncodeSubmissionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EncodeSubmission not implemented")
 }
 func (UnimplementedQueryServer) mustEmbedUnimplementedQueryServer() {}
 
@@ -654,6 +722,78 @@ func _Query_EstimateGasPrice_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_SubmitTransaction_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QuerySubmitTransactionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).SubmitTransaction(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_SubmitTransaction_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).SubmitTransaction(ctx, req.(*QuerySubmitTransactionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_SubmitBatchTransaction_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QuerySubmitBatchTransactionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).SubmitBatchTransaction(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_SubmitBatchTransaction_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).SubmitBatchTransaction(ctx, req.(*QuerySubmitBatchTransactionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_SimulateTransaction_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QuerySimulateTransactionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).SimulateTransaction(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_SimulateTransaction_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).SimulateTransaction(ctx, req.(*QuerySimulateTransactionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_EncodeSubmission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryEncodeSubmissionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).EncodeSubmission(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_EncodeSubmission_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).EncodeSubmission(ctx, req.(*QueryEncodeSubmissionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Query_ServiceDesc is the grpc.ServiceDesc for Query service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -728,6 +868,22 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "EstimateGasPrice",
 			Handler:    _Query_EstimateGasPrice_Handler,
+		},
+		{
+			MethodName: "SubmitTransaction",
+			Handler:    _Query_SubmitTransaction_Handler,
+		},
+		{
+			MethodName: "SubmitBatchTransaction",
+			Handler:    _Query_SubmitBatchTransaction_Handler,
+		},
+		{
+			MethodName: "SimulateTransaction",
+			Handler:    _Query_SimulateTransaction_Handler,
+		},
+		{
+			MethodName: "EncodeSubmission",
+			Handler:    _Query_EncodeSubmission_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

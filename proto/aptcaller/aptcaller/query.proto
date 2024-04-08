@@ -115,6 +115,30 @@ service Query {
     option (google.api.http).get = "/aptcaller/aptcaller/estimate_gas_price";
   
   }
+  
+  // Queries a list of SubmitTransaction items.
+  rpc SubmitTransaction (QuerySubmitTransactionRequest) returns (QuerySubmitTransactionResponse) {
+    option (google.api.http).get = "/aptcaller/aptcaller/submit_transaction/{body}";
+  
+  }
+  
+  // Queries a list of SubmitBatchTransaction items.
+  rpc SubmitBatchTransaction (QuerySubmitBatchTransactionRequest) returns (QuerySubmitBatchTransactionResponse) {
+    option (google.api.http).get = "/aptcaller/aptcaller/submit_batch_transaction/{body}";
+  
+  }
+  
+  // Queries a list of SimulateTransaction items.
+  rpc SimulateTransaction (QuerySimulateTransactionRequest) returns (QuerySimulateTransactionResponse) {
+    option (google.api.http).get = "/aptcaller/aptcaller/simulate_transaction/{body}";
+  
+  }
+  
+  // Queries a list of EncodeSubmission items.
+  rpc EncodeSubmission (QueryEncodeSubmissionRequest) returns (QueryEncodeSubmissionResponse) {
+    option (google.api.http).get = "/aptcaller/aptcaller/encode_submission/{body}";
+  
+  }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
@@ -269,6 +293,41 @@ message QueryGetAccountTransactionResponse {
 message QueryEstimateGasPriceRequest {}
 
 message QueryEstimateGasPriceResponse {
+  AptRes aptRes = 1;
+}
+
+message QuerySubmitTransactionRequest {
+  string body = 1;
+}
+
+message QuerySubmitTransactionResponse {
+  AptRes aptRes = 1;
+}
+
+message QuerySubmitBatchTransactionRequest {
+  string body = 1;
+}
+
+message QuerySubmitBatchTransactionResponse {
+  AptRes aptRes = 1;
+}
+
+message QuerySimulateTransactionRequest {
+  string body                            = 1;
+  uint64 estimateGasUnitPrice            = 2;
+  uint64 estimateMaxGasAmount            = 3;
+  uint64 estimatePrioritizedGasUnitPrice = 4;
+}
+
+message QuerySimulateTransactionResponse {
+  AptRes aptRes = 1;
+}
+
+message QueryEncodeSubmissionRequest {
+  string body = 1;
+}
+
+message QueryEncodeSubmissionResponse {
   AptRes aptRes = 1;
 }
 

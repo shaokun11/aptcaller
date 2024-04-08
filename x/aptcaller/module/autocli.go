@@ -129,6 +129,34 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{},
 				},
 
+				{
+					RpcMethod:      "SubmitTransaction",
+					Use:            "submit-transaction [body]",
+					Short:          "Query submit-transaction",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "body"}},
+				},
+
+				{
+					RpcMethod:      "SubmitBatchTransaction",
+					Use:            "submit-batch-transaction [body]",
+					Short:          "Query submit-batch-transaction",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "body"}},
+				},
+
+				{
+					RpcMethod:      "SimulateTransaction",
+					Use:            "simulate-transaction [body]",
+					Short:          "Query simulate-transaction",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "body"}},
+				},
+
+				{
+					RpcMethod:      "EncodeSubmission",
+					Use:            "encode-submission [body]",
+					Short:          "Query encode-submission",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "body"}},
+				},
+
 				// this line is used by ignite scaffolding # autocli/query
 			},
 		},

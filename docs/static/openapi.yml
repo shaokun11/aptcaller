@@ -4,6 +4,51 @@ info:
   name: ''
   description: ''
 paths:
+  /aptcaller/aptcaller/encode_submission/{body}:
+    get:
+      summary: Queries a list of EncodeSubmission items.
+      operationId: AptcallerAptcallerQuery_EncodeSubmission
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              aptRes:
+                type: object
+                properties:
+                  header:
+                    type: string
+                  body:
+                    type: string
+                  code:
+                    type: integer
+                    format: int64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: body
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
   /aptcaller/aptcaller/estimate_gas_price:
     get:
       summary: Queries a list of EstimateGasPrice items.
@@ -838,6 +883,156 @@ paths:
                     '@type':
                       type: string
                   additionalProperties: {}
+      tags:
+        - Query
+  /aptcaller/aptcaller/simulate_transaction/{body}:
+    get:
+      summary: Queries a list of SimulateTransaction items.
+      operationId: AptcallerAptcallerQuery_SimulateTransaction
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              aptRes:
+                type: object
+                properties:
+                  header:
+                    type: string
+                  body:
+                    type: string
+                  code:
+                    type: integer
+                    format: int64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: body
+          in: path
+          required: true
+          type: string
+        - name: estimateGasUnitPrice
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: estimateMaxGasAmount
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: estimatePrioritizedGasUnitPrice
+          in: query
+          required: false
+          type: string
+          format: uint64
+      tags:
+        - Query
+  /aptcaller/aptcaller/submit_batch_transaction/{body}:
+    get:
+      summary: Queries a list of SubmitBatchTransaction items.
+      operationId: AptcallerAptcallerQuery_SubmitBatchTransaction
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              aptRes:
+                type: object
+                properties:
+                  header:
+                    type: string
+                  body:
+                    type: string
+                  code:
+                    type: integer
+                    format: int64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: body
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
+  /aptcaller/aptcaller/submit_transaction/{body}:
+    get:
+      summary: Queries a list of SubmitTransaction items.
+      operationId: AptcallerAptcallerQuery_SubmitTransaction
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              aptRes:
+                type: object
+                properties:
+                  header:
+                    type: string
+                  body:
+                    type: string
+                  code:
+                    type: integer
+                    format: int64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: body
+          in: path
+          required: true
+          type: string
       tags:
         - Query
   /aptcaller.aptcaller.Msg/UpdateParams:
@@ -17460,6 +17655,19 @@ definitions:
   aptcaller.aptcaller.Params:
     type: object
     description: Params defines the parameters for the module.
+  aptcaller.aptcaller.QueryEncodeSubmissionResponse:
+    type: object
+    properties:
+      aptRes:
+        type: object
+        properties:
+          header:
+            type: string
+          body:
+            type: string
+          code:
+            type: integer
+            format: int64
   aptcaller.aptcaller.QueryEstimateGasPriceResponse:
     type: object
     properties:
@@ -17675,6 +17883,45 @@ definitions:
         description: params holds all the parameters of this module.
         type: object
     description: QueryParamsResponse is response type for the Query/Params RPC method.
+  aptcaller.aptcaller.QuerySimulateTransactionResponse:
+    type: object
+    properties:
+      aptRes:
+        type: object
+        properties:
+          header:
+            type: string
+          body:
+            type: string
+          code:
+            type: integer
+            format: int64
+  aptcaller.aptcaller.QuerySubmitBatchTransactionResponse:
+    type: object
+    properties:
+      aptRes:
+        type: object
+        properties:
+          header:
+            type: string
+          body:
+            type: string
+          code:
+            type: integer
+            format: int64
+  aptcaller.aptcaller.QuerySubmitTransactionResponse:
+    type: object
+    properties:
+      aptRes:
+        type: object
+        properties:
+          header:
+            type: string
+          body:
+            type: string
+          code:
+            type: integer
+            format: int64
   aptcaller.aptcaller.MsgUpdateParams:
     type: object
     properties:
