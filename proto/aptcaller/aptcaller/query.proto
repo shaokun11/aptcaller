@@ -61,6 +61,60 @@ service Query {
     option (google.api.http).get = "/aptcaller/aptcaller/get_block_by_version/{version}/{withTransactions}";
   
   }
+  
+  // Queries a list of GetEventsByCreationNumber items.
+  rpc GetEventsByCreationNumber (QueryGetEventsByCreationNumberRequest) returns (QueryGetEventsByCreationNumberResponse) {
+    option (google.api.http).get = "/aptcaller/aptcaller/get_events_by_creation_number/{address}/{creationNumber}/{limit}/{start}";
+  
+  }
+  
+  // Queries a list of GetEventsByEventHandle items.
+  rpc GetEventsByEventHandle (QueryGetEventsByEventHandleRequest) returns (QueryGetEventsByEventHandleResponse) {
+    option (google.api.http).get = "/aptcaller/aptcaller/get_events_by_event_handle/{address}/{eventHandle}/{fieldName}/{limit}/{start}";
+  
+  }
+  
+  // Queries a list of GetLedgerInfo items.
+  rpc GetLedgerInfo (QueryGetLedgerInfoRequest) returns (QueryGetLedgerInfoResponse) {
+    option (google.api.http).get = "/aptcaller/aptcaller/get_ledger_info";
+  
+  }
+  
+  // Queries a list of GetTransactions items.
+  rpc GetTransactions (QueryGetTransactionsRequest) returns (QueryGetTransactionsResponse) {
+    option (google.api.http).get = "/aptcaller/aptcaller/get_transactions/{limit}/{start}";
+  
+  }
+  
+  // Queries a list of GetTransactionByHash items.
+  rpc GetTransactionByHash (QueryGetTransactionByHashRequest) returns (QueryGetTransactionByHashResponse) {
+    option (google.api.http).get = "/aptcaller/aptcaller/get_transaction_by_hash/{txnHash}";
+  
+  }
+  
+  // Queries a list of GetWaitTransactionByHash items.
+  rpc GetWaitTransactionByHash (QueryGetWaitTransactionByHashRequest) returns (QueryGetWaitTransactionByHashResponse) {
+    option (google.api.http).get = "/aptcaller/aptcaller/get_wait_transaction_by_hash/{txnHash}";
+  
+  }
+  
+  // Queries a list of GetTransactionByVersion items.
+  rpc GetTransactionByVersion (QueryGetTransactionByVersionRequest) returns (QueryGetTransactionByVersionResponse) {
+    option (google.api.http).get = "/aptcaller/aptcaller/get_transaction_by_version/{txnVersion}";
+  
+  }
+  
+  // Queries a list of GetAccountTransaction items.
+  rpc GetAccountTransaction (QueryGetAccountTransactionRequest) returns (QueryGetAccountTransactionResponse) {
+    option (google.api.http).get = "/aptcaller/aptcaller/get_account_transaction/{address}/{limit}/{start}";
+  
+  }
+  
+  // Queries a list of EstimateGasPrice items.
+  rpc EstimateGasPrice (QueryEstimateGasPriceRequest) returns (QueryEstimateGasPriceResponse) {
+    option (google.api.http).get = "/aptcaller/aptcaller/estimate_gas_price";
+  
+  }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
@@ -137,6 +191,84 @@ message QueryGetBlockByVersionRequest {
 }
 
 message QueryGetBlockByVersionResponse {
+  AptRes aptRes = 1;
+}
+
+message QueryGetEventsByCreationNumberRequest {
+  string address        = 1;
+  string creationNumber = 2;
+  string limit          = 3;
+  string start          = 4;
+}
+
+message QueryGetEventsByCreationNumberResponse {
+  AptRes aptRes = 1;
+}
+
+message QueryGetEventsByEventHandleRequest {
+  string address     = 1;
+  string eventHandle = 2;
+  string fieldName   = 3;
+  string limit       = 4;
+  string start       = 5;
+}
+
+message QueryGetEventsByEventHandleResponse {
+  AptRes aptRes = 1;
+}
+
+message QueryGetLedgerInfoRequest {}
+
+message QueryGetLedgerInfoResponse {
+  AptRes aptRes = 1;
+}
+
+message QueryGetTransactionsRequest {
+  string limit = 1;
+  string start = 2;
+}
+
+message QueryGetTransactionsResponse {
+  AptRes aptRes = 1;
+}
+
+message QueryGetTransactionByHashRequest {
+  string txnHash = 1;
+}
+
+message QueryGetTransactionByHashResponse {
+  AptRes aptRes = 1;
+}
+
+message QueryGetWaitTransactionByHashRequest {
+  string txnHash = 1;
+}
+
+message QueryGetWaitTransactionByHashResponse {
+  AptRes aptRes = 1;
+}
+
+message QueryGetTransactionByVersionRequest {
+  string txnVersion = 1;
+}
+
+message QueryGetTransactionByVersionResponse {
+  AptRes aptRes = 1;
+}
+
+message QueryGetAccountTransactionRequest {
+  string address = 1;
+  string limit   = 2;
+  string start   = 3;
+}
+
+message QueryGetAccountTransactionResponse {
+  AptRes aptRes = 1;
+}
+
+message QueryEstimateGasPriceRequest {}
+
+message QueryEstimateGasPriceResponse {
   AptRes aptRes = 1;
 }
 

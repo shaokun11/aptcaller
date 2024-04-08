@@ -66,6 +66,69 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "version"}, {ProtoField: "withTransactions"}},
 				},
 
+				{
+					RpcMethod:      "GetEventsByCreationNumber",
+					Use:            "get-events-by-creation-number [address] [creation-number] [limit] [start]",
+					Short:          "Query get-events-by-creation-number",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "address"}, {ProtoField: "creationNumber"}, {ProtoField: "limit"}, {ProtoField: "start"}},
+				},
+
+				{
+					RpcMethod:      "GetEventsByEventHandle",
+					Use:            "get-events-by-event-handle [address] [event-handle] [field-name] [limit] [start]",
+					Short:          "Query get-events-by-event-handle",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "address"}, {ProtoField: "eventHandle"}, {ProtoField: "fieldName"}, {ProtoField: "limit"}, {ProtoField: "start"}},
+				},
+
+				{
+					RpcMethod:      "GetLedgerInfo",
+					Use:            "get-ledger-info",
+					Short:          "Query get-ledger-info",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{},
+				},
+
+				{
+					RpcMethod:      "GetTransactions",
+					Use:            "get-transactions [limit] [start]",
+					Short:          "Query get-transactions",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "limit"}, {ProtoField: "start"}},
+				},
+
+				{
+					RpcMethod:      "GetTransactionByHash",
+					Use:            "get-transaction-by-hash [txn-hash]",
+					Short:          "Query get-transaction-by-hash",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "txnHash"}},
+				},
+
+				{
+					RpcMethod:      "GetWaitTransactionByHash",
+					Use:            "get-wait-transaction-by-hash [txn-hash]",
+					Short:          "Query get-wait-transaction-by-hash",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "txnHash"}},
+				},
+
+				{
+					RpcMethod:      "GetTransactionByVersion",
+					Use:            "get-transaction-by-version [txn-version]",
+					Short:          "Query get-transaction-by-version",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "txnVersion"}},
+				},
+
+				{
+					RpcMethod:      "GetAccountTransaction",
+					Use:            "get-account-transaction [address] [limit] [start]",
+					Short:          "Query get-account-transaction",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "address"}, {ProtoField: "limit"}, {ProtoField: "start"}},
+				},
+
+				{
+					RpcMethod:      "EstimateGasPrice",
+					Use:            "estimate-gas-price",
+					Short:          "Query estimate_gas_price",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{},
+				},
+
 				// this line is used by ignite scaffolding # autocli/query
 			},
 		},

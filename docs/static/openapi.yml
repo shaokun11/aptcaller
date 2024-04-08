@@ -4,6 +4,46 @@ info:
   name: ''
   description: ''
 paths:
+  /aptcaller/aptcaller/estimate_gas_price:
+    get:
+      summary: Queries a list of EstimateGasPrice items.
+      operationId: AptcallerAptcallerQuery_EstimateGasPrice
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              aptRes:
+                type: object
+                properties:
+                  header:
+                    type: string
+                  body:
+                    type: string
+                  code:
+                    type: integer
+                    format: int64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      tags:
+        - Query
   /aptcaller/aptcaller/get_account/{address}:
     get:
       summary: Queries a list of GetAccount items.
@@ -269,6 +309,59 @@ paths:
           type: string
       tags:
         - Query
+  /aptcaller/aptcaller/get_account_transaction/{address}/{limit}/{start}:
+    get:
+      summary: Queries a list of GetAccountTransaction items.
+      operationId: AptcallerAptcallerQuery_GetAccountTransaction
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              aptRes:
+                type: object
+                properties:
+                  header:
+                    type: string
+                  body:
+                    type: string
+                  code:
+                    type: integer
+                    format: int64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: address
+          in: path
+          required: true
+          type: string
+        - name: limit
+          in: path
+          required: true
+          type: string
+        - name: start
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
   /aptcaller/aptcaller/get_block_by_height/{blockHeight}/{withTransactions}:
     get:
       summary: Queries a list of GetBlockByHeight items.
@@ -367,6 +460,348 @@ paths:
           required: true
           type: string
           format: uint64
+      tags:
+        - Query
+  /aptcaller/aptcaller/get_events_by_creation_number/{address}/{creationNumber}/{limit}/{start}:
+    get:
+      summary: Queries a list of GetEventsByCreationNumber items.
+      operationId: AptcallerAptcallerQuery_GetEventsByCreationNumber
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              aptRes:
+                type: object
+                properties:
+                  header:
+                    type: string
+                  body:
+                    type: string
+                  code:
+                    type: integer
+                    format: int64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: address
+          in: path
+          required: true
+          type: string
+        - name: creationNumber
+          in: path
+          required: true
+          type: string
+        - name: limit
+          in: path
+          required: true
+          type: string
+        - name: start
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
+  /aptcaller/aptcaller/get_events_by_event_handle/{address}/{eventHandle}/{fieldName}/{limit}/{start}:
+    get:
+      summary: Queries a list of GetEventsByEventHandle items.
+      operationId: AptcallerAptcallerQuery_GetEventsByEventHandle
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              aptRes:
+                type: object
+                properties:
+                  header:
+                    type: string
+                  body:
+                    type: string
+                  code:
+                    type: integer
+                    format: int64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: address
+          in: path
+          required: true
+          type: string
+        - name: eventHandle
+          in: path
+          required: true
+          type: string
+        - name: fieldName
+          in: path
+          required: true
+          type: string
+        - name: limit
+          in: path
+          required: true
+          type: string
+        - name: start
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
+  /aptcaller/aptcaller/get_ledger_info:
+    get:
+      summary: Queries a list of GetLedgerInfo items.
+      operationId: AptcallerAptcallerQuery_GetLedgerInfo
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              aptRes:
+                type: object
+                properties:
+                  header:
+                    type: string
+                  body:
+                    type: string
+                  code:
+                    type: integer
+                    format: int64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      tags:
+        - Query
+  /aptcaller/aptcaller/get_transaction_by_hash/{txnHash}:
+    get:
+      summary: Queries a list of GetTransactionByHash items.
+      operationId: AptcallerAptcallerQuery_GetTransactionByHash
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              aptRes:
+                type: object
+                properties:
+                  header:
+                    type: string
+                  body:
+                    type: string
+                  code:
+                    type: integer
+                    format: int64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: txnHash
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
+  /aptcaller/aptcaller/get_transaction_by_version/{txnVersion}:
+    get:
+      summary: Queries a list of GetTransactionByVersion items.
+      operationId: AptcallerAptcallerQuery_GetTransactionByVersion
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              aptRes:
+                type: object
+                properties:
+                  header:
+                    type: string
+                  body:
+                    type: string
+                  code:
+                    type: integer
+                    format: int64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: txnVersion
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
+  /aptcaller/aptcaller/get_transactions/{limit}/{start}:
+    get:
+      summary: Queries a list of GetTransactions items.
+      operationId: AptcallerAptcallerQuery_GetTransactions
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              aptRes:
+                type: object
+                properties:
+                  header:
+                    type: string
+                  body:
+                    type: string
+                  code:
+                    type: integer
+                    format: int64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: limit
+          in: path
+          required: true
+          type: string
+        - name: start
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
+  /aptcaller/aptcaller/get_wait_transaction_by_hash/{txnHash}:
+    get:
+      summary: Queries a list of GetWaitTransactionByHash items.
+      operationId: AptcallerAptcallerQuery_GetWaitTransactionByHash
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              aptRes:
+                type: object
+                properties:
+                  header:
+                    type: string
+                  body:
+                    type: string
+                  code:
+                    type: integer
+                    format: int64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: txnHash
+          in: path
+          required: true
+          type: string
       tags:
         - Query
   /aptcaller/aptcaller/params:
@@ -17025,6 +17460,19 @@ definitions:
   aptcaller.aptcaller.Params:
     type: object
     description: Params defines the parameters for the module.
+  aptcaller.aptcaller.QueryEstimateGasPriceResponse:
+    type: object
+    properties:
+      aptRes:
+        type: object
+        properties:
+          header:
+            type: string
+          body:
+            type: string
+          code:
+            type: integer
+            format: int64
   aptcaller.aptcaller.QueryGetAccountModuleResponse:
     type: object
     properties:
@@ -17090,6 +17538,19 @@ definitions:
           code:
             type: integer
             format: int64
+  aptcaller.aptcaller.QueryGetAccountTransactionResponse:
+    type: object
+    properties:
+      aptRes:
+        type: object
+        properties:
+          header:
+            type: string
+          body:
+            type: string
+          code:
+            type: integer
+            format: int64
   aptcaller.aptcaller.QueryGetBlockByHeightResponse:
     type: object
     properties:
@@ -17104,6 +17565,97 @@ definitions:
             type: integer
             format: int64
   aptcaller.aptcaller.QueryGetBlockByVersionResponse:
+    type: object
+    properties:
+      aptRes:
+        type: object
+        properties:
+          header:
+            type: string
+          body:
+            type: string
+          code:
+            type: integer
+            format: int64
+  aptcaller.aptcaller.QueryGetEventsByCreationNumberResponse:
+    type: object
+    properties:
+      aptRes:
+        type: object
+        properties:
+          header:
+            type: string
+          body:
+            type: string
+          code:
+            type: integer
+            format: int64
+  aptcaller.aptcaller.QueryGetEventsByEventHandleResponse:
+    type: object
+    properties:
+      aptRes:
+        type: object
+        properties:
+          header:
+            type: string
+          body:
+            type: string
+          code:
+            type: integer
+            format: int64
+  aptcaller.aptcaller.QueryGetLedgerInfoResponse:
+    type: object
+    properties:
+      aptRes:
+        type: object
+        properties:
+          header:
+            type: string
+          body:
+            type: string
+          code:
+            type: integer
+            format: int64
+  aptcaller.aptcaller.QueryGetTransactionByHashResponse:
+    type: object
+    properties:
+      aptRes:
+        type: object
+        properties:
+          header:
+            type: string
+          body:
+            type: string
+          code:
+            type: integer
+            format: int64
+  aptcaller.aptcaller.QueryGetTransactionByVersionResponse:
+    type: object
+    properties:
+      aptRes:
+        type: object
+        properties:
+          header:
+            type: string
+          body:
+            type: string
+          code:
+            type: integer
+            format: int64
+  aptcaller.aptcaller.QueryGetTransactionsResponse:
+    type: object
+    properties:
+      aptRes:
+        type: object
+        properties:
+          header:
+            type: string
+          body:
+            type: string
+          code:
+            type: integer
+            format: int64
+  aptcaller.aptcaller.QueryGetWaitTransactionByHashResponse:
     type: object
     properties:
       aptRes:

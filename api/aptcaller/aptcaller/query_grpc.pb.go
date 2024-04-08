@@ -19,14 +19,23 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Query_Params_FullMethodName              = "/aptcaller.aptcaller.Query/Params"
-	Query_GetAccount_FullMethodName          = "/aptcaller.aptcaller.Query/GetAccount"
-	Query_GetAccountResources_FullMethodName = "/aptcaller.aptcaller.Query/GetAccountResources"
-	Query_GetAccountModules_FullMethodName   = "/aptcaller.aptcaller.Query/GetAccountModules"
-	Query_GetAccountResource_FullMethodName  = "/aptcaller.aptcaller.Query/GetAccountResource"
-	Query_GetAccountModule_FullMethodName    = "/aptcaller.aptcaller.Query/GetAccountModule"
-	Query_GetBlockByHeight_FullMethodName    = "/aptcaller.aptcaller.Query/GetBlockByHeight"
-	Query_GetBlockByVersion_FullMethodName   = "/aptcaller.aptcaller.Query/GetBlockByVersion"
+	Query_Params_FullMethodName                    = "/aptcaller.aptcaller.Query/Params"
+	Query_GetAccount_FullMethodName                = "/aptcaller.aptcaller.Query/GetAccount"
+	Query_GetAccountResources_FullMethodName       = "/aptcaller.aptcaller.Query/GetAccountResources"
+	Query_GetAccountModules_FullMethodName         = "/aptcaller.aptcaller.Query/GetAccountModules"
+	Query_GetAccountResource_FullMethodName        = "/aptcaller.aptcaller.Query/GetAccountResource"
+	Query_GetAccountModule_FullMethodName          = "/aptcaller.aptcaller.Query/GetAccountModule"
+	Query_GetBlockByHeight_FullMethodName          = "/aptcaller.aptcaller.Query/GetBlockByHeight"
+	Query_GetBlockByVersion_FullMethodName         = "/aptcaller.aptcaller.Query/GetBlockByVersion"
+	Query_GetEventsByCreationNumber_FullMethodName = "/aptcaller.aptcaller.Query/GetEventsByCreationNumber"
+	Query_GetEventsByEventHandle_FullMethodName    = "/aptcaller.aptcaller.Query/GetEventsByEventHandle"
+	Query_GetLedgerInfo_FullMethodName             = "/aptcaller.aptcaller.Query/GetLedgerInfo"
+	Query_GetTransactions_FullMethodName           = "/aptcaller.aptcaller.Query/GetTransactions"
+	Query_GetTransactionByHash_FullMethodName      = "/aptcaller.aptcaller.Query/GetTransactionByHash"
+	Query_GetWaitTransactionByHash_FullMethodName  = "/aptcaller.aptcaller.Query/GetWaitTransactionByHash"
+	Query_GetTransactionByVersion_FullMethodName   = "/aptcaller.aptcaller.Query/GetTransactionByVersion"
+	Query_GetAccountTransaction_FullMethodName     = "/aptcaller.aptcaller.Query/GetAccountTransaction"
+	Query_EstimateGasPrice_FullMethodName          = "/aptcaller.aptcaller.Query/EstimateGasPrice"
 )
 
 // QueryClient is the client API for Query service.
@@ -49,6 +58,24 @@ type QueryClient interface {
 	GetBlockByHeight(ctx context.Context, in *QueryGetBlockByHeightRequest, opts ...grpc.CallOption) (*QueryGetBlockByHeightResponse, error)
 	// Queries a list of GetBlockByVersion items.
 	GetBlockByVersion(ctx context.Context, in *QueryGetBlockByVersionRequest, opts ...grpc.CallOption) (*QueryGetBlockByVersionResponse, error)
+	// Queries a list of GetEventsByCreationNumber items.
+	GetEventsByCreationNumber(ctx context.Context, in *QueryGetEventsByCreationNumberRequest, opts ...grpc.CallOption) (*QueryGetEventsByCreationNumberResponse, error)
+	// Queries a list of GetEventsByEventHandle items.
+	GetEventsByEventHandle(ctx context.Context, in *QueryGetEventsByEventHandleRequest, opts ...grpc.CallOption) (*QueryGetEventsByEventHandleResponse, error)
+	// Queries a list of GetLedgerInfo items.
+	GetLedgerInfo(ctx context.Context, in *QueryGetLedgerInfoRequest, opts ...grpc.CallOption) (*QueryGetLedgerInfoResponse, error)
+	// Queries a list of GetTransactions items.
+	GetTransactions(ctx context.Context, in *QueryGetTransactionsRequest, opts ...grpc.CallOption) (*QueryGetTransactionsResponse, error)
+	// Queries a list of GetTransactionByHash items.
+	GetTransactionByHash(ctx context.Context, in *QueryGetTransactionByHashRequest, opts ...grpc.CallOption) (*QueryGetTransactionByHashResponse, error)
+	// Queries a list of GetWaitTransactionByHash items.
+	GetWaitTransactionByHash(ctx context.Context, in *QueryGetWaitTransactionByHashRequest, opts ...grpc.CallOption) (*QueryGetWaitTransactionByHashResponse, error)
+	// Queries a list of GetTransactionByVersion items.
+	GetTransactionByVersion(ctx context.Context, in *QueryGetTransactionByVersionRequest, opts ...grpc.CallOption) (*QueryGetTransactionByVersionResponse, error)
+	// Queries a list of GetAccountTransaction items.
+	GetAccountTransaction(ctx context.Context, in *QueryGetAccountTransactionRequest, opts ...grpc.CallOption) (*QueryGetAccountTransactionResponse, error)
+	// Queries a list of EstimateGasPrice items.
+	EstimateGasPrice(ctx context.Context, in *QueryEstimateGasPriceRequest, opts ...grpc.CallOption) (*QueryEstimateGasPriceResponse, error)
 }
 
 type queryClient struct {
@@ -131,6 +158,87 @@ func (c *queryClient) GetBlockByVersion(ctx context.Context, in *QueryGetBlockBy
 	return out, nil
 }
 
+func (c *queryClient) GetEventsByCreationNumber(ctx context.Context, in *QueryGetEventsByCreationNumberRequest, opts ...grpc.CallOption) (*QueryGetEventsByCreationNumberResponse, error) {
+	out := new(QueryGetEventsByCreationNumberResponse)
+	err := c.cc.Invoke(ctx, Query_GetEventsByCreationNumber_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) GetEventsByEventHandle(ctx context.Context, in *QueryGetEventsByEventHandleRequest, opts ...grpc.CallOption) (*QueryGetEventsByEventHandleResponse, error) {
+	out := new(QueryGetEventsByEventHandleResponse)
+	err := c.cc.Invoke(ctx, Query_GetEventsByEventHandle_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) GetLedgerInfo(ctx context.Context, in *QueryGetLedgerInfoRequest, opts ...grpc.CallOption) (*QueryGetLedgerInfoResponse, error) {
+	out := new(QueryGetLedgerInfoResponse)
+	err := c.cc.Invoke(ctx, Query_GetLedgerInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) GetTransactions(ctx context.Context, in *QueryGetTransactionsRequest, opts ...grpc.CallOption) (*QueryGetTransactionsResponse, error) {
+	out := new(QueryGetTransactionsResponse)
+	err := c.cc.Invoke(ctx, Query_GetTransactions_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) GetTransactionByHash(ctx context.Context, in *QueryGetTransactionByHashRequest, opts ...grpc.CallOption) (*QueryGetTransactionByHashResponse, error) {
+	out := new(QueryGetTransactionByHashResponse)
+	err := c.cc.Invoke(ctx, Query_GetTransactionByHash_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) GetWaitTransactionByHash(ctx context.Context, in *QueryGetWaitTransactionByHashRequest, opts ...grpc.CallOption) (*QueryGetWaitTransactionByHashResponse, error) {
+	out := new(QueryGetWaitTransactionByHashResponse)
+	err := c.cc.Invoke(ctx, Query_GetWaitTransactionByHash_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) GetTransactionByVersion(ctx context.Context, in *QueryGetTransactionByVersionRequest, opts ...grpc.CallOption) (*QueryGetTransactionByVersionResponse, error) {
+	out := new(QueryGetTransactionByVersionResponse)
+	err := c.cc.Invoke(ctx, Query_GetTransactionByVersion_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) GetAccountTransaction(ctx context.Context, in *QueryGetAccountTransactionRequest, opts ...grpc.CallOption) (*QueryGetAccountTransactionResponse, error) {
+	out := new(QueryGetAccountTransactionResponse)
+	err := c.cc.Invoke(ctx, Query_GetAccountTransaction_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) EstimateGasPrice(ctx context.Context, in *QueryEstimateGasPriceRequest, opts ...grpc.CallOption) (*QueryEstimateGasPriceResponse, error) {
+	out := new(QueryEstimateGasPriceResponse)
+	err := c.cc.Invoke(ctx, Query_EstimateGasPrice_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 // All implementations must embed UnimplementedQueryServer
 // for forward compatibility
@@ -151,6 +259,24 @@ type QueryServer interface {
 	GetBlockByHeight(context.Context, *QueryGetBlockByHeightRequest) (*QueryGetBlockByHeightResponse, error)
 	// Queries a list of GetBlockByVersion items.
 	GetBlockByVersion(context.Context, *QueryGetBlockByVersionRequest) (*QueryGetBlockByVersionResponse, error)
+	// Queries a list of GetEventsByCreationNumber items.
+	GetEventsByCreationNumber(context.Context, *QueryGetEventsByCreationNumberRequest) (*QueryGetEventsByCreationNumberResponse, error)
+	// Queries a list of GetEventsByEventHandle items.
+	GetEventsByEventHandle(context.Context, *QueryGetEventsByEventHandleRequest) (*QueryGetEventsByEventHandleResponse, error)
+	// Queries a list of GetLedgerInfo items.
+	GetLedgerInfo(context.Context, *QueryGetLedgerInfoRequest) (*QueryGetLedgerInfoResponse, error)
+	// Queries a list of GetTransactions items.
+	GetTransactions(context.Context, *QueryGetTransactionsRequest) (*QueryGetTransactionsResponse, error)
+	// Queries a list of GetTransactionByHash items.
+	GetTransactionByHash(context.Context, *QueryGetTransactionByHashRequest) (*QueryGetTransactionByHashResponse, error)
+	// Queries a list of GetWaitTransactionByHash items.
+	GetWaitTransactionByHash(context.Context, *QueryGetWaitTransactionByHashRequest) (*QueryGetWaitTransactionByHashResponse, error)
+	// Queries a list of GetTransactionByVersion items.
+	GetTransactionByVersion(context.Context, *QueryGetTransactionByVersionRequest) (*QueryGetTransactionByVersionResponse, error)
+	// Queries a list of GetAccountTransaction items.
+	GetAccountTransaction(context.Context, *QueryGetAccountTransactionRequest) (*QueryGetAccountTransactionResponse, error)
+	// Queries a list of EstimateGasPrice items.
+	EstimateGasPrice(context.Context, *QueryEstimateGasPriceRequest) (*QueryEstimateGasPriceResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }
 
@@ -181,6 +307,33 @@ func (UnimplementedQueryServer) GetBlockByHeight(context.Context, *QueryGetBlock
 }
 func (UnimplementedQueryServer) GetBlockByVersion(context.Context, *QueryGetBlockByVersionRequest) (*QueryGetBlockByVersionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBlockByVersion not implemented")
+}
+func (UnimplementedQueryServer) GetEventsByCreationNumber(context.Context, *QueryGetEventsByCreationNumberRequest) (*QueryGetEventsByCreationNumberResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetEventsByCreationNumber not implemented")
+}
+func (UnimplementedQueryServer) GetEventsByEventHandle(context.Context, *QueryGetEventsByEventHandleRequest) (*QueryGetEventsByEventHandleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetEventsByEventHandle not implemented")
+}
+func (UnimplementedQueryServer) GetLedgerInfo(context.Context, *QueryGetLedgerInfoRequest) (*QueryGetLedgerInfoResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLedgerInfo not implemented")
+}
+func (UnimplementedQueryServer) GetTransactions(context.Context, *QueryGetTransactionsRequest) (*QueryGetTransactionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTransactions not implemented")
+}
+func (UnimplementedQueryServer) GetTransactionByHash(context.Context, *QueryGetTransactionByHashRequest) (*QueryGetTransactionByHashResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTransactionByHash not implemented")
+}
+func (UnimplementedQueryServer) GetWaitTransactionByHash(context.Context, *QueryGetWaitTransactionByHashRequest) (*QueryGetWaitTransactionByHashResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetWaitTransactionByHash not implemented")
+}
+func (UnimplementedQueryServer) GetTransactionByVersion(context.Context, *QueryGetTransactionByVersionRequest) (*QueryGetTransactionByVersionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTransactionByVersion not implemented")
+}
+func (UnimplementedQueryServer) GetAccountTransaction(context.Context, *QueryGetAccountTransactionRequest) (*QueryGetAccountTransactionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAccountTransaction not implemented")
+}
+func (UnimplementedQueryServer) EstimateGasPrice(context.Context, *QueryEstimateGasPriceRequest) (*QueryEstimateGasPriceResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EstimateGasPrice not implemented")
 }
 func (UnimplementedQueryServer) mustEmbedUnimplementedQueryServer() {}
 
@@ -339,6 +492,168 @@ func _Query_GetBlockByVersion_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_GetEventsByCreationNumber_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetEventsByCreationNumberRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).GetEventsByCreationNumber(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_GetEventsByCreationNumber_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).GetEventsByCreationNumber(ctx, req.(*QueryGetEventsByCreationNumberRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_GetEventsByEventHandle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetEventsByEventHandleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).GetEventsByEventHandle(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_GetEventsByEventHandle_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).GetEventsByEventHandle(ctx, req.(*QueryGetEventsByEventHandleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_GetLedgerInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetLedgerInfoRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).GetLedgerInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_GetLedgerInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).GetLedgerInfo(ctx, req.(*QueryGetLedgerInfoRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_GetTransactions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetTransactionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).GetTransactions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_GetTransactions_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).GetTransactions(ctx, req.(*QueryGetTransactionsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_GetTransactionByHash_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetTransactionByHashRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).GetTransactionByHash(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_GetTransactionByHash_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).GetTransactionByHash(ctx, req.(*QueryGetTransactionByHashRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_GetWaitTransactionByHash_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetWaitTransactionByHashRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).GetWaitTransactionByHash(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_GetWaitTransactionByHash_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).GetWaitTransactionByHash(ctx, req.(*QueryGetWaitTransactionByHashRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_GetTransactionByVersion_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetTransactionByVersionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).GetTransactionByVersion(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_GetTransactionByVersion_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).GetTransactionByVersion(ctx, req.(*QueryGetTransactionByVersionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_GetAccountTransaction_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetAccountTransactionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).GetAccountTransaction(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_GetAccountTransaction_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).GetAccountTransaction(ctx, req.(*QueryGetAccountTransactionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_EstimateGasPrice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryEstimateGasPriceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).EstimateGasPrice(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_EstimateGasPrice_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).EstimateGasPrice(ctx, req.(*QueryEstimateGasPriceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Query_ServiceDesc is the grpc.ServiceDesc for Query service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -377,6 +692,42 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetBlockByVersion",
 			Handler:    _Query_GetBlockByVersion_Handler,
+		},
+		{
+			MethodName: "GetEventsByCreationNumber",
+			Handler:    _Query_GetEventsByCreationNumber_Handler,
+		},
+		{
+			MethodName: "GetEventsByEventHandle",
+			Handler:    _Query_GetEventsByEventHandle_Handler,
+		},
+		{
+			MethodName: "GetLedgerInfo",
+			Handler:    _Query_GetLedgerInfo_Handler,
+		},
+		{
+			MethodName: "GetTransactions",
+			Handler:    _Query_GetTransactions_Handler,
+		},
+		{
+			MethodName: "GetTransactionByHash",
+			Handler:    _Query_GetTransactionByHash_Handler,
+		},
+		{
+			MethodName: "GetWaitTransactionByHash",
+			Handler:    _Query_GetWaitTransactionByHash_Handler,
+		},
+		{
+			MethodName: "GetTransactionByVersion",
+			Handler:    _Query_GetTransactionByVersion_Handler,
+		},
+		{
+			MethodName: "GetAccountTransaction",
+			Handler:    _Query_GetAccountTransaction_Handler,
+		},
+		{
+			MethodName: "EstimateGasPrice",
+			Handler:    _Query_EstimateGasPrice_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
