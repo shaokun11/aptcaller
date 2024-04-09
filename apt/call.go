@@ -77,3 +77,22 @@ func Post(url string, payload string) (*types.QueryGetAccountResponse, error) {
 		},
 	}, nil
 }
+
+func PostRaw(url string, payload string) (*types.QueryGetAccountResponse, error) {
+	resp, err := http.Post(url, "application/json", bytes.NewBuffer([]byte(payload)))
+	if err != nil {
+		return nil, status.Error(codes.Unavailable, err.Error())
+	}
+	defer resp.Body.Close()
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, status.Error(codes.Internal, err.Error())
+	}
+	return &types.QueryGetAccountResponse{
+		AptRes: &types.AptRes{
+			Header: "{}",
+			Body:   string(body),
+			Code:   200,
+		},
+	}, nil
+}

@@ -43,6 +43,7 @@ const (
 	Query_ViewFunction_FullMethodName              = "/aptcaller.aptcaller.Query/ViewFunction"
 	Query_GetTableItem_FullMethodName              = "/aptcaller.aptcaller.Query/GetTableItem"
 	Query_GetRawTableItem_FullMethodName           = "/aptcaller.aptcaller.Query/GetRawTableItem"
+	Query_AptosIndexer_FullMethodName              = "/aptcaller.aptcaller.Query/AptosIndexer"
 )
 
 // QueryClient is the client API for Query service.
@@ -97,6 +98,8 @@ type QueryClient interface {
 	GetTableItem(ctx context.Context, in *QueryGetTableItemRequest, opts ...grpc.CallOption) (*QueryGetTableItemResponse, error)
 	// Queries a list of GetRawTableItem items.
 	GetRawTableItem(ctx context.Context, in *QueryGetRawTableItemRequest, opts ...grpc.CallOption) (*QueryGetRawTableItemResponse, error)
+	// Queries a list of AptosIndexer items.
+	AptosIndexer(ctx context.Context, in *QueryAptosIndexerRequest, opts ...grpc.CallOption) (*QueryAptosIndexerResponse, error)
 }
 
 type queryClient struct {
@@ -323,6 +326,15 @@ func (c *queryClient) GetRawTableItem(ctx context.Context, in *QueryGetRawTableI
 	return out, nil
 }
 
+func (c *queryClient) AptosIndexer(ctx context.Context, in *QueryAptosIndexerRequest, opts ...grpc.CallOption) (*QueryAptosIndexerResponse, error) {
+	out := new(QueryAptosIndexerResponse)
+	err := c.cc.Invoke(ctx, Query_AptosIndexer_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 // All implementations must embed UnimplementedQueryServer
 // for forward compatibility
@@ -375,6 +387,8 @@ type QueryServer interface {
 	GetTableItem(context.Context, *QueryGetTableItemRequest) (*QueryGetTableItemResponse, error)
 	// Queries a list of GetRawTableItem items.
 	GetRawTableItem(context.Context, *QueryGetRawTableItemRequest) (*QueryGetRawTableItemResponse, error)
+	// Queries a list of AptosIndexer items.
+	AptosIndexer(context.Context, *QueryAptosIndexerRequest) (*QueryAptosIndexerResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }
 
@@ -453,6 +467,9 @@ func (UnimplementedQueryServer) GetTableItem(context.Context, *QueryGetTableItem
 }
 func (UnimplementedQueryServer) GetRawTableItem(context.Context, *QueryGetRawTableItemRequest) (*QueryGetRawTableItemResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRawTableItem not implemented")
+}
+func (UnimplementedQueryServer) AptosIndexer(context.Context, *QueryAptosIndexerRequest) (*QueryAptosIndexerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AptosIndexer not implemented")
 }
 func (UnimplementedQueryServer) mustEmbedUnimplementedQueryServer() {}
 
@@ -899,6 +916,24 @@ func _Query_GetRawTableItem_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_AptosIndexer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAptosIndexerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).AptosIndexer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_AptosIndexer_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).AptosIndexer(ctx, req.(*QueryAptosIndexerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Query_ServiceDesc is the grpc.ServiceDesc for Query service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1001,6 +1036,10 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetRawTableItem",
 			Handler:    _Query_GetRawTableItem_Handler,
+		},
+		{
+			MethodName: "AptosIndexer",
+			Handler:    _Query_AptosIndexer_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

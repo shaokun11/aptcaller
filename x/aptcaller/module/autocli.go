@@ -178,6 +178,13 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "tableHandle"}, {ProtoField: "body"}, {ProtoField: "ledgerVersion"}},
 				},
 
+				{
+					RpcMethod:      "AptosIndexer",
+					Use:            "aptos-indexer",
+					Short:          "Query aptos-indexer",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{},
+				},
+
 				// this line is used by ignite scaffolding # autocli/query
 			},
 		},

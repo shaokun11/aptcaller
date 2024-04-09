@@ -4,6 +4,51 @@ info:
   name: ''
   description: ''
 paths:
+  /aptcaller/aptcaller/aptos_indexer/{body}:
+    get:
+      summary: Queries a list of AptosIndexer items.
+      operationId: AptcallerAptcallerQuery_AptosIndexer
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              aptRes:
+                type: object
+                properties:
+                  header:
+                    type: string
+                  body:
+                    type: string
+                  code:
+                    type: integer
+                    format: int64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: body
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
   /aptcaller/aptcaller/encode_submission/{body}:
     get:
       summary: Queries a list of EncodeSubmission items.
@@ -17858,6 +17903,19 @@ definitions:
   aptcaller.aptcaller.Params:
     type: object
     description: Params defines the parameters for the module.
+  aptcaller.aptcaller.QueryAptosIndexerResponse:
+    type: object
+    properties:
+      aptRes:
+        type: object
+        properties:
+          header:
+            type: string
+          body:
+            type: string
+          code:
+            type: integer
+            format: int64
   aptcaller.aptcaller.QueryEncodeSubmissionResponse:
     type: object
     properties:

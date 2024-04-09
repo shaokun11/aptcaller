@@ -157,6 +157,12 @@ service Query {
     option (google.api.http).get = "/aptcaller/aptcaller/get_raw_table_item/{tableHandle}/{body}/{ledgerVersion}";
   
   }
+  
+  // Queries a list of AptosIndexer items.
+  rpc AptosIndexer (QueryAptosIndexerRequest) returns (QueryAptosIndexerResponse) {
+    option (google.api.http).get = "/aptcaller/aptcaller/aptos_indexer/{body}";
+  
+  }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
@@ -375,6 +381,14 @@ message QueryGetRawTableItemRequest {
 }
 
 message QueryGetRawTableItemResponse {
+  AptRes aptRes = 1;
+}
+
+message QueryAptosIndexerRequest {
+  string body          = 1;
+}
+
+message QueryAptosIndexerResponse {
   AptRes aptRes = 1;
 }
 
