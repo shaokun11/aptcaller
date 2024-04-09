@@ -1377,10 +1377,6 @@ func local_request_Query_SubmitBatchTransaction_0(ctx context.Context, marshaler
 
 }
 
-var (
-	filter_Query_SimulateTransaction_0 = &utilities.DoubleArray{Encoding: map[string]int{"body": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
-)
-
 func request_Query_SimulateTransaction_0(ctx context.Context, marshaler runtime.Marshaler, client QueryClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq QuerySimulateTransactionRequest
 	var metadata runtime.ServerMetadata
@@ -1403,11 +1399,37 @@ func request_Query_SimulateTransaction_0(ctx context.Context, marshaler runtime.
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "body", err)
 	}
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	val, ok = pathParams["gasUnitPrice"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "gasUnitPrice")
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Query_SimulateTransaction_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+
+	protoReq.GasUnitPrice, err = runtime.Uint64(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "gasUnitPrice", err)
+	}
+
+	val, ok = pathParams["maxGasAmount"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "maxGasAmount")
+	}
+
+	protoReq.MaxGasAmount, err = runtime.Uint64(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "maxGasAmount", err)
+	}
+
+	val, ok = pathParams["prioritizedGasUnitPrice"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "prioritizedGasUnitPrice")
+	}
+
+	protoReq.PrioritizedGasUnitPrice, err = runtime.Uint64(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "prioritizedGasUnitPrice", err)
 	}
 
 	msg, err := client.SimulateTransaction(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -1437,11 +1459,37 @@ func local_request_Query_SimulateTransaction_0(ctx context.Context, marshaler ru
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "body", err)
 	}
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	val, ok = pathParams["gasUnitPrice"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "gasUnitPrice")
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Query_SimulateTransaction_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+
+	protoReq.GasUnitPrice, err = runtime.Uint64(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "gasUnitPrice", err)
+	}
+
+	val, ok = pathParams["maxGasAmount"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "maxGasAmount")
+	}
+
+	protoReq.MaxGasAmount, err = runtime.Uint64(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "maxGasAmount", err)
+	}
+
+	val, ok = pathParams["prioritizedGasUnitPrice"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "prioritizedGasUnitPrice")
+	}
+
+	protoReq.PrioritizedGasUnitPrice, err = runtime.Uint64(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "prioritizedGasUnitPrice", err)
 	}
 
 	msg, err := server.SimulateTransaction(ctx, &protoReq)
@@ -3041,7 +3089,7 @@ var (
 
 	pattern_Query_SubmitBatchTransaction_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"aptcaller", "submit_batch_transaction", "body"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_SimulateTransaction_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"aptcaller", "simulate_transaction", "body"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_SimulateTransaction_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5}, []string{"aptcaller", "simulate_transaction", "body", "gasUnitPrice", "maxGasAmount", "prioritizedGasUnitPrice"}, "", runtime.AssumeColonVerbOpt(false)))
 
 	pattern_Query_EncodeSubmission_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"aptcaller", "encode_submission", "body"}, "", runtime.AssumeColonVerbOpt(false)))
 

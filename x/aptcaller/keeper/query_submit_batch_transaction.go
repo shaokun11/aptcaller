@@ -22,7 +22,7 @@ func (k Keeper) SubmitBatchTransaction(goCtx context.Context, req *types.QuerySu
 	// TODO: Process the query
 	_ = ctx
 	baseURL := fmt.Sprintf("%s/transactions/batch", apt.Url)
-	res, err := apt.Post(baseURL, req.Body)
+	res, err := apt.Post(baseURL, req.Body, apt.HeaderJsonAll)
 	ret := types.QuerySubmitBatchTransactionResponse(*res)
 	return &ret, err
 }

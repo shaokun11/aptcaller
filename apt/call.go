@@ -50,8 +50,16 @@ func Call(url string) (*types.QueryGetAccountResponse, error) {
 	}, nil
 }
 
-func Post(url string, payload string) (*types.QueryGetAccountResponse, error) {
-	resp, err := http.Post(url, "application/json", bytes.NewBuffer([]byte(payload)))
+func Post(url string, payload string, headers map[string]string) (*types.QueryGetAccountResponse, error) {
+	client := &http.Client{}
+	req, err := http.NewRequest("POST", url, bytes.NewBuffer([]byte(payload)))
+	if err != nil {
+		return nil, status.Error(codes.Unavailable, err.Error())
+	}
+	for key, value := range headers {
+		req.Header.Set(key, value)
+	}
+	resp, err := client.Do(req)
 	if err != nil {
 		return nil, status.Error(codes.Unavailable, err.Error())
 	}

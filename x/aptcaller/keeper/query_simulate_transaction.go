@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"encoding/hex"
 	"fmt"
 	"net/url"
 
@@ -26,18 +27,24 @@ func (k Keeper) SimulateTransaction(goCtx context.Context, req *types.QuerySimul
 
 	urlObj, _ := url.Parse(baseURL)
 	params := url.Values{}
-	if req.EstimateGasUnitPrice > 0 {
+	if req.GasUnitPrice > 0 {
 		params.Add("estimate_gas_unit_price", "true")
 	}
-	if req.EstimateMaxGasAmount > 0 {
+	if req.MaxGasAmount > 0 {
 		params.Add("estimate_max_gas_amount", "true")
 	}
-	if req.EstimatePrioritizedGasUnitPrice > 0 {
+	if req.PrioritizedGasUnitPrice > 0 {
 		params.Add("estimate_prioritized_gas_unit_price", "true")
 	}
 	urlObj.RawQuery = params.Encode()
 	finalURL := urlObj.String()
-	res, err := apt.Post(finalURL, req.Body)
+	header := apt.HeaderJsonAll
+	bs, err := hex.DecodeString(req.Body)
+	if err != nil {
+		panic(err)
+	}
+	header["Content-Type"] = apt.HeaderBcs
+	res, err := apt.Post(finalURL, string(bs), header)
 	ret := types.QuerySimulateTransactionResponse(*res)
 	return &ret, err
 }
