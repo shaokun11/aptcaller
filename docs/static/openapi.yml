@@ -665,6 +665,112 @@ paths:
                   additionalProperties: {}
       tags:
         - Query
+  /aptcaller/aptcaller/get_raw_table_item/{tableHandle}/{body}/{ledgerVersion}:
+    get:
+      summary: Queries a list of GetRawTableItem items.
+      operationId: AptcallerAptcallerQuery_GetRawTableItem
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              aptRes:
+                type: object
+                properties:
+                  header:
+                    type: string
+                  body:
+                    type: string
+                  code:
+                    type: integer
+                    format: int64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: tableHandle
+          in: path
+          required: true
+          type: string
+        - name: body
+          in: path
+          required: true
+          type: string
+        - name: ledgerVersion
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
+  /aptcaller/aptcaller/get_table_item/{tableHandle}/{ledgerVersion}:
+    get:
+      summary: Queries a list of GetTableItem items.
+      operationId: AptcallerAptcallerQuery_GetTableItem
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              aptRes:
+                type: object
+                properties:
+                  header:
+                    type: string
+                  body:
+                    type: string
+                  code:
+                    type: integer
+                    format: int64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: tableHandle
+          in: path
+          required: true
+          type: string
+        - name: ledgerVersion
+          in: path
+          required: true
+          type: string
+        - name: body
+          in: query
+          required: false
+          type: string
+      tags:
+        - Query
   /aptcaller/aptcaller/get_transaction_by_count/{count}:
     get:
       summary: Queries a list of GetTransactionByCount items.
@@ -1031,6 +1137,55 @@ paths:
                   additionalProperties: {}
       parameters:
         - name: body
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
+  /aptcaller/aptcaller/view_function/{body}/{ledgerVersion}:
+    get:
+      summary: Queries a list of ViewFunction items.
+      operationId: AptcallerAptcallerQuery_ViewFunction
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              aptRes:
+                type: object
+                properties:
+                  header:
+                    type: string
+                  body:
+                    type: string
+                  code:
+                    type: integer
+                    format: int64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: body
+          in: path
+          required: true
+          type: string
+        - name: ledgerVersion
           in: path
           required: true
           type: string
@@ -17872,6 +18027,32 @@ definitions:
           code:
             type: integer
             format: int64
+  aptcaller.aptcaller.QueryGetRawTableItemResponse:
+    type: object
+    properties:
+      aptRes:
+        type: object
+        properties:
+          header:
+            type: string
+          body:
+            type: string
+          code:
+            type: integer
+            format: int64
+  aptcaller.aptcaller.QueryGetTableItemResponse:
+    type: object
+    properties:
+      aptRes:
+        type: object
+        properties:
+          header:
+            type: string
+          body:
+            type: string
+          code:
+            type: integer
+            format: int64
   aptcaller.aptcaller.QueryGetTransactionByCountResponse:
     type: object
     properties:
@@ -17958,6 +18139,19 @@ definitions:
             type: integer
             format: int64
   aptcaller.aptcaller.QuerySubmitBatchTransactionResponse:
+    type: object
+    properties:
+      aptRes:
+        type: object
+        properties:
+          header:
+            type: string
+          body:
+            type: string
+          code:
+            type: integer
+            format: int64
+  aptcaller.aptcaller.QueryViewFunctionResponse:
     type: object
     properties:
       aptRes:

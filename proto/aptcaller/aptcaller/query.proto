@@ -139,6 +139,24 @@ service Query {
     option (google.api.http).get = "/aptcaller/aptcaller/get_transaction_by_count/{count}";
   
   }
+  
+  // Queries a list of ViewFunction items.
+  rpc ViewFunction (QueryViewFunctionRequest) returns (QueryViewFunctionResponse) {
+    option (google.api.http).get = "/aptcaller/aptcaller/view_function/{body}/{ledgerVersion}";
+  
+  }
+  
+  // Queries a list of GetTableItem items.
+  rpc GetTableItem (QueryGetTableItemRequest) returns (QueryGetTableItemResponse) {
+    option (google.api.http).get = "/aptcaller/aptcaller/get_table_item/{tableHandle}/{ledgerVersion}";
+  
+  }
+  
+  // Queries a list of GetRawTableItem items.
+  rpc GetRawTableItem (QueryGetRawTableItemRequest) returns (QueryGetRawTableItemResponse) {
+    option (google.api.http).get = "/aptcaller/aptcaller/get_raw_table_item/{tableHandle}/{body}/{ledgerVersion}";
+  
+  }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
@@ -328,6 +346,35 @@ message QueryGetTransactionByCountRequest {
 }
 
 message QueryGetTransactionByCountResponse {
+  AptRes aptRes = 1;
+}
+
+message QueryViewFunctionRequest {
+  string body          = 1;
+  string ledgerVersion = 2;
+}
+
+message QueryViewFunctionResponse {
+  AptRes aptRes = 1;
+}
+
+message QueryGetTableItemRequest {
+  string tableHandle   = 1;
+  string body          = 2;
+  string ledgerVersion = 3;
+}
+
+message QueryGetTableItemResponse {
+  AptRes aptRes = 1;
+}
+
+message QueryGetRawTableItemRequest {
+  string tableHandle   = 1;
+  string body          = 2;
+  string ledgerVersion = 3;
+}
+
+message QueryGetRawTableItemResponse {
   AptRes aptRes = 1;
 }
 

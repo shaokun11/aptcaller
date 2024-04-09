@@ -40,6 +40,9 @@ const (
 	Query_SimulateTransaction_FullMethodName       = "/aptcaller.aptcaller.Query/SimulateTransaction"
 	Query_EncodeSubmission_FullMethodName          = "/aptcaller.aptcaller.Query/EncodeSubmission"
 	Query_GetTransactionByCount_FullMethodName     = "/aptcaller.aptcaller.Query/GetTransactionByCount"
+	Query_ViewFunction_FullMethodName              = "/aptcaller.aptcaller.Query/ViewFunction"
+	Query_GetTableItem_FullMethodName              = "/aptcaller.aptcaller.Query/GetTableItem"
+	Query_GetRawTableItem_FullMethodName           = "/aptcaller.aptcaller.Query/GetRawTableItem"
 )
 
 // QueryClient is the client API for Query service.
@@ -88,6 +91,12 @@ type QueryClient interface {
 	EncodeSubmission(ctx context.Context, in *QueryEncodeSubmissionRequest, opts ...grpc.CallOption) (*QueryEncodeSubmissionResponse, error)
 	// Queries a list of GetTransactionByCount items.
 	GetTransactionByCount(ctx context.Context, in *QueryGetTransactionByCountRequest, opts ...grpc.CallOption) (*QueryGetTransactionByCountResponse, error)
+	// Queries a list of ViewFunction items.
+	ViewFunction(ctx context.Context, in *QueryViewFunctionRequest, opts ...grpc.CallOption) (*QueryViewFunctionResponse, error)
+	// Queries a list of GetTableItem items.
+	GetTableItem(ctx context.Context, in *QueryGetTableItemRequest, opts ...grpc.CallOption) (*QueryGetTableItemResponse, error)
+	// Queries a list of GetRawTableItem items.
+	GetRawTableItem(ctx context.Context, in *QueryGetRawTableItemRequest, opts ...grpc.CallOption) (*QueryGetRawTableItemResponse, error)
 }
 
 type queryClient struct {
@@ -287,6 +296,33 @@ func (c *queryClient) GetTransactionByCount(ctx context.Context, in *QueryGetTra
 	return out, nil
 }
 
+func (c *queryClient) ViewFunction(ctx context.Context, in *QueryViewFunctionRequest, opts ...grpc.CallOption) (*QueryViewFunctionResponse, error) {
+	out := new(QueryViewFunctionResponse)
+	err := c.cc.Invoke(ctx, Query_ViewFunction_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) GetTableItem(ctx context.Context, in *QueryGetTableItemRequest, opts ...grpc.CallOption) (*QueryGetTableItemResponse, error) {
+	out := new(QueryGetTableItemResponse)
+	err := c.cc.Invoke(ctx, Query_GetTableItem_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) GetRawTableItem(ctx context.Context, in *QueryGetRawTableItemRequest, opts ...grpc.CallOption) (*QueryGetRawTableItemResponse, error) {
+	out := new(QueryGetRawTableItemResponse)
+	err := c.cc.Invoke(ctx, Query_GetRawTableItem_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 // All implementations must embed UnimplementedQueryServer
 // for forward compatibility
@@ -333,6 +369,12 @@ type QueryServer interface {
 	EncodeSubmission(context.Context, *QueryEncodeSubmissionRequest) (*QueryEncodeSubmissionResponse, error)
 	// Queries a list of GetTransactionByCount items.
 	GetTransactionByCount(context.Context, *QueryGetTransactionByCountRequest) (*QueryGetTransactionByCountResponse, error)
+	// Queries a list of ViewFunction items.
+	ViewFunction(context.Context, *QueryViewFunctionRequest) (*QueryViewFunctionResponse, error)
+	// Queries a list of GetTableItem items.
+	GetTableItem(context.Context, *QueryGetTableItemRequest) (*QueryGetTableItemResponse, error)
+	// Queries a list of GetRawTableItem items.
+	GetRawTableItem(context.Context, *QueryGetRawTableItemRequest) (*QueryGetRawTableItemResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }
 
@@ -402,6 +444,15 @@ func (UnimplementedQueryServer) EncodeSubmission(context.Context, *QueryEncodeSu
 }
 func (UnimplementedQueryServer) GetTransactionByCount(context.Context, *QueryGetTransactionByCountRequest) (*QueryGetTransactionByCountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTransactionByCount not implemented")
+}
+func (UnimplementedQueryServer) ViewFunction(context.Context, *QueryViewFunctionRequest) (*QueryViewFunctionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ViewFunction not implemented")
+}
+func (UnimplementedQueryServer) GetTableItem(context.Context, *QueryGetTableItemRequest) (*QueryGetTableItemResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTableItem not implemented")
+}
+func (UnimplementedQueryServer) GetRawTableItem(context.Context, *QueryGetRawTableItemRequest) (*QueryGetRawTableItemResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRawTableItem not implemented")
 }
 func (UnimplementedQueryServer) mustEmbedUnimplementedQueryServer() {}
 
@@ -794,6 +845,60 @@ func _Query_GetTransactionByCount_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_ViewFunction_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryViewFunctionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).ViewFunction(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_ViewFunction_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).ViewFunction(ctx, req.(*QueryViewFunctionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_GetTableItem_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetTableItemRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).GetTableItem(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_GetTableItem_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).GetTableItem(ctx, req.(*QueryGetTableItemRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_GetRawTableItem_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetRawTableItemRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).GetRawTableItem(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_GetRawTableItem_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).GetRawTableItem(ctx, req.(*QueryGetRawTableItemRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Query_ServiceDesc is the grpc.ServiceDesc for Query service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -884,6 +989,18 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetTransactionByCount",
 			Handler:    _Query_GetTransactionByCount_Handler,
+		},
+		{
+			MethodName: "ViewFunction",
+			Handler:    _Query_ViewFunction_Handler,
+		},
+		{
+			MethodName: "GetTableItem",
+			Handler:    _Query_GetTableItem_Handler,
+		},
+		{
+			MethodName: "GetRawTableItem",
+			Handler:    _Query_GetRawTableItem_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

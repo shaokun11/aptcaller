@@ -157,6 +157,27 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "count"}},
 				},
 
+				{
+					RpcMethod:      "ViewFunction",
+					Use:            "view-function [body] [ledger-version]",
+					Short:          "Query view-function",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "body"}, {ProtoField: "ledgerVersion"}},
+				},
+
+				{
+					RpcMethod:      "GetTableItem",
+					Use:            "get-table-item [table-handle] [ledger-version]",
+					Short:          "Query get_table_item",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "tableHandle"}, {ProtoField: "ledgerVersion"}},
+				},
+
+				{
+					RpcMethod:      "GetRawTableItem",
+					Use:            "get-raw-table-item [table-handle] [body] [ledger-version]",
+					Short:          "Query get_raw_table_item",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "tableHandle"}, {ProtoField: "body"}, {ProtoField: "ledgerVersion"}},
+				},
+
 				// this line is used by ignite scaffolding # autocli/query
 			},
 		},
