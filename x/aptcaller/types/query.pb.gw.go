@@ -51,6 +51,10 @@ func local_request_Query_Params_0(ctx context.Context, marshaler runtime.Marshal
 
 }
 
+var (
+	filter_Query_GetAccount_0 = &utilities.DoubleArray{Encoding: map[string]int{"header": 0, "address": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
+)
+
 func request_Query_GetAccount_0(ctx context.Context, marshaler runtime.Marshaler, client QueryClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq QueryGetAccountRequest
 	var metadata runtime.ServerMetadata
@@ -62,6 +66,17 @@ func request_Query_GetAccount_0(ctx context.Context, marshaler runtime.Marshaler
 		_   = err
 	)
 
+	val, ok = pathParams["header"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "header")
+	}
+
+	protoReq.Header, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "header", err)
+	}
+
 	val, ok = pathParams["address"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "address")
@@ -71,6 +86,13 @@ func request_Query_GetAccount_0(ctx context.Context, marshaler runtime.Marshaler
 
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "address", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Query_GetAccount_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.GetAccount(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -89,6 +111,17 @@ func local_request_Query_GetAccount_0(ctx context.Context, marshaler runtime.Mar
 		_   = err
 	)
 
+	val, ok = pathParams["header"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "header")
+	}
+
+	protoReq.Header, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "header", err)
+	}
+
 	val, ok = pathParams["address"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "address")
@@ -98,6 +131,13 @@ func local_request_Query_GetAccount_0(ctx context.Context, marshaler runtime.Mar
 
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "address", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Query_GetAccount_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := server.GetAccount(ctx, &protoReq)
@@ -115,6 +155,17 @@ func request_Query_GetAccountResources_0(ctx context.Context, marshaler runtime.
 		err error
 		_   = err
 	)
+
+	val, ok = pathParams["header"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "header")
+	}
+
+	protoReq.Header, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "header", err)
+	}
 
 	val, ok = pathParams["address"]
 	if !ok {
@@ -176,6 +227,17 @@ func local_request_Query_GetAccountResources_0(ctx context.Context, marshaler ru
 		_   = err
 	)
 
+	val, ok = pathParams["header"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "header")
+	}
+
+	protoReq.Header, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "header", err)
+	}
+
 	val, ok = pathParams["address"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "address")
@@ -235,6 +297,17 @@ func request_Query_GetAccountModules_0(ctx context.Context, marshaler runtime.Ma
 		err error
 		_   = err
 	)
+
+	val, ok = pathParams["header"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "header")
+	}
+
+	protoReq.Header, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "header", err)
+	}
 
 	val, ok = pathParams["address"]
 	if !ok {
@@ -296,6 +369,17 @@ func local_request_Query_GetAccountModules_0(ctx context.Context, marshaler runt
 		_   = err
 	)
 
+	val, ok = pathParams["header"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "header")
+	}
+
+	protoReq.Header, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "header", err)
+	}
+
 	val, ok = pathParams["address"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "address")
@@ -346,7 +430,7 @@ func local_request_Query_GetAccountModules_0(ctx context.Context, marshaler runt
 }
 
 var (
-	filter_Query_GetAccountResource_0 = &utilities.DoubleArray{Encoding: map[string]int{"address": 0, "resourceType": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
+	filter_Query_GetAccountResource_0 = &utilities.DoubleArray{Encoding: map[string]int{"header": 0, "address": 1, "resourceType": 2}, Base: []int{1, 1, 2, 3, 0, 0, 0}, Check: []int{0, 1, 1, 1, 2, 3, 4}}
 )
 
 func request_Query_GetAccountResource_0(ctx context.Context, marshaler runtime.Marshaler, client QueryClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -359,6 +443,17 @@ func request_Query_GetAccountResource_0(ctx context.Context, marshaler runtime.M
 		err error
 		_   = err
 	)
+
+	val, ok = pathParams["header"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "header")
+	}
+
+	protoReq.Header, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "header", err)
+	}
 
 	val, ok = pathParams["address"]
 	if !ok {
@@ -405,6 +500,17 @@ func local_request_Query_GetAccountResource_0(ctx context.Context, marshaler run
 		_   = err
 	)
 
+	val, ok = pathParams["header"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "header")
+	}
+
+	protoReq.Header, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "header", err)
+	}
+
 	val, ok = pathParams["address"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "address")
@@ -449,6 +555,17 @@ func request_Query_GetAccountModule_0(ctx context.Context, marshaler runtime.Mar
 		err error
 		_   = err
 	)
+
+	val, ok = pathParams["header"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "header")
+	}
+
+	protoReq.Header, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "header", err)
+	}
 
 	val, ok = pathParams["address"]
 	if !ok {
@@ -499,6 +616,17 @@ func local_request_Query_GetAccountModule_0(ctx context.Context, marshaler runti
 		_   = err
 	)
 
+	val, ok = pathParams["header"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "header")
+	}
+
+	protoReq.Header, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "header", err)
+	}
+
 	val, ok = pathParams["address"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "address")
@@ -548,6 +676,17 @@ func request_Query_GetBlockByHeight_0(ctx context.Context, marshaler runtime.Mar
 		_   = err
 	)
 
+	val, ok = pathParams["header"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "header")
+	}
+
+	protoReq.Header, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "header", err)
+	}
+
 	val, ok = pathParams["blockHeight"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "blockHeight")
@@ -585,6 +724,17 @@ func local_request_Query_GetBlockByHeight_0(ctx context.Context, marshaler runti
 		err error
 		_   = err
 	)
+
+	val, ok = pathParams["header"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "header")
+	}
+
+	protoReq.Header, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "header", err)
+	}
 
 	val, ok = pathParams["blockHeight"]
 	if !ok {
@@ -624,6 +774,17 @@ func request_Query_GetBlockByVersion_0(ctx context.Context, marshaler runtime.Ma
 		_   = err
 	)
 
+	val, ok = pathParams["header"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "header")
+	}
+
+	protoReq.Header, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "header", err)
+	}
+
 	val, ok = pathParams["version"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "version")
@@ -662,6 +823,17 @@ func local_request_Query_GetBlockByVersion_0(ctx context.Context, marshaler runt
 		_   = err
 	)
 
+	val, ok = pathParams["header"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "header")
+	}
+
+	protoReq.Header, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "header", err)
+	}
+
 	val, ok = pathParams["version"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "version")
@@ -699,6 +871,17 @@ func request_Query_GetEventsByCreationNumber_0(ctx context.Context, marshaler ru
 		err error
 		_   = err
 	)
+
+	val, ok = pathParams["header"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "header")
+	}
+
+	protoReq.Header, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "header", err)
+	}
 
 	val, ok = pathParams["address"]
 	if !ok {
@@ -760,6 +943,17 @@ func local_request_Query_GetEventsByCreationNumber_0(ctx context.Context, marsha
 		_   = err
 	)
 
+	val, ok = pathParams["header"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "header")
+	}
+
+	protoReq.Header, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "header", err)
+	}
+
 	val, ok = pathParams["address"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "address")
@@ -819,6 +1013,17 @@ func request_Query_GetEventsByEventHandle_0(ctx context.Context, marshaler runti
 		err error
 		_   = err
 	)
+
+	val, ok = pathParams["header"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "header")
+	}
+
+	protoReq.Header, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "header", err)
+	}
 
 	val, ok = pathParams["address"]
 	if !ok {
@@ -891,6 +1096,17 @@ func local_request_Query_GetEventsByEventHandle_0(ctx context.Context, marshaler
 		_   = err
 	)
 
+	val, ok = pathParams["header"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "header")
+	}
+
+	protoReq.Header, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "header", err)
+	}
+
 	val, ok = pathParams["address"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "address")
@@ -955,6 +1171,24 @@ func request_Query_GetLedgerInfo_0(ctx context.Context, marshaler runtime.Marsha
 	var protoReq QueryGetLedgerInfoRequest
 	var metadata runtime.ServerMetadata
 
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["header"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "header")
+	}
+
+	protoReq.Header, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "header", err)
+	}
+
 	msg, err := client.GetLedgerInfo(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
@@ -963,6 +1197,24 @@ func request_Query_GetLedgerInfo_0(ctx context.Context, marshaler runtime.Marsha
 func local_request_Query_GetLedgerInfo_0(ctx context.Context, marshaler runtime.Marshaler, server QueryServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq QueryGetLedgerInfoRequest
 	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["header"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "header")
+	}
+
+	protoReq.Header, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "header", err)
+	}
 
 	msg, err := server.GetLedgerInfo(ctx, &protoReq)
 	return msg, metadata, err
@@ -979,6 +1231,17 @@ func request_Query_GetTransactions_0(ctx context.Context, marshaler runtime.Mars
 		err error
 		_   = err
 	)
+
+	val, ok = pathParams["header"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "header")
+	}
+
+	protoReq.Header, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "header", err)
+	}
 
 	val, ok = pathParams["limit"]
 	if !ok {
@@ -1018,6 +1281,17 @@ func local_request_Query_GetTransactions_0(ctx context.Context, marshaler runtim
 		_   = err
 	)
 
+	val, ok = pathParams["header"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "header")
+	}
+
+	protoReq.Header, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "header", err)
+	}
+
 	val, ok = pathParams["limit"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "limit")
@@ -1056,6 +1330,17 @@ func request_Query_GetTransactionByHash_0(ctx context.Context, marshaler runtime
 		_   = err
 	)
 
+	val, ok = pathParams["header"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "header")
+	}
+
+	protoReq.Header, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "header", err)
+	}
+
 	val, ok = pathParams["txnHash"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "txnHash")
@@ -1082,6 +1367,17 @@ func local_request_Query_GetTransactionByHash_0(ctx context.Context, marshaler r
 		err error
 		_   = err
 	)
+
+	val, ok = pathParams["header"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "header")
+	}
+
+	protoReq.Header, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "header", err)
+	}
 
 	val, ok = pathParams["txnHash"]
 	if !ok {
@@ -1110,6 +1406,17 @@ func request_Query_GetWaitTransactionByHash_0(ctx context.Context, marshaler run
 		_   = err
 	)
 
+	val, ok = pathParams["header"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "header")
+	}
+
+	protoReq.Header, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "header", err)
+	}
+
 	val, ok = pathParams["txnHash"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "txnHash")
@@ -1136,6 +1443,17 @@ func local_request_Query_GetWaitTransactionByHash_0(ctx context.Context, marshal
 		err error
 		_   = err
 	)
+
+	val, ok = pathParams["header"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "header")
+	}
+
+	protoReq.Header, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "header", err)
+	}
 
 	val, ok = pathParams["txnHash"]
 	if !ok {
@@ -1164,6 +1482,17 @@ func request_Query_GetTransactionByVersion_0(ctx context.Context, marshaler runt
 		_   = err
 	)
 
+	val, ok = pathParams["header"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "header")
+	}
+
+	protoReq.Header, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "header", err)
+	}
+
 	val, ok = pathParams["txnVersion"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "txnVersion")
@@ -1191,6 +1520,17 @@ func local_request_Query_GetTransactionByVersion_0(ctx context.Context, marshale
 		_   = err
 	)
 
+	val, ok = pathParams["header"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "header")
+	}
+
+	protoReq.Header, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "header", err)
+	}
+
 	val, ok = pathParams["txnVersion"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "txnVersion")
@@ -1217,6 +1557,17 @@ func request_Query_GetAccountTransaction_0(ctx context.Context, marshaler runtim
 		err error
 		_   = err
 	)
+
+	val, ok = pathParams["header"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "header")
+	}
+
+	protoReq.Header, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "header", err)
+	}
 
 	val, ok = pathParams["address"]
 	if !ok {
@@ -1267,6 +1618,17 @@ func local_request_Query_GetAccountTransaction_0(ctx context.Context, marshaler 
 		_   = err
 	)
 
+	val, ok = pathParams["header"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "header")
+	}
+
+	protoReq.Header, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "header", err)
+	}
+
 	val, ok = pathParams["address"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "address")
@@ -1309,6 +1671,24 @@ func request_Query_EstimateGasPrice_0(ctx context.Context, marshaler runtime.Mar
 	var protoReq QueryEstimateGasPriceRequest
 	var metadata runtime.ServerMetadata
 
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["header"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "header")
+	}
+
+	protoReq.Header, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "header", err)
+	}
+
 	msg, err := client.EstimateGasPrice(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
@@ -1317,6 +1697,24 @@ func request_Query_EstimateGasPrice_0(ctx context.Context, marshaler runtime.Mar
 func local_request_Query_EstimateGasPrice_0(ctx context.Context, marshaler runtime.Marshaler, server QueryServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq QueryEstimateGasPriceRequest
 	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["header"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "header")
+	}
+
+	protoReq.Header, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "header", err)
+	}
 
 	msg, err := server.EstimateGasPrice(ctx, &protoReq)
 	return msg, metadata, err
@@ -2743,37 +3141,37 @@ func RegisterQueryHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 var (
 	pattern_Query_Params_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1}, []string{"aptcaller", "params"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_GetAccount_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"aptcaller", "get_account", "address"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_GetAccount_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 1, 0, 4, 1, 5, 3}, []string{"aptcaller", "get_account", "header", "address"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_GetAccountResources_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5}, []string{"aptcaller", "get_account_resources", "address", "ledgerVersion", "limit", "start"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_GetAccountResources_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6}, []string{"aptcaller", "get_account_resources", "header", "address", "ledgerVersion", "limit", "start"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_GetAccountModules_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5}, []string{"aptcaller", "get_account_modules", "address", "ledgerVersion", "limit", "start"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_GetAccountModules_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6}, []string{"aptcaller", "get_account_modules", "header", "address", "ledgerVersion", "limit", "start"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_GetAccountResource_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 1, 0, 4, 1, 5, 3}, []string{"aptcaller", "get_account_resource", "address", "resourceType"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_GetAccountResource_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4}, []string{"aptcaller", "get_account_resource", "header", "address", "resourceType"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_GetAccountModule_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4}, []string{"aptcaller", "get_account_module", "address", "moduleName", "ledgerVersion"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_GetAccountModule_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5}, []string{"aptcaller", "get_account_module", "header", "address", "moduleName", "ledgerVersion"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_GetBlockByHeight_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 1, 0, 4, 1, 5, 3}, []string{"aptcaller", "get_block_by_height", "blockHeight", "withTransactions"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_GetBlockByHeight_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4}, []string{"aptcaller", "get_block_by_height", "header", "blockHeight", "withTransactions"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_GetBlockByVersion_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 1, 0, 4, 1, 5, 3}, []string{"aptcaller", "get_block_by_version", "version", "withTransactions"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_GetBlockByVersion_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4}, []string{"aptcaller", "get_block_by_version", "header", "version", "withTransactions"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_GetEventsByCreationNumber_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5}, []string{"aptcaller", "get_events_by_creation_number", "address", "creationNumber", "limit", "start"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_GetEventsByCreationNumber_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6}, []string{"aptcaller", "get_events_by_creation_number", "header", "address", "creationNumber", "limit", "start"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_GetEventsByEventHandle_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6}, []string{"aptcaller", "get_events_by_event_handle", "address", "eventHandle", "fieldName", "limit", "start"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_GetEventsByEventHandle_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6, 1, 0, 4, 1, 5, 7}, []string{"aptcaller", "get_events_by_event_handle", "header", "address", "eventHandle", "fieldName", "limit", "start"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_GetLedgerInfo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1}, []string{"aptcaller", "get_ledger_info"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_GetLedgerInfo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"aptcaller", "get_ledger_info", "header"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_GetTransactions_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 1, 0, 4, 1, 5, 3}, []string{"aptcaller", "get_transactions", "limit", "start"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_GetTransactions_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4}, []string{"aptcaller", "get_transactions", "header", "limit", "start"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_GetTransactionByHash_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"aptcaller", "get_transaction_by_hash", "txnHash"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_GetTransactionByHash_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 1, 0, 4, 1, 5, 3}, []string{"aptcaller", "get_transaction_by_hash", "header", "txnHash"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_GetWaitTransactionByHash_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"aptcaller", "get_wait_transaction_by_hash", "txnHash"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_GetWaitTransactionByHash_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 1, 0, 4, 1, 5, 3}, []string{"aptcaller", "get_wait_transaction_by_hash", "header", "txnHash"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_GetTransactionByVersion_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"aptcaller", "get_transaction_by_version", "txnVersion"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_GetTransactionByVersion_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 1, 0, 4, 1, 5, 3}, []string{"aptcaller", "get_transaction_by_version", "header", "txnVersion"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_GetAccountTransaction_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4}, []string{"aptcaller", "get_account_transaction", "address", "limit", "start"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_GetAccountTransaction_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5}, []string{"aptcaller", "get_account_transaction", "header", "address", "limit", "start"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_EstimateGasPrice_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1}, []string{"aptcaller", "estimate_gas_price"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_EstimateGasPrice_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 1, 0, 4, 1, 5, 1, 2, 2}, []string{"aptcaller", "header", "estimate_gas_price"}, "", runtime.AssumeColonVerbOpt(false)))
 
 	pattern_Query_SubmitBatchTransaction_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1}, []string{"aptcaller", "submit_batch_transaction"}, "", runtime.AssumeColonVerbOpt(false)))
 

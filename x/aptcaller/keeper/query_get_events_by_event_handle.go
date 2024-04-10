@@ -35,7 +35,7 @@ func (k Keeper) GetEventsByEventHandle(goCtx context.Context, req *types.QueryGe
 	}
 	urlObj.RawQuery = params.Encode()
 	finalURL := urlObj.String()
-	res, err := apt.Call(finalURL)
+	res, err := apt.Call(finalURL, req.Header)
 	ret := types.QueryGetEventsByEventHandleResponse(*res)
 	return &ret, err
 }

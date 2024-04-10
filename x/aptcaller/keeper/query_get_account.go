@@ -20,5 +20,5 @@ func (k Keeper) GetAccount(goCtx context.Context, req *types.QueryGetAccountRequ
 	_ = ctx
 	addr := req.Address
 	url := apt.Url + "/accounts/" + strings.ToLower(addr)
-	return apt.Call(url)
+	return apt.Call(url, req.Header)
 }

@@ -25,7 +25,7 @@ func (k Keeper) GetTransactionByVersion(goCtx context.Context, req *types.QueryG
 	baseURL := fmt.Sprintf("%s/transactions/by_version/%s", apt.Url, req.TxnVersion)
 	urlObj, _ := url.Parse(baseURL)
 	finalURL := urlObj.String()
-	res, err := apt.Call(finalURL)
+	res, err := apt.Call(finalURL, req.Header)
 	ret := types.QueryGetTransactionByVersionResponse(*res)
 	return &ret, err
 }

@@ -30,7 +30,7 @@ func (k Keeper) GetBlockByHeight(goCtx context.Context, req *types.QueryGetBlock
 	}
 	urlObj.RawQuery = params.Encode()
 	finalURL := urlObj.String()
-	res, err := apt.Call(finalURL)
+	res, err := apt.Call(finalURL, req.Header)
 	ret := types.QueryGetBlockByHeightResponse(*res)
 	return &ret, err
 }

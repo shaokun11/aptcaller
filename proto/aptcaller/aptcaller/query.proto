@@ -22,97 +22,97 @@ service Query {
   
   // Queries a list of GetAccount items.
   rpc GetAccount (QueryGetAccountRequest) returns (QueryGetAccountResponse) {
-    option (google.api.http).get = "/aptcaller/aptcaller/get_account/{address}";
+    option (google.api.http).get = "/aptcaller/aptcaller/get_account/{header}/{address}";
   
   }
   
   // Queries a list of GetAccountResources items.
   rpc GetAccountResources (QueryGetAccountResourcesRequest) returns (QueryGetAccountResourcesResponse) {
-    option (google.api.http).get = "/aptcaller/aptcaller/get_account_resources/{address}/{ledgerVersion}/{limit}/{start}";
+    option (google.api.http).get = "/aptcaller/aptcaller/get_account_resources/{header}/{address}/{ledgerVersion}/{limit}/{start}";
   
   }
   
   // Queries a list of GetAccountModules items.
   rpc GetAccountModules (QueryGetAccountModulesRequest) returns (QueryGetAccountModulesResponse) {
-    option (google.api.http).get = "/aptcaller/aptcaller/get_account_modules/{address}/{ledgerVersion}/{limit}/{start}";
+    option (google.api.http).get = "/aptcaller/aptcaller/get_account_modules/{header}/{address}/{ledgerVersion}/{limit}/{start}";
   
   }
   
   // Queries a list of GetAccountResource items.
   rpc GetAccountResource (QueryGetAccountResourceRequest) returns (QueryGetAccountResourceResponse) {
-    option (google.api.http).get = "/aptcaller/aptcaller/get_account_resource/{address}/{resourceType}";
+    option (google.api.http).get = "/aptcaller/aptcaller/get_account_resource/{header}/{address}/{resourceType}";
   
   }
   
   // Queries a list of GetAccountModule items.
   rpc GetAccountModule (QueryGetAccountModuleRequest) returns (QueryGetAccountModuleResponse) {
-    option (google.api.http).get = "/aptcaller/aptcaller/get_account_module/{address}/{moduleName}/{ledgerVersion}";
+    option (google.api.http).get = "/aptcaller/aptcaller/get_account_module/{header}/{address}/{moduleName}/{ledgerVersion}";
   
   }
   
   // Queries a list of GetBlockByHeight items.
   rpc GetBlockByHeight (QueryGetBlockByHeightRequest) returns (QueryGetBlockByHeightResponse) {
-    option (google.api.http).get = "/aptcaller/aptcaller/get_block_by_height/{blockHeight}/{withTransactions}";
+    option (google.api.http).get = "/aptcaller/aptcaller/get_block_by_height/{header}/{blockHeight}/{withTransactions}";
   
   }
   
   // Queries a list of GetBlockByVersion items.
   rpc GetBlockByVersion (QueryGetBlockByVersionRequest) returns (QueryGetBlockByVersionResponse) {
-    option (google.api.http).get = "/aptcaller/aptcaller/get_block_by_version/{version}/{withTransactions}";
+    option (google.api.http).get = "/aptcaller/aptcaller/get_block_by_version/{header}/{version}/{withTransactions}";
   
   }
   
   // Queries a list of GetEventsByCreationNumber items.
   rpc GetEventsByCreationNumber (QueryGetEventsByCreationNumberRequest) returns (QueryGetEventsByCreationNumberResponse) {
-    option (google.api.http).get = "/aptcaller/aptcaller/get_events_by_creation_number/{address}/{creationNumber}/{limit}/{start}";
+    option (google.api.http).get = "/aptcaller/aptcaller/get_events_by_creation_number/{header}/{address}/{creationNumber}/{limit}/{start}";
   
   }
   
   // Queries a list of GetEventsByEventHandle items.
   rpc GetEventsByEventHandle (QueryGetEventsByEventHandleRequest) returns (QueryGetEventsByEventHandleResponse) {
-    option (google.api.http).get = "/aptcaller/aptcaller/get_events_by_event_handle/{address}/{eventHandle}/{fieldName}/{limit}/{start}";
+    option (google.api.http).get = "/aptcaller/aptcaller/get_events_by_event_handle/{header}/{address}/{eventHandle}/{fieldName}/{limit}/{start}";
   
   }
   
   // Queries a list of GetLedgerInfo items.
   rpc GetLedgerInfo (QueryGetLedgerInfoRequest) returns (QueryGetLedgerInfoResponse) {
-    option (google.api.http).get = "/aptcaller/aptcaller/get_ledger_info";
+    option (google.api.http).get = "/aptcaller/aptcaller/get_ledger_info/{header}";
   
   }
   
   // Queries a list of GetTransactions items.
   rpc GetTransactions (QueryGetTransactionsRequest) returns (QueryGetTransactionsResponse) {
-    option (google.api.http).get = "/aptcaller/aptcaller/get_transactions/{limit}/{start}";
+    option (google.api.http).get = "/aptcaller/aptcaller/get_transactions/{header}/{limit}/{start}";
   
   }
   
   // Queries a list of GetTransactionByHash items.
   rpc GetTransactionByHash (QueryGetTransactionByHashRequest) returns (QueryGetTransactionByHashResponse) {
-    option (google.api.http).get = "/aptcaller/aptcaller/get_transaction_by_hash/{txnHash}";
+    option (google.api.http).get = "/aptcaller/aptcaller/get_transaction_by_hash/{header}/{txnHash}";
   
   }
   
   // Queries a list of GetWaitTransactionByHash items.
   rpc GetWaitTransactionByHash (QueryGetWaitTransactionByHashRequest) returns (QueryGetWaitTransactionByHashResponse) {
-    option (google.api.http).get = "/aptcaller/aptcaller/get_wait_transaction_by_hash/{txnHash}";
+    option (google.api.http).get = "/aptcaller/aptcaller/get_wait_transaction_by_hash/{header}/{txnHash}";
   
   }
   
   // Queries a list of GetTransactionByVersion items.
   rpc GetTransactionByVersion (QueryGetTransactionByVersionRequest) returns (QueryGetTransactionByVersionResponse) {
-    option (google.api.http).get = "/aptcaller/aptcaller/get_transaction_by_version/{txnVersion}";
+    option (google.api.http).get = "/aptcaller/aptcaller/get_transaction_by_version/{header}/{txnVersion}";
   
   }
   
   // Queries a list of GetAccountTransaction items.
   rpc GetAccountTransaction (QueryGetAccountTransactionRequest) returns (QueryGetAccountTransactionResponse) {
-    option (google.api.http).get = "/aptcaller/aptcaller/get_account_transaction/{address}/{limit}/{start}";
+    option (google.api.http).get = "/aptcaller/aptcaller/get_account_transaction/{header}/{address}/{limit}/{start}";
   
   }
   
   // Queries a list of EstimateGasPrice items.
   rpc EstimateGasPrice (QueryEstimateGasPriceRequest) returns (QueryEstimateGasPriceResponse) {
-    option (google.api.http).get = "/aptcaller/aptcaller/estimate_gas_price";
+    option (google.api.http).get = "/aptcaller/aptcaller/{header}/estimate_gas_price";
   
   }
   
@@ -195,7 +195,9 @@ message QueryParamsResponse {
 }
 
 message QueryGetAccountRequest {
-  string address = 1;
+  string header          = 1;
+  string address = 2;
+  string ledgerVersion = 3;
 }
 
 message QueryGetAccountResponse {
@@ -203,10 +205,11 @@ message QueryGetAccountResponse {
 }
 
 message QueryGetAccountResourcesRequest {
-  string address       = 1;
-  string ledgerVersion = 2;
-  string limit         = 3;
-  string start         = 4;
+  string header          = 1;
+  string address       = 2;
+  string ledgerVersion = 3;
+  string limit         = 4;
+  string start         = 5;
 }
 
 message QueryGetAccountResourcesResponse {
@@ -214,10 +217,12 @@ message QueryGetAccountResourcesResponse {
 }
 
 message QueryGetAccountModulesRequest {
-  string address       = 1;
-  string ledgerVersion = 2;
-  string limit         = 3;
-  string start         = 4;
+  string header          = 1;
+  string address       = 2;
+  string ledgerVersion = 3;
+  string limit         = 4;
+  string start         = 5;
+  
 }
 
 message QueryGetAccountModulesResponse {
@@ -225,9 +230,11 @@ message QueryGetAccountModulesResponse {
 }
 
 message QueryGetAccountResourceRequest {
-  string address       = 1;
-  string resourceType  = 2;
-  string ledgerVersion = 3;
+  string header        = 1;
+  string address       = 2;
+  string resourceType  = 3;
+  string ledgerVersion = 4;
+ 
 }
 
 message QueryGetAccountResourceResponse {
@@ -235,9 +242,11 @@ message QueryGetAccountResourceResponse {
 }
 
 message QueryGetAccountModuleRequest {
-  string address       = 1;
-  string moduleName    = 2;
-  string ledgerVersion = 3;
+  string header        = 1;
+  string address       = 2;
+  string moduleName    = 3;
+  string ledgerVersion = 4;
+ 
 }
 
 message QueryGetAccountModuleResponse {
@@ -245,8 +254,9 @@ message QueryGetAccountModuleResponse {
 }
 
 message QueryGetBlockByHeightRequest {
-  string blockHeight      = 1;
-  uint64 withTransactions = 2;
+  string header          = 1;
+  string blockHeight      = 2;
+  uint64 withTransactions = 3;
 }
 
 message QueryGetBlockByHeightResponse {
@@ -254,8 +264,9 @@ message QueryGetBlockByHeightResponse {
 }
 
 message QueryGetBlockByVersionRequest {
-  string version          = 1;
-  uint64 withTransactions = 2;
+  string header          = 1;
+  string version          = 2;
+  uint64 withTransactions = 3;
 }
 
 message QueryGetBlockByVersionResponse {
@@ -263,10 +274,11 @@ message QueryGetBlockByVersionResponse {
 }
 
 message QueryGetEventsByCreationNumberRequest {
-  string address        = 1;
-  string creationNumber = 2;
-  string limit          = 3;
-  string start          = 4;
+  string header          = 1;
+  string address        = 2;
+  string creationNumber = 3;
+  string limit          = 4;
+  string start          = 5;
 }
 
 message QueryGetEventsByCreationNumberResponse {
@@ -274,26 +286,30 @@ message QueryGetEventsByCreationNumberResponse {
 }
 
 message QueryGetEventsByEventHandleRequest {
-  string address     = 1;
-  string eventHandle = 2;
-  string fieldName   = 3;
-  string limit       = 4;
-  string start       = 5;
+  string header          = 1;
+  string address     = 2;
+  string eventHandle = 3;
+  string fieldName   = 4;
+  string limit       = 5;
+  string start       = 6;
 }
 
 message QueryGetEventsByEventHandleResponse {
   AptRes aptRes = 1;
 }
 
-message QueryGetLedgerInfoRequest {}
+message QueryGetLedgerInfoRequest {
+  string header          = 1;
+}
 
 message QueryGetLedgerInfoResponse {
   AptRes aptRes = 1;
 }
 
 message QueryGetTransactionsRequest {
-  string limit = 1;
-  string start = 2;
+  string header          = 1;
+  string limit = 2;
+  string start = 3;
 }
 
 message QueryGetTransactionsResponse {
@@ -301,7 +317,8 @@ message QueryGetTransactionsResponse {
 }
 
 message QueryGetTransactionByHashRequest {
-  string txnHash = 1;
+  string header          = 1;
+  string txnHash = 2;
 }
 
 message QueryGetTransactionByHashResponse {
@@ -309,7 +326,8 @@ message QueryGetTransactionByHashResponse {
 }
 
 message QueryGetWaitTransactionByHashRequest {
-  string txnHash = 1;
+  string header          = 1;
+  string txnHash = 2;
 }
 
 message QueryGetWaitTransactionByHashResponse {
@@ -317,7 +335,8 @@ message QueryGetWaitTransactionByHashResponse {
 }
 
 message QueryGetTransactionByVersionRequest {
-  string txnVersion = 1;
+  string header          = 1;
+  string txnVersion = 2;
 }
 
 message QueryGetTransactionByVersionResponse {
@@ -325,16 +344,19 @@ message QueryGetTransactionByVersionResponse {
 }
 
 message QueryGetAccountTransactionRequest {
-  string address = 1;
-  string limit   = 2;
-  string start   = 3;
+  string header          = 1;
+  string address = 2;
+  string limit   = 3;
+  string start   = 4;
 }
 
 message QueryGetAccountTransactionResponse {
   AptRes aptRes = 1;
 }
 
-message QueryEstimateGasPriceRequest {}
+message QueryEstimateGasPriceRequest {
+  string header          = 1;
+}
 
 message QueryEstimateGasPriceResponse {
   AptRes aptRes = 1;

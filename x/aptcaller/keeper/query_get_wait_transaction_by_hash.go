@@ -25,7 +25,7 @@ func (k Keeper) GetWaitTransactionByHash(goCtx context.Context, req *types.Query
 	baseURL := fmt.Sprintf("%s/transactions/wait_by_hash/%s", apt.Url, req.TxnHash)
 	urlObj, _ := url.Parse(baseURL)
 	finalURL := urlObj.String()
-	res, err := apt.Call(finalURL)
+	res, err := apt.Call(finalURL, req.Header)
 	ret := types.QueryGetWaitTransactionByHashResponse(*res)
 	return &ret, err
 }

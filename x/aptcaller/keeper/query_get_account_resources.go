@@ -39,7 +39,7 @@ func (k Keeper) GetAccountResources(goCtx context.Context, req *types.QueryGetAc
 	}
 	urlObj.RawQuery = params.Encode()
 	finalURL := urlObj.String()
-	res, err := apt.Call(finalURL)
+	res, err := apt.Call(finalURL, req.Header)
 	ret := types.QueryGetAccountResourcesResponse(*res)
 	return &ret, err
 }

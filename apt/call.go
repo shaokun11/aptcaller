@@ -21,8 +21,17 @@ type Header struct {
 	Ts         string `json:"X-Aptos-Ledger-Timestampusec"`
 }
 
-func Call(url string) (*types.QueryGetAccountResponse, error) {
-	resp, err := http.Get(url)
+func Call(url, headerStr string) (*types.QueryGetAccountResponse, error) {
+	client := &http.Client{}
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, status.Error(codes.Unavailable, err.Error())
+	}
+	headers := ParseHeader(headerStr)
+	for key, value := range headers {
+		req.Header.Set(key, value)
+	}
+	resp, err := client.Do(req)
 	if err != nil {
 		return nil, status.Error(codes.Unavailable, err.Error())
 	}

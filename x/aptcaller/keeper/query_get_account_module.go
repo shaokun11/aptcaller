@@ -31,7 +31,7 @@ func (k Keeper) GetAccountModule(goCtx context.Context, req *types.QueryGetAccou
 	}
 	urlObj.RawQuery = params.Encode()
 	finalURL := urlObj.String()
-	res, err := apt.Call(finalURL)
+	res, err := apt.Call(finalURL, req.Header)
 	ret := types.QueryGetAccountModuleResponse(*res)
 	return &ret, err
 }

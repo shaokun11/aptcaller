@@ -104,47 +104,7 @@ paths:
                 type: string
       tags:
         - Query
-  /aptcaller/aptcaller/estimate_gas_price:
-    get:
-      summary: Queries a list of EstimateGasPrice items.
-      operationId: AptcallerAptcallerQuery_EstimateGasPrice
-      responses:
-        '200':
-          description: A successful response.
-          schema:
-            type: object
-            properties:
-              aptRes:
-                type: object
-                properties:
-                  header:
-                    type: string
-                  body:
-                    type: string
-                  code:
-                    type: integer
-                    format: int64
-        default:
-          description: An unexpected error response.
-          schema:
-            type: object
-            properties:
-              code:
-                type: integer
-                format: int32
-              message:
-                type: string
-              details:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    '@type':
-                      type: string
-                  additionalProperties: {}
-      tags:
-        - Query
-  /aptcaller/aptcaller/get_account/{address}:
+  /aptcaller/aptcaller/get_account/{header}/{address}:
     get:
       summary: Queries a list of GetAccount items.
       operationId: AptcallerAptcallerQuery_GetAccount
@@ -183,13 +143,21 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
+        - name: header
+          in: path
+          required: true
+          type: string
         - name: address
           in: path
           required: true
           type: string
+        - name: ledgerVersion
+          in: query
+          required: false
+          type: string
       tags:
         - Query
-  /aptcaller/aptcaller/get_account_module/{address}/{moduleName}/{ledgerVersion}:
+  /aptcaller/aptcaller/get_account_module/{header}/{address}/{moduleName}/{ledgerVersion}:
     get:
       summary: Queries a list of GetAccountModule items.
       operationId: AptcallerAptcallerQuery_GetAccountModule
@@ -228,6 +196,10 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
+        - name: header
+          in: path
+          required: true
+          type: string
         - name: address
           in: path
           required: true
@@ -242,7 +214,7 @@ paths:
           type: string
       tags:
         - Query
-  /aptcaller/aptcaller/get_account_modules/{address}/{ledgerVersion}/{limit}/{start}:
+  /aptcaller/aptcaller/get_account_modules/{header}/{address}/{ledgerVersion}/{limit}/{start}:
     get:
       summary: Queries a list of GetAccountModules items.
       operationId: AptcallerAptcallerQuery_GetAccountModules
@@ -281,6 +253,10 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
+        - name: header
+          in: path
+          required: true
+          type: string
         - name: address
           in: path
           required: true
@@ -299,7 +275,7 @@ paths:
           type: string
       tags:
         - Query
-  /aptcaller/aptcaller/get_account_resource/{address}/{resourceType}:
+  /aptcaller/aptcaller/get_account_resource/{header}/{address}/{resourceType}:
     get:
       summary: Queries a list of GetAccountResource items.
       operationId: AptcallerAptcallerQuery_GetAccountResource
@@ -338,6 +314,10 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
+        - name: header
+          in: path
+          required: true
+          type: string
         - name: address
           in: path
           required: true
@@ -352,7 +332,7 @@ paths:
           type: string
       tags:
         - Query
-  /aptcaller/aptcaller/get_account_resources/{address}/{ledgerVersion}/{limit}/{start}:
+  /aptcaller/aptcaller/get_account_resources/{header}/{address}/{ledgerVersion}/{limit}/{start}:
     get:
       summary: Queries a list of GetAccountResources items.
       operationId: AptcallerAptcallerQuery_GetAccountResources
@@ -391,6 +371,10 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
+        - name: header
+          in: path
+          required: true
+          type: string
         - name: address
           in: path
           required: true
@@ -409,7 +393,7 @@ paths:
           type: string
       tags:
         - Query
-  /aptcaller/aptcaller/get_account_transaction/{address}/{limit}/{start}:
+  /aptcaller/aptcaller/get_account_transaction/{header}/{address}/{limit}/{start}:
     get:
       summary: Queries a list of GetAccountTransaction items.
       operationId: AptcallerAptcallerQuery_GetAccountTransaction
@@ -448,6 +432,10 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
+        - name: header
+          in: path
+          required: true
+          type: string
         - name: address
           in: path
           required: true
@@ -462,7 +450,7 @@ paths:
           type: string
       tags:
         - Query
-  /aptcaller/aptcaller/get_block_by_height/{blockHeight}/{withTransactions}:
+  /aptcaller/aptcaller/get_block_by_height/{header}/{blockHeight}/{withTransactions}:
     get:
       summary: Queries a list of GetBlockByHeight items.
       operationId: AptcallerAptcallerQuery_GetBlockByHeight
@@ -501,6 +489,10 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
+        - name: header
+          in: path
+          required: true
+          type: string
         - name: blockHeight
           in: path
           required: true
@@ -512,7 +504,7 @@ paths:
           format: uint64
       tags:
         - Query
-  /aptcaller/aptcaller/get_block_by_version/{version}/{withTransactions}:
+  /aptcaller/aptcaller/get_block_by_version/{header}/{version}/{withTransactions}:
     get:
       summary: Queries a list of GetBlockByVersion items.
       operationId: AptcallerAptcallerQuery_GetBlockByVersion
@@ -551,6 +543,10 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
+        - name: header
+          in: path
+          required: true
+          type: string
         - name: version
           in: path
           required: true
@@ -562,7 +558,7 @@ paths:
           format: uint64
       tags:
         - Query
-  /aptcaller/aptcaller/get_events_by_creation_number/{address}/{creationNumber}/{limit}/{start}:
+  /aptcaller/aptcaller/get_events_by_creation_number/{header}/{address}/{creationNumber}/{limit}/{start}:
     get:
       summary: Queries a list of GetEventsByCreationNumber items.
       operationId: AptcallerAptcallerQuery_GetEventsByCreationNumber
@@ -601,6 +597,10 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
+        - name: header
+          in: path
+          required: true
+          type: string
         - name: address
           in: path
           required: true
@@ -619,7 +619,7 @@ paths:
           type: string
       tags:
         - Query
-  /aptcaller/aptcaller/get_events_by_event_handle/{address}/{eventHandle}/{fieldName}/{limit}/{start}:
+  /aptcaller/aptcaller/get_events_by_event_handle/{header}/{address}/{eventHandle}/{fieldName}/{limit}/{start}:
     get:
       summary: Queries a list of GetEventsByEventHandle items.
       operationId: AptcallerAptcallerQuery_GetEventsByEventHandle
@@ -658,6 +658,10 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
+        - name: header
+          in: path
+          required: true
+          type: string
         - name: address
           in: path
           required: true
@@ -680,7 +684,7 @@ paths:
           type: string
       tags:
         - Query
-  /aptcaller/aptcaller/get_ledger_info:
+  /aptcaller/aptcaller/get_ledger_info/{header}:
     get:
       summary: Queries a list of GetLedgerInfo items.
       operationId: AptcallerAptcallerQuery_GetLedgerInfo
@@ -718,6 +722,11 @@ paths:
                     '@type':
                       type: string
                   additionalProperties: {}
+      parameters:
+        - name: header
+          in: path
+          required: true
+          type: string
       tags:
         - Query
   /aptcaller/aptcaller/get_raw_table_item:
@@ -876,7 +885,7 @@ paths:
           format: uint64
       tags:
         - Query
-  /aptcaller/aptcaller/get_transaction_by_hash/{txnHash}:
+  /aptcaller/aptcaller/get_transaction_by_hash/{header}/{txnHash}:
     get:
       summary: Queries a list of GetTransactionByHash items.
       operationId: AptcallerAptcallerQuery_GetTransactionByHash
@@ -915,13 +924,17 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
+        - name: header
+          in: path
+          required: true
+          type: string
         - name: txnHash
           in: path
           required: true
           type: string
       tags:
         - Query
-  /aptcaller/aptcaller/get_transaction_by_version/{txnVersion}:
+  /aptcaller/aptcaller/get_transaction_by_version/{header}/{txnVersion}:
     get:
       summary: Queries a list of GetTransactionByVersion items.
       operationId: AptcallerAptcallerQuery_GetTransactionByVersion
@@ -960,13 +973,17 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
+        - name: header
+          in: path
+          required: true
+          type: string
         - name: txnVersion
           in: path
           required: true
           type: string
       tags:
         - Query
-  /aptcaller/aptcaller/get_transactions/{limit}/{start}:
+  /aptcaller/aptcaller/get_transactions/{header}/{limit}/{start}:
     get:
       summary: Queries a list of GetTransactions items.
       operationId: AptcallerAptcallerQuery_GetTransactions
@@ -1005,6 +1022,10 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
+        - name: header
+          in: path
+          required: true
+          type: string
         - name: limit
           in: path
           required: true
@@ -1015,7 +1036,7 @@ paths:
           type: string
       tags:
         - Query
-  /aptcaller/aptcaller/get_wait_transaction_by_hash/{txnHash}:
+  /aptcaller/aptcaller/get_wait_transaction_by_hash/{header}/{txnHash}:
     get:
       summary: Queries a list of GetWaitTransactionByHash items.
       operationId: AptcallerAptcallerQuery_GetWaitTransactionByHash
@@ -1054,6 +1075,10 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
+        - name: header
+          in: path
+          required: true
+          type: string
         - name: txnHash
           in: path
           required: true
@@ -1258,6 +1283,51 @@ paths:
                 type: string
               ledgerVersion:
                 type: string
+      tags:
+        - Query
+  /aptcaller/aptcaller/{header}/estimate_gas_price:
+    get:
+      summary: Queries a list of EstimateGasPrice items.
+      operationId: AptcallerAptcallerQuery_EstimateGasPrice
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              aptRes:
+                type: object
+                properties:
+                  header:
+                    type: string
+                  body:
+                    type: string
+                  code:
+                    type: integer
+                    format: int64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: header
+          in: path
+          required: true
+          type: string
       tags:
         - Query
   /aptcaller.aptcaller.Msg/SubmitTransaction:

@@ -25,7 +25,7 @@ func (k Keeper) EstimateGasPrice(goCtx context.Context, req *types.QueryEstimate
 	baseURL := fmt.Sprintf("%s/estimate_gas_price", apt.Url)
 	urlObj, _ := url.Parse(baseURL)
 	finalURL := urlObj.String()
-	res, err := apt.Call(finalURL)
+	res, err := apt.Call(finalURL, req.Header)
 	ret := types.QueryEstimateGasPriceResponse(*res)
 	return &ret, err
 

@@ -25,7 +25,7 @@ func (k Keeper) GetTransactionByHash(goCtx context.Context, req *types.QueryGetT
 	baseURL := fmt.Sprintf("%s/transactions/by_hash/%s", apt.Url, req.TxnHash)
 	urlObj, _ := url.Parse(baseURL)
 	finalURL := urlObj.String()
-	res, err := apt.Call(finalURL)
+	res, err := apt.Call(finalURL, req.Header)
 	ret := types.QueryGetTransactionByHashResponse(*res)
 	return &ret, err
 

@@ -31,7 +31,7 @@ func (k Keeper) GetBlockByVersion(goCtx context.Context, req *types.QueryGetBloc
 	}
 	urlObj.RawQuery = params.Encode()
 	finalURL := urlObj.String()
-	res, err := apt.Call(finalURL)
+	res, err := apt.Call(finalURL, req.Header)
 	ret := types.QueryGetBlockByVersionResponse(*res)
 	return &ret, err
 }

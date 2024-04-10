@@ -34,7 +34,7 @@ func (k Keeper) GetTransactions(goCtx context.Context, req *types.QueryGetTransa
 	}
 	urlObj.RawQuery = params.Encode()
 	finalURL := urlObj.String()
-	res, err := apt.Call(finalURL)
+	res, err := apt.Call(finalURL, req.Header)
 	ret := types.QueryGetTransactionsResponse(*res)
 	return &ret, err
 }
