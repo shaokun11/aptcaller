@@ -145,7 +145,10 @@ service Query {
   
   // Queries a list of ViewFunction items.
   rpc ViewFunction (QueryViewFunctionRequest) returns (QueryViewFunctionResponse) {
-    option (google.api.http).get = "/aptcaller/aptcaller/view_function/{body}/{ledgerVersion}";
+    option (google.api.http) = {
+      post: "/aptcaller/aptcaller/view_function"
+      body: "*"
+    };
   
   }
   
@@ -363,8 +366,9 @@ message QueryGetTransactionByCountResponse {
 }
 
 message QueryViewFunctionRequest {
-  string body          = 1;
-  string ledgerVersion = 2;
+  string header          = 1;
+  string body            = 2;
+  string ledgerVersion   = 3;
 }
 
 message QueryViewFunctionResponse {

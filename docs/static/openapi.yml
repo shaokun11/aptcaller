@@ -1191,8 +1191,8 @@ paths:
           type: string
       tags:
         - Query
-  /aptcaller/aptcaller/view_function/{body}/{ledgerVersion}:
-    get:
+  /aptcaller/aptcaller/view_function:
+    post:
       summary: Queries a list of ViewFunction items.
       operationId: AptcallerAptcallerQuery_ViewFunction
       responses:
@@ -1231,13 +1231,17 @@ paths:
                   additionalProperties: {}
       parameters:
         - name: body
-          in: path
+          in: body
           required: true
-          type: string
-        - name: ledgerVersion
-          in: path
-          required: true
-          type: string
+          schema:
+            type: object
+            properties:
+              header:
+                type: string
+              body:
+                type: string
+              ledgerVersion:
+                type: string
       tags:
         - Query
   /aptcaller.aptcaller.Msg/SubmitTransaction:
@@ -18236,6 +18240,15 @@ definitions:
           code:
             type: integer
             format: int64
+  aptcaller.aptcaller.QueryViewFunctionRequest:
+    type: object
+    properties:
+      header:
+        type: string
+      body:
+        type: string
+      ledgerVersion:
+        type: string
   aptcaller.aptcaller.QueryViewFunctionResponse:
     type: object
     properties:

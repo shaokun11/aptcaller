@@ -30,7 +30,8 @@ func (k Keeper) ViewFunction(goCtx context.Context, req *types.QueryViewFunction
 	}
 	urlObj.RawQuery = params.Encode()
 	finalURL := urlObj.String()
-	res, err := apt.Post(finalURL, req.Body, apt.HeaderJsonAll)
+	header := apt.ParseHeader(req.Header)
+	res, err := apt.Post(finalURL, req.Body, header)
 	ret := types.QueryViewFunctionResponse(*res)
 	return &ret, err
 }
