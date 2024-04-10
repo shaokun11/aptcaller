@@ -36,9 +36,9 @@ func (k msgServer) SubmitTransaction(goCtx context.Context, msg *types.MsgSubmit
 	res, err := apt.Post(finalURL, string(body), header)
 	ctx.EventManager().EmitEvent(
 		sdk.NewEvent("SubmitTransactionEvent",
-			sdk.NewAttribute("Name", res.AptRes.Body),
-			sdk.NewAttribute("Header", res.AptRes.Header),
-			sdk.NewAttribute("Code", strconv.FormatUint(uint64(res.AptRes.Code), 10)),
+			sdk.NewAttribute("body", res.AptRes.Body),
+			sdk.NewAttribute("header", res.AptRes.Header),
+			sdk.NewAttribute("code", strconv.FormatUint(uint64(res.AptRes.Code), 10)),
 		),
 	)
 	ret := types.MsgSubmitTransactionResponse{
