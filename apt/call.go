@@ -19,6 +19,7 @@ type Header struct {
 	Version    string `json:"X-Aptos-Ledger-Version"`
 	OldVersion string `json:"X-Aptos-Ledger-Oldest-Version"`
 	Ts         string `json:"X-Aptos-Ledger-Timestampusec"`
+	Cursor     string `json:"X-APTOS-CURSOR"`
 }
 
 func Call(url, headerStr string) (*types.QueryGetAccountResponse, error) {
@@ -49,6 +50,7 @@ func Call(url, headerStr string) (*types.QueryGetAccountResponse, error) {
 		Version:    resp.Header.Get("X-Aptos-Ledger-Version"),
 		OldVersion: resp.Header.Get("X-Aptos-Ledger-Oldest-Version"),
 		Ts:         resp.Header.Get("X-Aptos-Ledger-Timestampusec"),
+		Cursor:     resp.Header.Get("X-APTOS-CURSOR"),
 	})
 	return &types.QueryGetAccountResponse{
 		AptRes: &types.AptRes{
@@ -85,6 +87,7 @@ func Post(url string, payload string, headers map[string]string) (*types.QueryGe
 		Version:    resp.Header.Get("X-Aptos-Ledger-Version"),
 		OldVersion: resp.Header.Get("X-Aptos-Ledger-Oldest-Version"),
 		Ts:         resp.Header.Get("X-Aptos-Ledger-Timestampusec"),
+		Cursor:     resp.Header.Get("X-APTOS-CURSOR"),
 	})
 	return &types.QueryGetAccountResponse{
 		AptRes: &types.AptRes{
