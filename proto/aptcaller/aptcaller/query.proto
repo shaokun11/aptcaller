@@ -124,7 +124,7 @@ service Query {
   
   // Queries a list of SimulateTransaction items.
   rpc SimulateTransaction (QuerySimulateTransactionRequest) returns (QuerySimulateTransactionResponse) {
-    option (google.api.http).get = "/aptcaller/aptcaller/simulate_transaction/{body}/{gasUnitPrice}/{maxGasAmount}/{prioritizedGasUnitPrice}";
+    option (google.api.http).get = "/aptcaller/aptcaller/simulate_transaction/{header}/{body}/{gasUnitPrice}/{maxGasAmount}/{prioritizedGasUnitPrice}";
   
   }
   
@@ -329,10 +329,11 @@ message QuerySubmitBatchTransactionResponse {
 }
 
 message QuerySimulateTransactionRequest {
-  string body                    = 1;
-  uint64 gasUnitPrice            = 2;
-  uint64 maxGasAmount            = 3;
-  uint64 prioritizedGasUnitPrice = 4;
+  string header                  = 1;
+  string body                    = 2;
+  uint64 gasUnitPrice            = 3;
+  uint64 maxGasAmount            = 4;
+  uint64 prioritizedGasUnitPrice = 5;
 }
 
 message QuerySimulateTransactionResponse {

@@ -1388,6 +1388,17 @@ func request_Query_SimulateTransaction_0(ctx context.Context, marshaler runtime.
 		_   = err
 	)
 
+	val, ok = pathParams["header"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "header")
+	}
+
+	protoReq.Header, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "header", err)
+	}
+
 	val, ok = pathParams["body"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "body")
@@ -1447,6 +1458,17 @@ func local_request_Query_SimulateTransaction_0(ctx context.Context, marshaler ru
 		err error
 		_   = err
 	)
+
+	val, ok = pathParams["header"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "header")
+	}
+
+	protoReq.Header, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "header", err)
+	}
 
 	val, ok = pathParams["body"]
 	if !ok {
@@ -3089,7 +3111,7 @@ var (
 
 	pattern_Query_SubmitBatchTransaction_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"aptcaller", "submit_batch_transaction", "body"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_SimulateTransaction_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5}, []string{"aptcaller", "simulate_transaction", "body", "gasUnitPrice", "maxGasAmount", "prioritizedGasUnitPrice"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_SimulateTransaction_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6}, []string{"aptcaller", "simulate_transaction", "header", "body", "gasUnitPrice", "maxGasAmount", "prioritizedGasUnitPrice"}, "", runtime.AssumeColonVerbOpt(false)))
 
 	pattern_Query_EncodeSubmission_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"aptcaller", "encode_submission", "body"}, "", runtime.AssumeColonVerbOpt(false)))
 

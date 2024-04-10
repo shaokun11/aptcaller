@@ -41,7 +41,8 @@ message MsgUpdateParamsResponse {}
 message MsgSubmitTransaction {
   option (cosmos.msg.v1.signer) = "creator";
   string creator = 1;
-  string body    = 2;
+  string header  = 2;
+  string body    = 3;
 }
 
 message MsgSubmitTransactionResponse {

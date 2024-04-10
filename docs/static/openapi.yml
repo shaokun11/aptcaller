@@ -1082,7 +1082,7 @@ paths:
                   additionalProperties: {}
       tags:
         - Query
-  /aptcaller/aptcaller/simulate_transaction/{body}/{gasUnitPrice}/{maxGasAmount}/{prioritizedGasUnitPrice}:
+  /aptcaller/aptcaller/simulate_transaction/{header}/{body}/{gasUnitPrice}/{maxGasAmount}/{prioritizedGasUnitPrice}:
     get:
       summary: Queries a list of SimulateTransaction items.
       operationId: AptcallerAptcallerQuery_SimulateTransaction
@@ -1121,6 +1121,10 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
+        - name: header
+          in: path
+          required: true
+          type: string
         - name: body
           in: path
           required: true
@@ -1281,6 +1285,8 @@ paths:
             type: object
             properties:
               creator:
+                type: string
+              header:
                 type: string
               body:
                 type: string
@@ -18226,6 +18232,8 @@ definitions:
     type: object
     properties:
       creator:
+        type: string
+      header:
         type: string
       body:
         type: string

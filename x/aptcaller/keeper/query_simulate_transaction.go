@@ -38,12 +38,14 @@ func (k Keeper) SimulateTransaction(goCtx context.Context, req *types.QuerySimul
 	}
 	urlObj.RawQuery = params.Encode()
 	finalURL := urlObj.String()
-	header := apt.HeaderJsonAll
 	bs, err := hex.DecodeString(req.Body)
 	if err != nil {
-		panic(err)
+		return nil, status.Error(codes.InvalidArgument, "parse body error")
 	}
-	header["Content-Type"] = apt.HeaderBcs
+	header, err := apt.ParseHeader(req.Header)
+	if err != nil {
+		return nil, err
+	}
 	res, err := apt.Post(finalURL, string(bs), header)
 	ret := types.QuerySimulateTransactionResponse(*res)
 	return &ret, err
