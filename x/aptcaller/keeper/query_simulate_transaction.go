@@ -42,10 +42,8 @@ func (k Keeper) SimulateTransaction(goCtx context.Context, req *types.QuerySimul
 	if err != nil {
 		return nil, status.Error(codes.InvalidArgument, "parse body error")
 	}
-	header, err := apt.ParseHeader(req.Header)
-	if err != nil {
-		return nil, err
-	}
+	header := apt.ParseHeader(req.Header)
+
 	res, err := apt.Post(finalURL, string(bs), header)
 	ret := types.QuerySimulateTransactionResponse(*res)
 	return &ret, err

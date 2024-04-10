@@ -29,10 +29,7 @@ func (k msgServer) SubmitTransaction(goCtx context.Context, msg *types.MsgSubmit
 	if err != nil {
 		return nil, status.Error(codes.InvalidArgument, "parse body error")
 	}
-	header, err := apt.ParseHeader(msg.Header)
-	if err != nil {
-		return nil, err
-	}
+	header := apt.ParseHeader(msg.Header)
 	res, err := apt.Post(finalURL, string(body), header)
 	ctx.EventManager().EmitEvent(
 		sdk.NewEvent("SubmitTransactionEvent",
