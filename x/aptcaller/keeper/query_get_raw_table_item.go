@@ -31,7 +31,8 @@ func (k Keeper) GetRawTableItem(goCtx context.Context, req *types.QueryGetRawTab
 	}
 	urlObj.RawQuery = params.Encode()
 	finalURL := urlObj.String()
-	res, err := apt.Post(finalURL, req.Body, apt.HeaderJsonAll)
+	header := apt.ParseHeader(req.Header)
+	res, err := apt.Post(finalURL, req.Body, header)
 	ret := types.QueryGetRawTableItemResponse(*res)
 	return &ret, err
 }

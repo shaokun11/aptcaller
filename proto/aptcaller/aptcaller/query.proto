@@ -118,7 +118,10 @@ service Query {
   
   // Queries a list of SubmitBatchTransaction items.
   rpc SubmitBatchTransaction (QuerySubmitBatchTransactionRequest) returns (QuerySubmitBatchTransactionResponse) {
-    option (google.api.http).get = "/aptcaller/aptcaller/submit_batch_transaction/{body}";
+    option (google.api.http) = {
+      post: "/aptcaller/aptcaller/submit_batch_transaction"
+      body: "*"
+    };
   
   }
   
@@ -133,7 +136,10 @@ service Query {
   
   // Queries a list of EncodeSubmission items.
   rpc EncodeSubmission (QueryEncodeSubmissionRequest) returns (QueryEncodeSubmissionResponse) {
-    option (google.api.http).get = "/aptcaller/aptcaller/encode_submission/{body}";
+    option (google.api.http) = {
+      post: "/aptcaller/aptcaller/encode_submission"
+      body: "*"
+    };
   
   }
   
@@ -154,14 +160,19 @@ service Query {
   
   // Queries a list of GetTableItem items.
   rpc GetTableItem (QueryGetTableItemRequest) returns (QueryGetTableItemResponse) {
-    option (google.api.http).get = "/aptcaller/aptcaller/get_table_item/{tableHandle}/{ledgerVersion}";
+    option (google.api.http) = {
+      post: "/aptcaller/aptcaller/get_table_item"
+      body: "*"
+    };
   
   }
   
   // Queries a list of GetRawTableItem items.
   rpc GetRawTableItem (QueryGetRawTableItemRequest) returns (QueryGetRawTableItemResponse) {
-    option (google.api.http).get = "/aptcaller/aptcaller/get_raw_table_item/{tableHandle}/{body}/{ledgerVersion}";
-  
+    option (google.api.http) = {
+      post: "/aptcaller/aptcaller/get_raw_table_item"
+      body: "*"
+    };
   }
   
   // Queries a list of AptosIndexer items.
@@ -330,7 +341,8 @@ message QueryEstimateGasPriceResponse {
 }
 
 message QuerySubmitBatchTransactionRequest {
-  string body = 1;
+  string header          = 1;
+  string body            = 2;
 }
 
 message QuerySubmitBatchTransactionResponse {
@@ -350,7 +362,8 @@ message QuerySimulateTransactionResponse {
 }
 
 message QueryEncodeSubmissionRequest {
-  string body = 1;
+  string header          = 1;
+  string body            = 2;
 }
 
 message QueryEncodeSubmissionResponse {
@@ -376,9 +389,10 @@ message QueryViewFunctionResponse {
 }
 
 message QueryGetTableItemRequest {
-  string tableHandle   = 1;
-  string body          = 2;
-  string ledgerVersion = 3;
+  string header          = 1;
+  string tableHandle   = 2;
+  string body          = 3;
+  string ledgerVersion = 4;
 }
 
 message QueryGetTableItemResponse {
@@ -386,9 +400,10 @@ message QueryGetTableItemResponse {
 }
 
 message QueryGetRawTableItemRequest {
-  string tableHandle   = 1;
-  string body          = 2;
-  string ledgerVersion = 3;
+  string header           = 1;
+  string tableHandle      = 2;
+  string body             = 3;
+  string ledgerVersion    = 4;
 }
 
 message QueryGetRawTableItemResponse {

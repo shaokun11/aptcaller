@@ -53,8 +53,8 @@ paths:
                 type: string
       tags:
         - Query
-  /aptcaller/aptcaller/encode_submission/{body}:
-    get:
+  /aptcaller/aptcaller/encode_submission:
+    post:
       summary: Queries a list of EncodeSubmission items.
       operationId: AptcallerAptcallerQuery_EncodeSubmission
       responses:
@@ -93,9 +93,15 @@ paths:
                   additionalProperties: {}
       parameters:
         - name: body
-          in: path
+          in: body
           required: true
-          type: string
+          schema:
+            type: object
+            properties:
+              header:
+                type: string
+              body:
+                type: string
       tags:
         - Query
   /aptcaller/aptcaller/estimate_gas_price:
@@ -714,8 +720,8 @@ paths:
                   additionalProperties: {}
       tags:
         - Query
-  /aptcaller/aptcaller/get_raw_table_item/{tableHandle}/{body}/{ledgerVersion}:
-    get:
+  /aptcaller/aptcaller/get_raw_table_item:
+    post:
       summary: Queries a list of GetRawTableItem items.
       operationId: AptcallerAptcallerQuery_GetRawTableItem
       responses:
@@ -753,22 +759,24 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
-        - name: tableHandle
-          in: path
-          required: true
-          type: string
         - name: body
-          in: path
+          in: body
           required: true
-          type: string
-        - name: ledgerVersion
-          in: path
-          required: true
-          type: string
+          schema:
+            type: object
+            properties:
+              header:
+                type: string
+              tableHandle:
+                type: string
+              body:
+                type: string
+              ledgerVersion:
+                type: string
       tags:
         - Query
-  /aptcaller/aptcaller/get_table_item/{tableHandle}/{ledgerVersion}:
-    get:
+  /aptcaller/aptcaller/get_table_item:
+    post:
       summary: Queries a list of GetTableItem items.
       operationId: AptcallerAptcallerQuery_GetTableItem
       responses:
@@ -806,18 +814,20 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
-        - name: tableHandle
-          in: path
-          required: true
-          type: string
-        - name: ledgerVersion
-          in: path
-          required: true
-          type: string
         - name: body
-          in: query
-          required: false
-          type: string
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              header:
+                type: string
+              tableHandle:
+                type: string
+              body:
+                type: string
+              ledgerVersion:
+                type: string
       tags:
         - Query
   /aptcaller/aptcaller/get_transaction_by_count/{count}:
@@ -1146,8 +1156,8 @@ paths:
                 format: uint64
       tags:
         - Query
-  /aptcaller/aptcaller/submit_batch_transaction/{body}:
-    get:
+  /aptcaller/aptcaller/submit_batch_transaction:
+    post:
       summary: Queries a list of SubmitBatchTransaction items.
       operationId: AptcallerAptcallerQuery_SubmitBatchTransaction
       responses:
@@ -1186,9 +1196,15 @@ paths:
                   additionalProperties: {}
       parameters:
         - name: body
-          in: path
+          in: body
           required: true
-          type: string
+          schema:
+            type: object
+            properties:
+              header:
+                type: string
+              body:
+                type: string
       tags:
         - Query
   /aptcaller/aptcaller/view_function:
@@ -17931,6 +17947,13 @@ definitions:
           code:
             type: integer
             format: int64
+  aptcaller.aptcaller.QueryEncodeSubmissionRequest:
+    type: object
+    properties:
+      header:
+        type: string
+      body:
+        type: string
   aptcaller.aptcaller.QueryEncodeSubmissionResponse:
     type: object
     properties:
@@ -18100,6 +18123,17 @@ definitions:
           code:
             type: integer
             format: int64
+  aptcaller.aptcaller.QueryGetRawTableItemRequest:
+    type: object
+    properties:
+      header:
+        type: string
+      tableHandle:
+        type: string
+      body:
+        type: string
+      ledgerVersion:
+        type: string
   aptcaller.aptcaller.QueryGetRawTableItemResponse:
     type: object
     properties:
@@ -18113,6 +18147,17 @@ definitions:
           code:
             type: integer
             format: int64
+  aptcaller.aptcaller.QueryGetTableItemRequest:
+    type: object
+    properties:
+      header:
+        type: string
+      tableHandle:
+        type: string
+      body:
+        type: string
+      ledgerVersion:
+        type: string
   aptcaller.aptcaller.QueryGetTableItemResponse:
     type: object
     properties:
@@ -18227,6 +18272,13 @@ definitions:
           code:
             type: integer
             format: int64
+  aptcaller.aptcaller.QuerySubmitBatchTransactionRequest:
+    type: object
+    properties:
+      header:
+        type: string
+      body:
+        type: string
   aptcaller.aptcaller.QuerySubmitBatchTransactionResponse:
     type: object
     properties:

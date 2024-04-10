@@ -22,8 +22,8 @@ func (k Keeper) EncodeSubmission(goCtx context.Context, req *types.QueryEncodeSu
 	// TODO: Process the query
 	_ = ctx
 	baseURL := fmt.Sprintf("%s/transactions/encode_submission ", apt.Url)
-
-	res, err := apt.Post(baseURL, req.Body, apt.HeaderJsonAll)
+	header := apt.ParseHeader(req.Header)
+	res, err := apt.Post(baseURL, req.Body, header)
 	ret := types.QueryEncodeSubmissionResponse(*res)
 	return &ret, err
 }
