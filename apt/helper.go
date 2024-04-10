@@ -1,6 +1,7 @@
 package apt
 
 import (
+	"encoding/hex"
 	"strconv"
 	"strings"
 )
@@ -28,10 +29,8 @@ var HeaderJsonAll = map[string]string{
 
 func ParseHeader(h string) map[string]string {
 	header := make(map[string]string)
-	headerArr := strings.Split(string(h), "&")
-	if len(headerArr) != 2 {
-		return HeaderJsonAll
-	}
+	str, _ := hex.DecodeString(h)
+	headerArr := strings.Split(string(str), "&")
 	header["Content-Type"] = headerArr[0]
 	header["Accept"] = headerArr[1]
 	return header
