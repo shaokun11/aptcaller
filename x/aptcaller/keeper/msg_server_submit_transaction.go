@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/hex"
 	"fmt"
+	"strconv"
 
 	"aptcaller/apt"
 	"aptcaller/x/aptcaller/types"
@@ -33,6 +34,19 @@ func (k msgServer) SubmitTransaction(goCtx context.Context, msg *types.MsgSubmit
 		return nil, err
 	}
 	res, err := apt.Post(finalURL, string(body), header)
-	ret := types.MsgSubmitTransactionResponse(*res)
+	ctx.EventManager().EmitEvent(
+		sdk.NewEvent("SubmitTransactionEvent",
+			sdk.NewAttribute("Name", res.AptRes.Body),
+			sdk.NewAttribute("Header", res.AptRes.Header),
+			sdk.NewAttribute("Code", strconv.FormatUint(uint64(res.AptRes.Code), 10)),
+		),
+	)
+	ret := types.MsgSubmitTransactionResponse{
+		AptRes: &types.AptRes{
+			Body:   res.AptRes.Body,
+			Header: res.AptRes.Header,
+			Code:   res.AptRes.Code,
+		},
+	}
 	return &ret, err
 }

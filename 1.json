@@ -1,0 +1,27 @@
+{
+    "body": {
+        "messages": [
+            {
+                "@type": "/aptcaller.aptcaller.MsgSubmitTransaction",
+                "creator": "cosmos1fr0kcylhmu82p4ml0w70lpk4lpaj2mw6djs4k3",
+                "header": "6170706c69636174696f6e2f782e6170746f732e7369676e65645f7472616e73616374696f6e2b626373266170706c69636174696f6e2f6a736f6e",
+                "body": "6c7efc6b3b0f2a3240736b0efaf514c7aa3c3de79c5e9b82dc72c8fe93b15ec203000000000000000200000000000000000000000000000000000000000000000000000000000000010d6170746f735f6163636f756e740e7472616e736665725f636f696e73010700000000000000000000000000000000000000000000000000000000000000010a6170746f735f636f696e094170746f73436f696e0002203721b408f83b272e144bb4a4c13ac44a4de6dbb18c63b19a9d9087eedfd823d10810270000000000000e0000000000000096000000000000003827166600000000020020946f16230623155c6d9e7d347d34faa64e24921e7db205f6183cf8c37a098dae40472d55306a78e6416bb38e4d813539ebd6571b74e3800828033c88b79f02650e53554ecf497dee8ddd190d905fc5563c03423c45fde4e90149b1b3d56644e603"
+            }
+        ],
+        "memo": "",
+        "timeout_height": "0",
+        "extension_options": [],
+        "non_critical_extension_options": []
+    },
+    "auth_info": {
+        "signer_infos": [],
+        "fee": {
+            "amount": [],
+            "gas_limit": "200000",
+            "payer": "",
+            "granter": ""
+        },
+        "tip": null
+    },
+    "signatures": []
+}

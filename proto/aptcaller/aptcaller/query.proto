@@ -124,7 +124,10 @@ service Query {
   
   // Queries a list of SimulateTransaction items.
   rpc SimulateTransaction (QuerySimulateTransactionRequest) returns (QuerySimulateTransactionResponse) {
-    option (google.api.http).get = "/aptcaller/aptcaller/simulate_transaction/{header}/{body}/{gasUnitPrice}/{maxGasAmount}/{prioritizedGasUnitPrice}";
+    option (google.api.http) = {
+      post: "/aptcaller/aptcaller/simulate_transaction"
+      body: "*"
+    };
   
   }
   

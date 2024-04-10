@@ -23,11 +23,6 @@ func IsValidQueryCursor(s string) bool {
 	return res > 0
 }
 
-var HeaderBcs = "application/x-bcs"
-var HeaderJson = "application/json"
-var HeaderTRANSACTION = "application/x.aptos.signed_transaction+bcs"
-var HeaderView = "application/x.aptos.view_function+bcs"
-
 var HeaderJsonAll = map[string]string{
 	"Content-Type": "application/json",
 	"Accept":       "application/json",
@@ -40,6 +35,9 @@ func ParseHeader(h string) (map[string]string, error) {
 		return nil, errors.New("parse header error")
 	}
 	headerArr := strings.Split(string(str), "&")
+	if len(headerArr) != 2 {
+		return nil, errors.New("header content error")
+	}
 	header["Content-Type"] = headerArr[0]
 	header["Accept"] = headerArr[1]
 	return header, nil
