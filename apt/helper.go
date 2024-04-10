@@ -22,11 +22,6 @@ func IsValidQueryCursor(s string) bool {
 	return res > 0
 }
 
-var HeaderJsonAll = map[string]string{
-	"Content-Type": "application/json",
-	"Accept":       "application/json",
-}
-
 func ParseHeader(h string) map[string]string {
 	header := make(map[string]string)
 	str, _ := hex.DecodeString(h)
