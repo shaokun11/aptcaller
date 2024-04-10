@@ -198,9 +198,9 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 				},
 				{
 					RpcMethod:      "SubmitTransaction",
-					Use:            "submit-transaction [body]",
+					Use:            "submit-transaction [header] [body]",
 					Short:          "Send a submit-transaction tx",
-					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "body"}},
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "header"}, {ProtoField: "body"}},
 				},
 				// this line is used by ignite scaffolding # autocli/tx
 			},
