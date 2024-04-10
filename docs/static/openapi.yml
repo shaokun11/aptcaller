@@ -4,113 +4,8 @@ info:
   name: ''
   description: ''
 paths:
-  /aptcaller.aptcaller.Msg/SubmitTransaction:
+  /aptcaller/aptcaller/aptos_indexer:
     post:
-      operationId: AptcallerAptcallerMsg_SubmitTransaction
-      responses:
-        '200':
-          description: A successful response.
-          schema:
-            type: object
-            properties:
-              aptRes:
-                type: object
-                properties:
-                  header:
-                    type: string
-                  body:
-                    type: string
-                  code:
-                    type: integer
-                    format: int64
-        default:
-          description: An unexpected error response.
-          schema:
-            type: object
-            properties:
-              code:
-                type: integer
-                format: int32
-              message:
-                type: string
-              details:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    '@type':
-                      type: string
-                  additionalProperties: {}
-      parameters:
-        - name: body
-          in: body
-          required: true
-          schema:
-            type: object
-            properties:
-              creator:
-                type: string
-              header:
-                type: string
-              body:
-                type: string
-      tags:
-        - Msg
-  /aptcaller.aptcaller.Msg/UpdateParams:
-    post:
-      summary: |-
-        UpdateParams defines a (governance) operation for updating the module
-        parameters. The authority defaults to the x/gov module account.
-      operationId: AptcallerAptcallerMsg_UpdateParams
-      responses:
-        '200':
-          description: A successful response.
-          schema:
-            type: object
-            description: >-
-              MsgUpdateParamsResponse defines the response structure for
-              executing a
-
-              MsgUpdateParams message.
-        default:
-          description: An unexpected error response.
-          schema:
-            type: object
-            properties:
-              code:
-                type: integer
-                format: int32
-              message:
-                type: string
-              details:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    '@type':
-                      type: string
-                  additionalProperties: {}
-      parameters:
-        - name: body
-          description: MsgUpdateParams is the Msg/UpdateParams request type.
-          in: body
-          required: true
-          schema:
-            type: object
-            properties:
-              authority:
-                type: string
-                description: >-
-                  authority is the address that controls the module (defaults to
-                  x/gov unless overwritten).
-              params:
-                description: 'NOTE: All parameters must be supplied.'
-                type: object
-            description: MsgUpdateParams is the Msg/UpdateParams request type.
-      tags:
-        - Msg
-  /aptcaller/aptcaller/aptos_indexer/{body}:
-    get:
       summary: Queries a list of AptosIndexer items.
       operationId: AptcallerAptcallerQuery_AptosIndexer
       responses:
@@ -149,9 +44,13 @@ paths:
                   additionalProperties: {}
       parameters:
         - name: body
-          in: path
+          in: body
           required: true
-          type: string
+          schema:
+            type: object
+            properties:
+              body:
+                type: string
       tags:
         - Query
   /aptcaller/aptcaller/encode_submission/{body}:
@@ -1341,6 +1240,111 @@ paths:
           type: string
       tags:
         - Query
+  /aptcaller.aptcaller.Msg/SubmitTransaction:
+    post:
+      operationId: AptcallerAptcallerMsg_SubmitTransaction
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              aptRes:
+                type: object
+                properties:
+                  header:
+                    type: string
+                  body:
+                    type: string
+                  code:
+                    type: integer
+                    format: int64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              creator:
+                type: string
+              header:
+                type: string
+              body:
+                type: string
+      tags:
+        - Msg
+  /aptcaller.aptcaller.Msg/UpdateParams:
+    post:
+      summary: |-
+        UpdateParams defines a (governance) operation for updating the module
+        parameters. The authority defaults to the x/gov module account.
+      operationId: AptcallerAptcallerMsg_UpdateParams
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            description: >-
+              MsgUpdateParamsResponse defines the response structure for
+              executing a
+
+              MsgUpdateParams message.
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: body
+          description: MsgUpdateParams is the Msg/UpdateParams request type.
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              authority:
+                type: string
+                description: >-
+                  authority is the address that controls the module (defaults to
+                  x/gov unless overwritten).
+              params:
+                description: 'NOTE: All parameters must be supplied.'
+                type: object
+            description: MsgUpdateParams is the Msg/UpdateParams request type.
+      tags:
+        - Msg
   /cosmos.auth.v1beta1.Msg/UpdateParams:
     post:
       summary: >-
@@ -17902,48 +17906,14 @@ definitions:
       code:
         type: integer
         format: int64
-  aptcaller.aptcaller.MsgSubmitTransaction:
-    type: object
-    properties:
-      creator:
-        type: string
-      header:
-        type: string
-      body:
-        type: string
-  aptcaller.aptcaller.MsgSubmitTransactionResponse:
-    type: object
-    properties:
-      aptRes:
-        type: object
-        properties:
-          header:
-            type: string
-          body:
-            type: string
-          code:
-            type: integer
-            format: int64
-  aptcaller.aptcaller.MsgUpdateParams:
-    type: object
-    properties:
-      authority:
-        type: string
-        description: >-
-          authority is the address that controls the module (defaults to x/gov
-          unless overwritten).
-      params:
-        description: 'NOTE: All parameters must be supplied.'
-        type: object
-    description: MsgUpdateParams is the Msg/UpdateParams request type.
-  aptcaller.aptcaller.MsgUpdateParamsResponse:
-    type: object
-    description: |-
-      MsgUpdateParamsResponse defines the response structure for executing a
-      MsgUpdateParams message.
   aptcaller.aptcaller.Params:
     type: object
     description: Params defines the parameters for the module.
+  aptcaller.aptcaller.QueryAptosIndexerRequest:
+    type: object
+    properties:
+      body:
+        type: string
   aptcaller.aptcaller.QueryAptosIndexerResponse:
     type: object
     properties:
@@ -18279,6 +18249,45 @@ definitions:
           code:
             type: integer
             format: int64
+  aptcaller.aptcaller.MsgSubmitTransaction:
+    type: object
+    properties:
+      creator:
+        type: string
+      header:
+        type: string
+      body:
+        type: string
+  aptcaller.aptcaller.MsgSubmitTransactionResponse:
+    type: object
+    properties:
+      aptRes:
+        type: object
+        properties:
+          header:
+            type: string
+          body:
+            type: string
+          code:
+            type: integer
+            format: int64
+  aptcaller.aptcaller.MsgUpdateParams:
+    type: object
+    properties:
+      authority:
+        type: string
+        description: >-
+          authority is the address that controls the module (defaults to x/gov
+          unless overwritten).
+      params:
+        description: 'NOTE: All parameters must be supplied.'
+        type: object
+    description: MsgUpdateParams is the Msg/UpdateParams request type.
+  aptcaller.aptcaller.MsgUpdateParamsResponse:
+    type: object
+    description: |-
+      MsgUpdateParamsResponse defines the response structure for executing a
+      MsgUpdateParams message.
   cosmos.auth.v1beta1.MsgUpdateParams:
     type: object
     properties:

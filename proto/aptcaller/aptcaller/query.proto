@@ -163,7 +163,10 @@ service Query {
   
   // Queries a list of AptosIndexer items.
   rpc AptosIndexer (QueryAptosIndexerRequest) returns (QueryAptosIndexerResponse) {
-    option (google.api.http).get = "/aptcaller/aptcaller/aptos_indexer/{body}";
+    option (google.api.http) = {
+      post: "/aptcaller/aptcaller/aptos_indexer"
+      body: "*"
+    };
   
   }
 }

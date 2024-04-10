@@ -2,7 +2,6 @@ package keeper
 
 import (
 	"context"
-	"encoding/hex"
 
 	"aptcaller/apt"
 	"aptcaller/x/aptcaller/types"
@@ -21,12 +20,7 @@ func (k Keeper) AptosIndexer(goCtx context.Context, req *types.QueryAptosIndexer
 
 	// TODO: Process the query
 	_ = ctx
-
-	bs, err := hex.DecodeString(req.Body)
-	if err != nil {
-		panic(err)
-	}
-	res, err := apt.PostRaw(apt.IndexerUrl, string(bs))
+	res, err := apt.PostRaw(apt.IndexerUrl, req.Body)
 	ret := types.QueryAptosIndexerResponse(*res)
 	return &ret, err
 }
