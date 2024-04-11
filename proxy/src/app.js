@@ -73,8 +73,7 @@ router.get('/accounts/:address/resources', async (req, res) => {
     }
     const url =
         URL +
-        `get_account_resources/${option.header}/${option.address}/${option.ledger_version || 0}/${
-            option.limit || 0
+        `get_account_resources/${option.header}/${option.address}/${option.ledger_version || "0"}/${option.limit || 0
         }/${option.start || 0}`;
     const result = await call(url);
     res.sendData(result);
@@ -92,8 +91,7 @@ router.get('/accounts/:address/modules', async (req, res) => {
     }
     const url =
         URL +
-        `get_account_modules/${option.header}/${option.account}/${option.ledger_version || 0}/${
-            option.limit || 0
+        `get_account_modules/${option.header}/${option.account}/${option.ledger_version || "0"}/${option.limit || 0
         }/${option.start || 0}`;
     const result = await call(url);
     res.sendData(result);
@@ -128,7 +126,7 @@ router.get('/accounts/:address/module/:module_name', async (req, res) => {
     }
     const url =
         URL +
-        `get_account_module/${option.header}/${option.account}/${option.module_name}/${option.ledger_version || 0}`;
+        `get_account_module/${option.header}/${option.account}/${option.module_name}/${option.ledger_version || "0"}`;
     const result = await call(url);
     res.sendData(result);
 });
@@ -177,8 +175,7 @@ router.get('/accounts/:address/events/:creation_number', async (req, res) => {
     };
     const url =
         URL +
-        `get_events_by_creation_number/${option.header}/${option.address}/${
-            option.creation_number
+        `get_events_by_creation_number/${option.header}/${option.address}/${option.creation_number
         }/${option.limit || 0}/${option.start || 0}`;
     const result = await call(url);
     res.sendData(result);
@@ -198,8 +195,7 @@ router.get('/accounts/:address/events/:event_handle/:field_name', async (req, re
     };
     const url =
         URL +
-        `get_events_by_event_handle/${option.header}/${option.address}/${option.event_handle}/${
-            option.field_name
+        `get_events_by_event_handle/${option.header}/${option.address}/${option.event_handle}/${option.field_name
         }/${option.limit || 0}/${option.start || 0}`;
     const result = await call(url);
     res.sendData(result);
@@ -307,7 +303,7 @@ router.post('/view', async (req, res) => {
     const result = await post(url, {
         body: JSON.stringify(req.body),
         header: req.req_header,
-        ledgerVersion: req.query.ledger_version || 0,
+        ledgerVersion: req.query?.ledger_version || "0",
     });
     res.sendData(result);
 });
@@ -336,7 +332,7 @@ router.post('/tables/:table_handle/item', async (req, res) => {
         body: option.body,
         header: req.req_header,
         tableHandle: req.req_header,
-        ledgerVersion: option.ledger_version || 0,
+        ledgerVersion: option.ledger_version || "0",
     });
     res.sendData(result);
 });
@@ -356,7 +352,7 @@ router.post('/tables/:table_handle/raw_item', async (req, res) => {
         body: option.body,
         header: req.req_header,
         tableHandle: option.table_handle,
-        ledgerVersion: option.ledger_version || 0,
+        ledgerVersion: option.ledger_version || "0",
     });
     res.sendData(result);
 });
@@ -424,6 +420,7 @@ const bcs_formatter = (req, res, next) => {
 };
 const chain_check = (req, res, next) => {
     const chain = req.params.chain;
+    console.log("chain", chain)
     const supportChains = ['emv1', 'emv2', 'apt1', 'apt2'];
     if (!supportChains.includes(chain)) {
         res.status(404);

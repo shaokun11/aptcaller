@@ -22,7 +22,7 @@ export const EVM_CONTRACT = '0x1';
 /**
  * CHAIN_ID is the ID of the chain
  */
-export const CHAIN_ID = 336;
+export const CHAIN_ID = process.env.CHAIN_ID || 336;
 
 /**
  * ZERO_HASH is a constant representing a hash of all zeros

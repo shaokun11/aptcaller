@@ -65,6 +65,7 @@ exports.post = async function (url, body, parse = true) {
         },
         body: JSON.stringify(body),
     }).then(response => response.json());
+    console.log("----post res-------",url , res,body)
     if (parse) {
         return parseRet(res);
     }

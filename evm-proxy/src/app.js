@@ -55,7 +55,6 @@ app.get('/v1/move_hash', async function (req, res, next) {
         data: move_hash,
     });
 });
-
 app.use('/', async function (req, res, next) {
     const context = { ip: req.ip };
     console.log('>>> %s %s', context.ip, req.body.method);
