@@ -1,10 +1,11 @@
 // User.js
 
 import { DataTypes, Sequelize } from 'sequelize';
+import { DB_DIR } from './const.js';
 
 const sequelize = new Sequelize('database', null, null, {
     dialect: 'sqlite',
-    storage: './db/database.db',
+    storage: DB_DIR,
     logging: false,
 });
 
