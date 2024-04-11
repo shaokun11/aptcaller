@@ -367,6 +367,7 @@ router.get('/-/healthy', async (req, res) => {
 
 router.post('/graphql', async (req, res) => {
     const url = URL + `aptos_indexer`;
+    throw new Error('not support');
     const result = await post(
         url,
         {
