@@ -24,7 +24,11 @@ func (k msgServer) SubmitTransaction(goCtx context.Context, msg *types.MsgSubmit
 		AptTx:   msg.Body,
 		Id:      0,
 	})
-	finalURL := fmt.Sprintf("%s/transactions", apt.Url)
+	chainUrl, err := apt.ParseChain(msg.Header)
+	if err != nil {
+		return nil, err
+	}
+	finalURL := fmt.Sprintf("%s/transactions", chainUrl)
 	body, err := hex.DecodeString(msg.Body)
 	if err != nil {
 		return nil, status.Error(codes.InvalidArgument, "parse body error")
