@@ -104,6 +104,51 @@ paths:
                 type: string
       tags:
         - Query
+  /aptcaller/aptcaller/estimate_gas_price/{header}:
+    get:
+      summary: Queries a list of EstimateGasPrice items.
+      operationId: AptcallerAptcallerQuery_EstimateGasPrice
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              aptRes:
+                type: object
+                properties:
+                  header:
+                    type: string
+                  body:
+                    type: string
+                  code:
+                    type: integer
+                    format: int64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: header
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
   /aptcaller/aptcaller/get_account/{header}/{address}:
     get:
       summary: Queries a list of GetAccount items.
@@ -1283,51 +1328,6 @@ paths:
                 type: string
               ledgerVersion:
                 type: string
-      tags:
-        - Query
-  /aptcaller/aptcaller/{header}/estimate_gas_price:
-    get:
-      summary: Queries a list of EstimateGasPrice items.
-      operationId: AptcallerAptcallerQuery_EstimateGasPrice
-      responses:
-        '200':
-          description: A successful response.
-          schema:
-            type: object
-            properties:
-              aptRes:
-                type: object
-                properties:
-                  header:
-                    type: string
-                  body:
-                    type: string
-                  code:
-                    type: integer
-                    format: int64
-        default:
-          description: An unexpected error response.
-          schema:
-            type: object
-            properties:
-              code:
-                type: integer
-                format: int32
-              message:
-                type: string
-              details:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    '@type':
-                      type: string
-                  additionalProperties: {}
-      parameters:
-        - name: header
-          in: path
-          required: true
-          type: string
       tags:
         - Query
   /aptcaller.aptcaller.Msg/SubmitTransaction:

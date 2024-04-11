@@ -112,7 +112,7 @@ service Query {
   
   // Queries a list of EstimateGasPrice items.
   rpc EstimateGasPrice (QueryEstimateGasPriceRequest) returns (QueryEstimateGasPriceResponse) {
-    option (google.api.http).get = "/aptcaller/aptcaller/{header}/estimate_gas_price";
+    option (google.api.http).get = "/aptcaller/aptcaller/estimate_gas_price/{header}";
   
   }
   

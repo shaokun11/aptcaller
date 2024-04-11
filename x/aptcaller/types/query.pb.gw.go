@@ -3171,7 +3171,7 @@ var (
 
 	pattern_Query_GetAccountTransaction_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5}, []string{"aptcaller", "get_account_transaction", "header", "address", "limit", "start"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_EstimateGasPrice_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 1, 0, 4, 1, 5, 1, 2, 2}, []string{"aptcaller", "header", "estimate_gas_price"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_EstimateGasPrice_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"aptcaller", "estimate_gas_price", "header"}, "", runtime.AssumeColonVerbOpt(false)))
 
 	pattern_Query_SubmitBatchTransaction_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1}, []string{"aptcaller", "submit_batch_transaction"}, "", runtime.AssumeColonVerbOpt(false)))
 
