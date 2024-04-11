@@ -22,8 +22,11 @@ func (k Keeper) GetBlockByVersion(goCtx context.Context, req *types.QueryGetBloc
 
 	// TODO: Process the query
 	_ = ctx
-
-	baseURL := fmt.Sprintf("%s/blocks/by_version/%s", apt.Url, req.Version)
+	chainUrl, err := apt.ParseChain(req.Header)
+	if err != nil {
+		return nil, status.Error(codes.Internal, "parse chain error")
+	}
+	baseURL := fmt.Sprintf("%s/blocks/by_version/%s", chainUrl, req.Version)
 	urlObj, _ := url.Parse(baseURL)
 	params := url.Values{}
 	if req.WithTransactions == 1 {

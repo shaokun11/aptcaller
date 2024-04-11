@@ -23,7 +23,11 @@ func (k Keeper) SimulateTransaction(goCtx context.Context, req *types.QuerySimul
 
 	// TODO: Process the query
 	_ = ctx
-	baseURL := fmt.Sprintf("%s/transactions/simulate", apt.Url)
+	chainUrl, err := apt.ParseChain(req.Header)
+	if err != nil {
+		return nil, status.Error(codes.Internal, "parse chain error")
+	}
+	baseURL := fmt.Sprintf("%s/transactions/simulate", chainUrl)
 
 	urlObj, _ := url.Parse(baseURL)
 	params := url.Values{}
@@ -42,9 +46,8 @@ func (k Keeper) SimulateTransaction(goCtx context.Context, req *types.QuerySimul
 	if err != nil {
 		return nil, status.Error(codes.InvalidArgument, "parse body error")
 	}
-	header := apt.ParseHeader(req.Header)
 
-	res, err := apt.Post(finalURL, string(bs), header)
+	res, err := apt.Post(finalURL, string(bs), req.Header)
 	ret := types.QuerySimulateTransactionResponse(*res)
 	return &ret, err
 }

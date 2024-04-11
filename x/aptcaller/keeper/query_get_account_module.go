@@ -22,8 +22,12 @@ func (k Keeper) GetAccountModule(goCtx context.Context, req *types.QueryGetAccou
 
 	// TODO: Process the query
 	_ = ctx
+	chainUrl, err := apt.ParseChain(req.Header)
+	if err != nil {
+		return nil, err
+	}
 	addr := req.Address
-	baseURL := fmt.Sprintf("%s/accounts/%s/module/%s", apt.Url, addr, req.ModuleName)
+	baseURL := fmt.Sprintf("%s/accounts/%s/module/%s", chainUrl, addr, req.ModuleName)
 	urlObj, _ := url.Parse(baseURL)
 	params := url.Values{}
 	if apt.IsValidQueryStringNum(req.LedgerVersion) {

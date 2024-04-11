@@ -23,8 +23,12 @@ func (k Keeper) GetEventsByEventHandle(goCtx context.Context, req *types.QueryGe
 
 	// TODO: Process the query
 	_ = ctx
+	chainUrl, err := apt.ParseChain(req.Header)
+	if err != nil {
+		return nil, status.Error(codes.Internal, "parse chain error")
+	}
 	addr := strings.ToLower(req.Address)
-	baseURL := fmt.Sprintf("%s/accounts/%s/events/%s/%s", apt.Url, addr, req.EventHandle, req.FieldName)
+	baseURL := fmt.Sprintf("%s/accounts/%s/events/%s/%s", chainUrl, addr, req.EventHandle, req.FieldName)
 	urlObj, _ := url.Parse(baseURL)
 	params := url.Values{}
 	if apt.IsValidQueryStringNum(req.Limit) {

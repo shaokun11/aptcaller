@@ -23,8 +23,12 @@ func (k Keeper) GetEventsByCreationNumber(goCtx context.Context, req *types.Quer
 
 	// TODO: Process the query
 	_ = ctx
+	chainUrl, err := apt.ParseChain(req.Header)
+	if err != nil {
+		return nil, status.Error(codes.Internal, "parse chain error")
+	}
 	addr := strings.ToLower(req.Address)
-	baseURL := fmt.Sprintf("%s/accounts/%s/events/%s", apt.Url, addr, req.CreationNumber)
+	baseURL := fmt.Sprintf("%s/accounts/%s/events/%s", chainUrl, addr, req.CreationNumber)
 	urlObj, _ := url.Parse(baseURL)
 	params := url.Values{}
 	if apt.IsValidQueryStringNum(req.Limit) {

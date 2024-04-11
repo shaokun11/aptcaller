@@ -20,7 +20,11 @@ func (k Keeper) GetLedgerInfo(goCtx context.Context, req *types.QueryGetLedgerIn
 
 	// TODO: Process the query
 	_ = ctx
-	res, err := apt.Call(apt.Url, req.Header)
+	chainUrl, err := apt.ParseChain(req.Header)
+	if err != nil {
+		return nil, status.Error(codes.Internal, "parse chain error")
+	}
+	res, err := apt.Call(chainUrl, req.Header)
 	ret := types.QueryGetLedgerInfoResponse(*res)
 	return &ret, err
 }

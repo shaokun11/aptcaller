@@ -22,7 +22,11 @@ func (k Keeper) GetBlockByHeight(goCtx context.Context, req *types.QueryGetBlock
 
 	// TODO: Process the query
 	_ = ctx
-	baseURL := fmt.Sprintf("%s/blocks/by_height/%s", apt.Url, req.BlockHeight)
+	chainUrl, err := apt.ParseChain(req.Header)
+	if err != nil {
+		return nil, err
+	}
+	baseURL := fmt.Sprintf("%s/blocks/by_height/%s", chainUrl, req.BlockHeight)
 	urlObj, _ := url.Parse(baseURL)
 	params := url.Values{}
 	if req.WithTransactions == 1 {

@@ -21,9 +21,12 @@ func (k Keeper) SubmitBatchTransaction(goCtx context.Context, req *types.QuerySu
 
 	// TODO: Process the query
 	_ = ctx
-	baseURL := fmt.Sprintf("%s/transactions/batch", apt.Url)
-	header := apt.ParseHeader(req.Header)
-	res, err := apt.Post(baseURL, req.Body, header)
+	chainUrl, err := apt.ParseChain(req.Header)
+	if err != nil {
+		return nil, status.Error(codes.Internal, "parse chain error")
+	}
+	baseURL := fmt.Sprintf("%s/transactions/batch", chainUrl)
+	res, err := apt.Post(baseURL, req.Body, req.Header)
 	ret := types.QuerySubmitBatchTransactionResponse(*res)
 	return &ret, err
 }

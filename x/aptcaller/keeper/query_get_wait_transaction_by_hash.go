@@ -22,7 +22,11 @@ func (k Keeper) GetWaitTransactionByHash(goCtx context.Context, req *types.Query
 
 	// TODO: Process the query
 	_ = ctx
-	baseURL := fmt.Sprintf("%s/transactions/wait_by_hash/%s", apt.Url, req.TxnHash)
+	chainUrl, err := apt.ParseChain(req.Header)
+	if err != nil {
+		return nil, status.Error(codes.Internal, "parse chain error")
+	}
+	baseURL := fmt.Sprintf("%s/transactions/wait_by_hash/%s", chainUrl, req.TxnHash)
 	urlObj, _ := url.Parse(baseURL)
 	finalURL := urlObj.String()
 	res, err := apt.Call(finalURL, req.Header)

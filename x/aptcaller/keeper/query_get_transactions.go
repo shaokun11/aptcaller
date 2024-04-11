@@ -22,8 +22,11 @@ func (k Keeper) GetTransactions(goCtx context.Context, req *types.QueryGetTransa
 
 	// TODO: Process the query
 	_ = ctx
-
-	baseURL := fmt.Sprintf("%s/transactions ", apt.Url)
+	chainUrl, err := apt.ParseChain(req.Header)
+	if err != nil {
+		return nil, status.Error(codes.Internal, "parse chain error")
+	}
+	baseURL := fmt.Sprintf("%s/transactions ", chainUrl)
 	urlObj, _ := url.Parse(baseURL)
 	params := url.Values{}
 	if apt.IsValidQueryStringNum(req.Limit) {

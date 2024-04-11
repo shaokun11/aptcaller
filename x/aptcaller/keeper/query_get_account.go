@@ -19,6 +19,10 @@ func (k Keeper) GetAccount(goCtx context.Context, req *types.QueryGetAccountRequ
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	_ = ctx
 	addr := req.Address
-	url := apt.Url + "/accounts/" + strings.ToLower(addr)
+	chainUrl, err := apt.ParseChain(req.Header)
+	if err != nil {
+		return nil, status.Error(codes.Internal, "parse chain error")
+	}
+	url := chainUrl + "/accounts/" + strings.ToLower(addr)
 	return apt.Call(url, req.Header)
 }

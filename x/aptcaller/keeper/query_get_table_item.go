@@ -22,7 +22,11 @@ func (k Keeper) GetTableItem(goCtx context.Context, req *types.QueryGetTableItem
 
 	// TODO: Process the query
 	_ = ctx
-	baseURL := fmt.Sprintf("%s/tables/%s/item", apt.Url, req.TableHandle)
+	chainUrl, err := apt.ParseChain(req.Header)
+	if err != nil {
+		return nil, status.Error(codes.Internal, "parse chain error")
+	}
+	baseURL := fmt.Sprintf("%s/tables/%s/item", chainUrl, req.TableHandle)
 	urlObj, _ := url.Parse(baseURL)
 	params := url.Values{}
 	if apt.IsValidQueryStringNum(req.LedgerVersion) {
@@ -30,8 +34,7 @@ func (k Keeper) GetTableItem(goCtx context.Context, req *types.QueryGetTableItem
 	}
 	urlObj.RawQuery = params.Encode()
 	finalURL := urlObj.String()
-	header := apt.ParseHeader(req.Header)
-	res, err := apt.Post(finalURL, req.Body, header)
+	res, err := apt.Post(finalURL, req.Body, req.Header)
 	ret := types.QueryGetTableItemResponse(*res)
 	return &ret, err
 }

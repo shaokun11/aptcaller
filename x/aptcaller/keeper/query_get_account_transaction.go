@@ -23,8 +23,12 @@ func (k Keeper) GetAccountTransaction(goCtx context.Context, req *types.QueryGet
 
 	// TODO: Process the query
 	_ = ctx
+	chainUrl, err := apt.ParseChain(req.Header)
+	if err != nil {
+		return nil, err
+	}
 	addr := strings.ToLower(req.Address)
-	baseURL := fmt.Sprintf("%s/accounts/%s/transactions", apt.Url, addr)
+	baseURL := fmt.Sprintf("%s/accounts/%s/transactions", chainUrl, addr)
 	urlObj, _ := url.Parse(baseURL)
 	params := url.Values{}
 	if apt.IsValidQueryStringNum(req.Limit) {

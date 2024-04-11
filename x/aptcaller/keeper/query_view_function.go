@@ -22,7 +22,11 @@ func (k Keeper) ViewFunction(goCtx context.Context, req *types.QueryViewFunction
 
 	// TODO: Process the query
 	_ = ctx
-	baseURL := fmt.Sprintf("%s/view", apt.Url)
+	chainUrl, err := apt.ParseChain(req.Header)
+	if err != nil {
+		return nil, status.Error(codes.Internal, "parse chain error")
+	}
+	baseURL := fmt.Sprintf("%s/view", chainUrl)
 	urlObj, _ := url.Parse(baseURL)
 	params := url.Values{}
 	if apt.IsValidQueryStringNum(req.LedgerVersion) {
@@ -30,8 +34,7 @@ func (k Keeper) ViewFunction(goCtx context.Context, req *types.QueryViewFunction
 	}
 	urlObj.RawQuery = params.Encode()
 	finalURL := urlObj.String()
-	header := apt.ParseHeader(req.Header)
-	res, err := apt.Post(finalURL, req.Body, header)
+	res, err := apt.Post(finalURL, req.Body, req.Header)
 	ret := types.QueryViewFunctionResponse(*res)
 	return &ret, err
 }

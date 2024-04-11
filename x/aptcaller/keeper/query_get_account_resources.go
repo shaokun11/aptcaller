@@ -23,9 +23,12 @@ func (k Keeper) GetAccountResources(goCtx context.Context, req *types.QueryGetAc
 
 	// TODO: Process the query
 	_ = ctx
-
+	chainUrl, err := apt.ParseChain(req.Header)
+	if err != nil {
+		return nil, err
+	}
 	addr := strings.ToLower(req.Address)
-	baseURL := fmt.Sprintf("%s/accounts/%s/resources", apt.Url, addr)
+	baseURL := fmt.Sprintf("%s/accounts/%s/resources", chainUrl, addr)
 	urlObj, _ := url.Parse(baseURL)
 	params := url.Values{}
 	if apt.IsValidQueryStringNum(req.Limit) {

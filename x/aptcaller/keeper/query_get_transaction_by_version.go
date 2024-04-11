@@ -22,7 +22,11 @@ func (k Keeper) GetTransactionByVersion(goCtx context.Context, req *types.QueryG
 
 	// TODO: Process the query
 	_ = ctx
-	baseURL := fmt.Sprintf("%s/transactions/by_version/%s", apt.Url, req.TxnVersion)
+	chainUrl, err := apt.ParseChain(req.Header)
+	if err != nil {
+		return nil, status.Error(codes.Internal, "parse chain error")
+	}
+	baseURL := fmt.Sprintf("%s/transactions/by_version/%s", chainUrl, req.TxnVersion)
 	urlObj, _ := url.Parse(baseURL)
 	finalURL := urlObj.String()
 	res, err := apt.Call(finalURL, req.Header)

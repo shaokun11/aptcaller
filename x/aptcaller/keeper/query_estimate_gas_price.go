@@ -22,7 +22,11 @@ func (k Keeper) EstimateGasPrice(goCtx context.Context, req *types.QueryEstimate
 
 	// TODO: Process the query
 	_ = ctx
-	baseURL := fmt.Sprintf("%s/estimate_gas_price", apt.Url)
+	chainUrl, err := apt.ParseChain(req.Header)
+	if err != nil {
+		return nil, err
+	}
+	baseURL := fmt.Sprintf("%s/estimate_gas_price", chainUrl)
 	urlObj, _ := url.Parse(baseURL)
 	finalURL := urlObj.String()
 	res, err := apt.Call(finalURL, req.Header)

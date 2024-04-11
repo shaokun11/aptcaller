@@ -2,8 +2,9 @@ package apt
 
 import (
 	"encoding/hex"
+	"encoding/json"
+	"errors"
 	"strconv"
-	"strings"
 )
 
 func IsValidQueryStringNum(s string) bool {
@@ -22,11 +23,34 @@ func IsValidQueryCursor(s string) bool {
 	return res > 0
 }
 
+type ReqHeader struct {
+	ContentType string `json:"Content-Type"`
+	Accept      string `json:"Accept"`
+	Chain       string `json:"Chain"`
+}
+
 func ParseHeader(h string) map[string]string {
-	header := make(map[string]string)
 	str, _ := hex.DecodeString(h)
-	headerArr := strings.Split(string(str), "&")
-	header["Content-Type"] = headerArr[0]
-	header["Accept"] = headerArr[1]
+	var req ReqHeader
+	var header = make(map[string]string)
+	json.Unmarshal(str, &req)
+	header["Content-Type"] = req.ContentType
+	header["Accept"] = req.Accept
 	return header
+}
+
+func ParseChain(h string) (string, error) {
+	str, err := hex.DecodeString(h)
+	if err != nil {
+		return "", err
+	}
+	var req ReqHeader
+	if err := json.Unmarshal(str, &req); err != nil {
+		return "", err
+	}
+	chain, ok := SupportChain[req.Chain]
+	if !ok {
+		return "", errors.New("chain not supported")
+	}
+	return chain, nil
 }

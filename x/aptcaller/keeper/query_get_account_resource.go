@@ -20,8 +20,12 @@ func (k Keeper) GetAccountResource(goCtx context.Context, req *types.QueryGetAcc
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	// TODO: Process the query
 	_ = ctx
+	chainUrl, err := apt.ParseChain(req.Header)
+	if err != nil {
+		return nil, err
+	}
 	addr := req.Address
-	baseURL := fmt.Sprintf("%s/accounts/%s/resource/%s", apt.Url, addr, req.ResourceType)
+	baseURL := fmt.Sprintf("%s/accounts/%s/resource/%s", chainUrl, addr, req.ResourceType)
 	urlObj, _ := url.Parse(baseURL)
 	params := url.Values{}
 	if apt.IsValidQueryStringNum(req.LedgerVersion) {
