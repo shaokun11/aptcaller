@@ -15,7 +15,7 @@ curl http://127.0.0.1:1317/aptcaller/aptcaller/get_transaction_by_hash/0x343f741
 
 curl http://127.0.0.1:1317/aptcaller/aptcaller/estimate_gas_price
 aptcallerd query tx --type=hash 55F3F771EDB0A5A24663D6ADFB9DA8CB18753362DC05FD15C252AA8381825916
-curl http://127.0.0.1:1317/cosmos/tx/v1beta1/txs/CDE408A12F6E06116316A8F85E81BA9D46DE3AA682BD415637A8F1E250DBFA71
+curl http://127.0.0.1:1317/cosmos/tx/v1beta1/txs/1ADC0B4B7EB0A8811291E002803B4C7FC26F665AD29D35EFAAD4419F31713EB7
 
 
 ignite scaffold query get-account-resources address ledgerVersion limit start --response AptRes:AptRes

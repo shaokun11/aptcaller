@@ -28,7 +28,7 @@ app.use(
         ...limit,
     }),
 );
-// app.set("trust proxy", true);
+app.set("trust proxy", true);
 const router = express.Router();
 
 function parsePage(req) {
@@ -43,6 +43,9 @@ function setHeader(header, res) {
     if (!header) return;
     if (Object.keys(header).length < 7) return;
     for (let [k, v] of Object.entries(header)) {
+        if (k === "X-APTOS-CURSOR" && v.length === 0) {
+            continue
+        }
         res.setHeader(k, v);
     }
 }

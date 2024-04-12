@@ -32,13 +32,9 @@ function parseRet(res) {
     let data = result.body;
     let code = result.code;
     let error;
-    if (code !== 200 || code !== 202) {
+    if (code !== 200 && code !== 202) {
         error = parseRustString(data);
         error.code = code;
-    } else {
-        // if (!params?.is_bcs_format) {
-        //   data = JSON.parse(result.data);
-        // }
     }
     let ret = {
         data,
@@ -65,7 +61,6 @@ exports.post = async function (url, body, parse = true) {
         },
         body: JSON.stringify(body),
     }).then(response => response.json());
-    console.log("----post res-------",url , res,body)
     if (parse) {
         return parseRet(res);
     }
