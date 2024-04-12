@@ -446,7 +446,6 @@ app.use((err, req, res, next) => {
         message: 'Internal Server Error',
     });
 });
-// app.listen(PORT, () => {
-//     console.log(` app listening on port ${PORT}`);
-// });
-saveToDataLayer("hello world").then(console.log)
+app.listen(PORT, () => {
+    console.log(` app listening on port ${PORT}`);
+});
