@@ -26,7 +26,8 @@ func IsValidQueryCursor(s string) bool {
 type ReqHeader struct {
 	ContentType string `json:"Content-Type"`
 	Accept      string `json:"Accept"`
-	Chain       string `json:"Chain"`
+	Chain       string `json:"chain"`
+	DataLayer   string `json:"dataLayer"`
 }
 
 func ParseHeader(h string) map[string]string {

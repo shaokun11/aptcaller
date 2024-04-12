@@ -3,7 +3,7 @@ require('express-async-errors');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const { call, sendSubmitTx, post } = require('./provider');
+const { call, sendSubmitTx, post ,saveToDataLayer} = require('./provider');
 const { PORT, URL: url } = require('./const');
 const { APTOS_MIME_TYPE } = require('./mime');
 const app = express();
@@ -403,6 +403,7 @@ const bcs_formatter = (req, res, next) => {
         'Content-Type': send_format,
         Accept: rev_format,
         chain: req.params.chain,
+        dataLayer:""
     };
     req.req_header = Buffer.from(JSON.stringify(header)).toString('hex');
     res.sendData = data => {
@@ -445,6 +446,7 @@ app.use((err, req, res, next) => {
         message: 'Internal Server Error',
     });
 });
-app.listen(PORT, () => {
-    console.log(` app listening on port ${PORT}`);
-});
+// app.listen(PORT, () => {
+//     console.log(` app listening on port ${PORT}`);
+// });
+saveToDataLayer("hello world").then(console.log)

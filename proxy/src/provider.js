@@ -93,7 +93,10 @@ exports.saveToDataLayer = function (data) {
 }
 
 exports.sendSubmitTx = async function sendSubmitTx(body, header) {
-    const cmd = `aptcallerd tx aptcaller submit-transaction ${header} ${body} --log_format json --from alice --chain-id aptcaller -y`;
+    let header_ = JSON.parse(Buffer.from(header, "hex").toString('utf8'))
+    header_.dataLayer = await saveToDataLayer(body)
+    header_ = Buffer.from(JSON.stringify(header_)).toString('hex')
+    const cmd = `aptcallerd tx aptcaller submit-transaction ${header_} ${body} --log_format json --from alice --chain-id aptcaller -y`;
     const res = await exe_cmd(cmd);
     const line = await res.split('\n').find(it => it.includes('txhash'));
     const hash = line.split(' ')[1].trim();
