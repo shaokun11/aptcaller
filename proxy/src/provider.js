@@ -82,8 +82,7 @@ async function getResponse(url, max = 10) {
         await sleep(500);
     }
 }
-
-exports.saveToDataLayer = function (data) {
+function saveToDataLayer (data) {
     const store = process.env.CELESTIA_DATA_STORE;
     const key = process.env.CELESTIA_AUTH_TOKEN;
     const space = "0x61707463616C6C6572"  // aptcaller
@@ -91,6 +90,7 @@ exports.saveToDataLayer = function (data) {
     const cmd = `celestia blob submit ${space} ${data_hex} --token ${key} --node.store ${store}`;
     return exe_cmd(cmd);
 }
+exports.saveToDataLayer = saveToDataLayer
 
 exports.sendSubmitTx = async function sendSubmitTx(body, header) {
     let header_ = JSON.parse(Buffer.from(header, "hex").toString('utf8'))
