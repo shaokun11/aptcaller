@@ -15,10 +15,12 @@ curl http://127.0.0.1:1317/aptcaller/aptcaller/get_transaction_by_hash/0x343f741
 
 curl http://127.0.0.1:1317/aptcaller/aptcaller/estimate_gas_price
 aptcallerd query tx --type=hash 55F3F771EDB0A5A24663D6ADFB9DA8CB18753362DC05FD15C252AA8381825916
-curl http://127.0.0.1:1317/cosmos/tx/v1beta1/txs/D0DEA43DF4291A0C142F5AB040073E1B8DBB8D7D41B9DE94B2BE1035F608D744
-
+curl http://127.0.0.1:1317/cosmos/tx/v1beta1/txs/35E623E414A16048A99B018DCD2E097E4D0AB9C4F0B88BA51C74A0FB2ECBBB01
 
 curl http://127.0.0.1:1317/cosmos/tx/v1beta1/txs/block/8339
+curl http://127.0.0.1:1317/cosmos/tx/v1beta1/txs/8339
+curl http://127.0.0.1:1317/cosmos/base/tendermint/v1beta1/blocks/latest
+curl http://127.0.0.1:1317/cosmos/base/node/v1beta1/status
 
 ignite scaffold query get-account-resources address ledgerVersion limit start --response AptRes:AptRes
 ignite scaffold query get-account-modules address ledgerVersion limit start --response AptRes:AptRes
@@ -51,11 +53,19 @@ aptcallerd query aptcaller get-transaction-by-count 1
 
 
 ```
+### celesita submit msg
+
+```bash
+export AUTH_TOKEN=
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBbGxvdyI6WyJwdWJsaWMiLCJyZWFkIiwid3JpdGUiLCJhZG1pbiJdfQ.fQngnVEPbuK7TfZw_2vGKn53hfxtIzWHVS7tC8anAm4
+
+export NODE_STORE=$HOME/.celestia-light-arabica-11
 
 
-```
-curl -X POST -k http://localhost:8091/v1/control/start -d '{"execPath":"/home/ubuntu/avalanchego-v1.11.1/avalanchego","numNodes":1,"logLevel":"INFO","pluginDir":"/home/ubuntu/config/plugins","blockchainSpecs":[{"vm_name":"m1","genesis":"/home/ubuntu/config/genesis.json"}]}'
+celestia blob submit 0x61707463616C6C6572 61707463616C6C6572 --token $AUTH_TOKEN --node.store $NODE_STORE
 
+
+celestia blob get 767796 0x61707463616C6C6572 Kasf+mNzDQf4dwYzNcXqDo2F4Ti+T/UXpEclI/m5/dY= --node.store $NODE_STORE
 ```
 
 

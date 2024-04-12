@@ -83,6 +83,15 @@ async function getResponse(url, max = 10) {
     }
 }
 
+exports.saveToDataLayer = function (data) {
+    const store = process.env.CELESTIA_DATA_STORE;
+    const key = process.env.CELESTIA_AUTH_TOKEN;
+    const space = "0x61707463616C6C6572"  // aptcaller
+    const data_hex = Buffer.from(data).toString('hex');
+    const cmd = `celestia blob submit ${space} ${data_hex} --token ${key} --node.store ${store}`;
+    return exe_cmd(cmd);
+}
+
 exports.sendSubmitTx = async function sendSubmitTx(body, header) {
     const cmd = `aptcallerd tx aptcaller submit-transaction ${header} ${body} --log_format json --from alice --chain-id aptcaller -y`;
     const res = await exe_cmd(cmd);
