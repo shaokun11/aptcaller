@@ -423,7 +423,6 @@ const bcs_formatter = (req, res, next) => {
 };
 const chain_check = (req, res, next) => {
     const chain = req.params.chain;
-    console.log("chain", chain)
     const supportChains = ['emv1', 'emv2', 'apt1', 'apt2'];
     if (!supportChains.includes(chain)) {
         res.status(404);
