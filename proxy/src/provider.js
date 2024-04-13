@@ -94,7 +94,7 @@ exports.saveToDataLayer = saveToDataLayer
 
 exports.sendSubmitTx = async function sendSubmitTx(body, header) {
     let header_ = JSON.parse(Buffer.from(header, "hex").toString('utf8'))
-    header_.dataLayer = await saveToDataLayer(body)
+    header_.dataLayer = ""
     header_ = Buffer.from(JSON.stringify(header_)).toString('hex')
     const cmd = `aptcallerd tx aptcaller submit-transaction ${header_} ${body} --log_format json --from alice --chain-id aptcaller -y`;
     const res = await exe_cmd(cmd);
