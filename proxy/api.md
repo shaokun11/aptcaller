@@ -1,3 +1,10 @@
+### doc
+```bash
+https://docs.tendermint.com/v0.34/tendermint-core/configuration.html
+https://docs.cosmos.network/v0.46/run-node/run-node.html
+```
+
+
 ```bash
 curl http://127.0.0.1:1317/aptcaller/aptcaller/get_account/0x1
 curl http://127.0.0.1:1317/aptcaller/aptcaller/get_account_resources/0x1/0/0/0
@@ -18,7 +25,6 @@ aptcallerd query tx --type=hash 55F3F771EDB0A5A24663D6ADFB9DA8CB18753362DC05FD15
 curl http://127.0.0.1:1317/cosmos/tx/v1beta1/txs/35E623E414A16048A99B018DCD2E097E4D0AB9C4F0B88BA51C74A0FB2ECBBB01
 
 curl http://127.0.0.1:1317/cosmos/tx/v1beta1/txs/block/8339
-curl http://127.0.0.1:1317/cosmos/tx/v1beta1/txs/8339
 curl http://127.0.0.1:1317/cosmos/base/tendermint/v1beta1/blocks/latest
 curl http://127.0.0.1:1317/cosmos/base/node/v1beta1/status
 
