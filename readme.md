@@ -1,6 +1,5 @@
-
 ## Introduction
-Build a movement M1 shared sequencer using Cosmos. This shared sequencer is primarily responsible for sequencing, data availability, and supporting the rollup built by M2.
+Welcome to the movement M1 shared sequencer built using Cosmos. This shared sequencer plays a crucial role in sequencing, ensuring data availability, and supporting the rollup framework developed by M2.
 
 ---
 
@@ -8,14 +7,19 @@ Build a movement M1 shared sequencer using Cosmos. This shared sequencer is prim
 
 ```shell
 curl https://get.ignite.com/cli! | bash
+
 ```
 
 ## Running
 
+1. Clone this repository and navigate to the repository directory.
+```bash
+git clone <this_repo>
+```
+2. Start the shared sequencer.
 ```bash
 ignite chain serve
 ```
-
 
 ## License
 
