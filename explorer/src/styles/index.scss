@@ -1,0 +1,35 @@
+@import './custom.scss';
+@import './color.scss';
+@import './flex.scss';
+@import './theme.scss';
+@import './margin-padding.scss';
+@import './other.scss';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; 
+}
+
+#app,
+html,
+body {
+  height: 100%; 
+  // overflow: hidden;
+  background: var(--bmq-bg);
+}
+.ant-popover .ant-popover-inner {
+  background-color: var(--bmq-modal-bg);
+}
+.ant-modal .ant-modal-content {
+  background-color: var(--bmq-modal-bg);
+}
+.ant-modal .ant-modal-header {
+  background: transparent;
+}
+.ant-popover .ant-popover-arrow:before {
+  background: var(--bmq-modal-bg);
+}
+.ant-layout-header,.ant-layout-content,.ant-layout-footer{
+  background: var(--bmq-bg) !important;
+}

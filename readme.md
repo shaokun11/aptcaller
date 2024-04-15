@@ -1,51 +1,44 @@
-# aptcaller
-**aptcaller** is a blockchain built using Cosmos SDK and Tendermint and created with [Ignite CLI](https://ignite.com/cli).
+## Topic
+A Cosmos chain launched with [Ignite CLI](https://ignite.com/cli) for interacting with Aptos.
 
-## Get started
+---
 
+## Introduction
+
+This repository provides a Cosmos chain setup using Ignite CLI, designed specifically for seamless interaction with Aptos. The Ignite CLI is a powerful tool that accelerates blockchain development and offers a wide range of features to simplify the process.
+
+---
+
+## Features
+
+- **Powerful code scaffolding**: Scaffold a blockchain with a single command, generating boilerplate code and allowing your team to focus on unique application logic.
+- **Hot reloading server**: Quickly start a local blockchain environment that provides instant updates and error detection while your chain is running.
+- **Intuitive configuration**: Easily configure and customize your blockchain build process, add accounts, set parameters, and more from a single, readable configuration file.
+- **Cross-chain data transfer**: Seamlessly connect to other blockchains, exchange tokens, access DEXs, oracles, NFTs, smart contracts, and DeFi using the built-in IBC Protocol.
+- **Prebuilt, ready-to-go apps**: Leverage the bundled apps with sleek, customizable UI to get your projects live faster. Auto-generated TypeScript client for standard and custom modules.
+- **Resources and support**: Access online tutorials, extensive documentation, and a supportive developer community to help you at every stage of your journey.
+
+---
+
+## Installation
+
+To install the Ignite CLI and set up the Cosmos chain for Aptos interaction, please follow the steps below:
+
+```shell
+curl https://get.ignite.com/cli! | bash
 ```
+
+## Running
+
+```bash
 ignite chain serve
 ```
 
-`serve` command installs dependencies, builds, initializes, and starts your blockchain in development.
 
-### Configure
+## License
 
-Your blockchain in development can be configured with `config.yml`. To learn more, see the [Ignite CLI docs](https://docs.ignite.com).
+This project is licensed under the [MIT License](LICENSE).
 
-### Web Frontend
+---
 
-Additionally, Ignite CLI offers both Vue and React options for frontend scaffolding:
-
-For a Vue frontend, use: `ignite scaffold vue`
-For a React frontend, use: `ignite scaffold react`
-These commands can be run within your scaffolded blockchain project. 
-
-
-For more information see the [monorepo for Ignite front-end development](https://github.com/ignite/web).
-
-## Release
-To release a new version of your blockchain, create and push a new tag with `v` prefix. A new draft release with the configured targets will be created.
-
-```
-git tag v0.1
-git push origin v0.1
-```
-
-After a draft release is created, make your final changes from the release page and publish it.
-
-### Install
-To install the latest version of your blockchain node's binary, execute the following command on your machine:
-
-```
-curl https://get.ignite.com/username/aptcaller@latest! | sudo bash
-```
-`username/aptcaller` should match the `username` and `repo_name` of the Github repository to which the source code was pushed. Learn more about [the install process](https://github.com/allinbits/starport-installer).
-
-## Learn more
-
-- [Ignite CLI](https://ignite.com/cli)
-- [Tutorials](https://docs.ignite.com/guide)
-- [Ignite CLI docs](https://docs.ignite.com)
-- [Cosmos SDK docs](https://docs.cosmos.network)
-- [Developer Chat](https://discord.gg/ignite)
+© 2024 Ignite. All rights reserved.
