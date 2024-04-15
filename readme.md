@@ -6,8 +6,6 @@ Build a movement M1 shared sequencer using Cosmos. This shared sequencer is prim
 
 ## Installation
 
-To install the Ignite CLI and set up the Cosmos chain for Aptos interaction, please follow the steps below:
-
 ```shell
 curl https://get.ignite.com/cli! | bash
 ```
