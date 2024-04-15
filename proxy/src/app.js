@@ -438,7 +438,7 @@ const chain_check = (req, res, next) => {
     next();
 };
 
-app.use("/query", async function (req, res, next) {
+app.use("/query.latestTx", async function (req, res, next) {
     const count = req.query.count || 10
     const ret = await db.get(count)
     res.json(ret.map(it => ({
