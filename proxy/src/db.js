@@ -6,10 +6,11 @@ let datastore = Datastore.create({
 })
 
 exports.db = {
-    save: function (tx,height) {
+    save: function (tx,height,timestamp) {
         return datastore.insert({
             height,
-            tx
+            tx,
+            timestamp
         })
     },
     get: async function (limit) {

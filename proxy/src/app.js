@@ -443,7 +443,8 @@ app.use("/query.latestTx", async function (req, res, next) {
     const ret = await db.get(count)
     res.json(ret.map(it => ({
         tx: it.tx,
-        height: it.height
+        height: it.height,
+        timestamp: it.timestamp || ""
     })))
 })
 

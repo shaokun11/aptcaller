@@ -104,7 +104,7 @@ exports.sendSubmitTx = async function sendSubmitTx(body, header) {
     const url = `${URL}/cosmos/tx/v1beta1/txs/${hash}`;
     await new Promise(resolve => setTimeout(resolve, 1000));
     const tx_result = await getResponse(url);
-    await db.save(hash, tx_result.tx_response.height);
+    await db.save(hash, tx_result.tx_response.height, tx_result.tx_response.timestamp);
     const ret = tx_result.tx_response.events.find(it => it.type === 'SubmitTransactionEvent');
     return parseRet({
         aptRes: {
