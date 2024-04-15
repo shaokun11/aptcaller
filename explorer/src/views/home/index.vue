@@ -118,7 +118,7 @@ onMounted(async () => {
 
   tid.value = setInterval(() => {
     getInfo();
-  }, 9000);
+  }, 2000);
 
   
 });
