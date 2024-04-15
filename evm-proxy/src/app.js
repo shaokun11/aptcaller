@@ -1,4 +1,3 @@
-
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
@@ -10,7 +9,7 @@ import { faucet } from './bridge.js';
 import { getMoveHash } from './db.js';
 const { JSONRPCServer, createJSONRPCErrorResponse } = JsonRpc;
 const app = express();
-app.use(cors());
+app.use(cors('*'));
 app.use(express.json({ limit: '10mb' }));
 
 const server = new JSONRPCServer();
@@ -73,7 +72,7 @@ app.use('/', async function (req, res, next) {
     });
 });
 
-// app.set('trust proxy', true);
+app.set('trust proxy', true);
 app.listen(SERVER_PORT, () => {
     console.log('server start at http://127.0.0.1:' + SERVER_PORT);
 });
