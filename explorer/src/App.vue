@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { storeToRefs } from "pinia";
 import { userStore } from "@/store/modules/user";
-import { connect, changeMetamaskChain } from "@/utils/sdk/wallets";
+// import { connect, changeMetamaskChain } from "@/utils/sdk/wallets";
 import { CSSProperties, computed, onMounted, onUnmounted, onUpdated, ref, watch } from "vue";
 import { showToast, trace } from "./utils/tools";
 const headerStyle: CSSProperties = {
@@ -82,37 +82,37 @@ onUnmounted(() => {
 });
 
 function selWallet() {
-  connect((res: any) => {
-    trace("account-info=", res, res.providerInfo.logo);
-    if (res.chainID == ID) {
-      _userStore.setIcon(res.providerInfo.logo);
-      _userStore.setAccount(res.account);
-      _userStore.setNetwork(res.chain);
-      _userStore.setshowSwitchNet(false);
+  // connect((res: any) => {
+  //   trace("account-info=", res, res.providerInfo.logo);
+  //   if (res.chainID == ID) {
+  //     _userStore.setIcon(res.providerInfo.logo);
+  //     _userStore.setAccount(res.account);
+  //     _userStore.setNetwork(res.chain);
+  //     _userStore.setshowSwitchNet(false);
 
-      if (res.message == "accountsChanged") {
-        showToast("The account is successfully changed.");
-      } else {
-        showToast("The wallet is successfully connected.");
-      }
-    } else {
-      if (res.chainID) {
-        _userStore.setAccount("");
-        _userStore.setNetwork("");
-        _userStore.setshowSwitchNet(true);
+  //     if (res.message == "accountsChanged") {
+  //       showToast("The account is successfully changed.");
+  //     } else {
+  //       showToast("The wallet is successfully connected.");
+  //     }
+  //   } else {
+  //     if (res.chainID) {
+  //       _userStore.setAccount("");
+  //       _userStore.setNetwork("");
+  //       _userStore.setshowSwitchNet(true);
 
-        otherNetwork.value = {
-          chainId: res.chainID,
-          icon: res.providerInfo.logo,
-          name: res.chain,
-        };
-      }
-    }
-  });
+  //       otherNetwork.value = {
+  //         chainId: res.chainID,
+  //         icon: res.providerInfo.logo,
+  //         name: res.chain,
+  //       };
+  //     }
+  //   }
+  // });
 }
 
 function switchNet() {
-  changeMetamaskChain(ID);
+  // changeMetamaskChain(ID);
 }
 
 function handleClose2() {
@@ -136,13 +136,14 @@ function handleClose2() {
     <a-layout-content :style="contentStyle">
       <router-view />
     </a-layout-content>
+    <!-- 
     <a-layout-footer :style="footerStyle">
       <GB-Foot></GB-Foot>
     </a-layout-footer>
+    -->
+    
   </a-layout>
     <div class="container">
-      
-
       
 
       <a-modal

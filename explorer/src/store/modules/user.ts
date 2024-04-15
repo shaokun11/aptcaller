@@ -13,7 +13,7 @@ export const userStore = defineStore({
       count: 0,
       token: "",
       user: null,
-      api:'https://cosmos.bbd.sh',
+      api:'https://api.shared.m1.movementlabs.xyz',
 
       account: "",
       network: "",
@@ -89,6 +89,20 @@ export const userStore = defineStore({
     getBlockLatest(){   
       return new Promise((resolve, reject) => {
         fetch(`${this.api}/cosmos/base/tendermint/v1beta1/blocks/latest`)
+          .then((res) => res.json())
+          .then((data) => {
+            resolve(data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
+
+    getTxs(){
+      //https://cosmos-api.bbd.sh/query/latestTx
+      return new Promise((resolve, reject) => {
+        fetch(`https://api.aptos.m1.movementlabs.xyz/query/latestTx`)
           .then((res) => res.json())
           .then((data) => {
             resolve(data);

@@ -2,16 +2,47 @@
   <div class="home">
    
     <div class="h-title">
-      <div>
-        <span>New-Block:</span>
-        <span>{{ block }}</span>
-      </div>
-      <div style="display: flex;position: relative;align-items: center;margin-top: 24px;">
-        <span style="width: 90px;">Search-TX:</span>
-        <a-input style="margin: 0 16px;" type="text" v-model:value="inp" />
-        <a-button type="primary" @click="check">Search</a-button>
+      
+      <GB-Search></GB-Search>
+
+      <div class="block-height">
+        <span><img style="width: 36px;margin-right: 6px;" src="@/assets/icon-51.svg" alt="SVG">Block Height:</span>
+        <span>
+          {{ block }}
+          <span class="t-color2">(6s)</span>
+        </span>
       </div>
     </div>
+
+    <div class="con-pane">
+      <div class="latest-block">
+        <div class="b-title">Latest Blocks</div>
+        <div class="b-list">
+          <div class="b-item" v-for="item in blocks" :key="item.block" @click="lookBlock(item)">
+            <span class="b-item-t1">BK</span>
+            <span class="b-item-t2">{{item.block}}</span>
+            <span class="b-item-t3"><span class="t-color2">txns:</span>{{item.txns}}</span>
+            <span class="b-item-t4">{{item.time}}</span>
+          </div>
+
+        </div>
+      </div>
+      <div class="latest-txs">
+        <div class="b-title">Latest Transactions</div>
+        <div class="b-list">
+          <div class="b-item" v-for="item in txs" :key="item.block" @click="lookTx(item)">
+            <span class="b-item-t1" style="margin-right: 6px;">TX</span>
+            <span class="b-item-t2" style="display: inline-flex;"><span class="t-color2" style="margin-right: 4px;">Tx#</span> {{getH(item.tx)}}</span>
+            <span class="b-item-t3"><span class="t-color2">height:</span>{{item.height}}</span>
+            <span class="b-item-t3" style="width: 206px;text-align: left;"><span class="t-color2">time:</span>{{item.timestamp}}</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- 
+
     <div class="h-block">
       <div class="box" style="width: 240px;">
         <span>Block List:</span>
@@ -26,15 +57,12 @@
       <div class="box" style="flex:1;margin-left: 36px;">
         <span>Tx-content:</span>
         <span style="margin: 12px 0; color: greenyellow;">chain-from:{{ chain }}</span>
-          <!-- <vue-json-pretty :data="tx" /> -->
+         
           <json-viewer :value="tx" copyable boxed sort />
-          <!-- <JsonViewer :value="jsonData" copyable boxed sort theme="dark"  @onKeyClick="keyClick"/> -->
-
-
-        <!-- <span class="txt">{{ JSON.stringify(tx) }}</span> -->
+       
       </div>
     </div>
-   
+    -->
     <!-- <h1>{{ store.test.useTestStore().count }}</h1> -->
     <!-- <button @click="store.test.useTestStore().add">click</button> -->
   </div>
@@ -44,10 +72,12 @@
 import { storeToRefs } from "pinia";
 import { userStore } from "@/store/modules/user";
 import { trace } from "@/utils/tools";
-import { onMounted, ref } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 import { sha256 } from "@cosmjs/crypto";
 import { toHex } from "@cosmjs/encoding";
 import 'vue-json-pretty';
+import { useRouter } from "vue-router";
+const router = useRouter();
 
 const _userStore = userStore();
 
@@ -55,16 +85,25 @@ const _s = storeToRefs(_userStore);
 // const { count,getBlockLatest } = _s;
 
 
-const maxTxNum = 100;             //#####################
-const upBlockNum = ref(0);      //###########################
-const downBlockNum = ref(0);    //###########################
-const txList = ref<any[]>([]);           //############
+const maxTxNum = 10;           
+const upBlockNum = ref(0);     
+const downBlockNum = ref(0);   
+const txList = ref<any[]>([
 
-const inp = ref("");   //############
+]);          
+const blocks = ref<any[]>([
+  //{block:1333,time:'2022-01-01 12:12:12',txns:2},
+  
+]);   
+const txs = ref<any[]>([
+  //{"tx":"E19DD396653021FC9210EF8D7A76FCE84CB2D7D550DBE0B892047E83A79CD335",timestamp:"2024-04-15T09:49:11Z","height":"259550"}
+]);      
+
 const block = ref<number|string>(0);   //############
 const tx = ref<any>({});
 const curHash = ref("");
 const chain = ref("");
+const tid = ref<number|undefined>(0);
 
 // const jsonData = ref({
 //   name: 'Vue',
@@ -72,13 +111,16 @@ const chain = ref("");
 //   description: 'Vue.js is a JavaScript framework'
 // });
 
-onMounted(() => {
+onMounted(async () => {
   txList.value = JSON.parse(localStorage.getItem("txList") || "[]");
+  await getBlocks();
   getInfo();
 
-  setInterval(() => {
+  tid.value = setInterval(() => {
     getInfo();
-  }, 750);
+  }, 9000);
+
+  
 });
 
 function getHash(str:string){
@@ -89,92 +131,109 @@ console.log("hash",txHash,str);  // ######SHA-256##############################
   return txHash;
 }
 
-function getchain(item:any){
-  const str = item.tx.body.messages[0].header;
-  let hex= "";
-  for (var i = 0; i < str.length; i += 2) {
-    hex += String.fromCharCode(parseInt(str.substr(i, 2), 16));
-  }
-  return JSON.parse(hex).chain.replace("evm","rollup").replace("apt","rollup");
+function lookBlock(item:any){
+  router.push({path:'block',query:{block:item.block}});
+}
+function lookTx(item:any){
+  router.push({path:'tx',query:{tx:item.tx}});
 }
 
+function getH(item:any){
+  return item.toString().slice(0,4)+'...'+item.toString().slice(-4)
+}
 
-async function check(){
-  let a = inp.value;
-  //##################
-  a = a.trim();
-  console.log("a=",a,inp.value);
-  if(a.length==64){
-    const res = await _userStore.getTx(a);
-    if(res){
-      chain.value = getchain(res);
-      tx.value = res as any;
-    }else{
-      tx.value = {txhash:"###############"} as any;
-    }
+async function getTX(){
+  const res:any = await _userStore.getTxs();
+  txs.value = res;
+}
+
+async function getBlocks(newBlock:number){
+  for(var i=newBlock;i>newBlock-maxTxNum;i--){
+    _userStore.getBlock(i).then((res1:any)=>{
+      addBlock(res1,true);
+    });
+    // const res1:any = await _userStore.getBlock(i);
+    // addBlock(res1,true);
+  }
+  
+}
+
+function addBlock(item:any,b:boolean=false){
+  var height= +item.block.header.height;
+  var   txs=item.block.data.txs.length;
+  var  timestamp=getT(item.block.header.time);
+  var  block_hash=item.block_id.hash;
+  if(blocks.value.length>0&&blocks.value[0].block>=height&&!b){
+    return;
+  }
+  if(b){
+    blocks.value.push({block:height,time:timestamp,txns:txs,hash:block_hash});
   }else{
-    tx.value = {txhash:"######hash############"} as any;
+    blocks.value.unshift({block:height,time:timestamp,txns:txs,hash:block_hash});
   }
+
+  blocks.value.sort((a,b)=>b.block-a.block);
+  blocks.value = blocks.value.slice(0,maxTxNum);
 }
-function selHash(item:any){
-  curHash.value = item.txhash;
-  inp.value = item.txhash;
-  check();
-}
+
+
+
 async function getInfo(){
+  getTX();
   const res:any = await _userStore.getBlockLatest();
+  
   // block.value = res.block.header.height;
-  const b:number = +res.block.header.height;    //res.block.last_commit.height
+  const b:number = +res.block.header.height;
+  if(blocks.value.length<10){
+    await getBlocks(b);
+  }
   if(b>block.value){  
     block.value = b;//has new block
     if(upBlockNum.value==0){
       upBlockNum.value = block.value;
-      downBlockNum.value = block.value;
+      // downBlockNum.value = block.value;
       getUP();
     }else if(upBlockNum.value<=block.value){
       getUP();
     }
-    
   }
+}
 
-  // if(txList.value.length<maxTxNum){
-  //   if(downBlockNum.value>1) getDown();
-  // }
-  
+function getT(str:string){
+  var id = str.lastIndexOf(".");
+  return str.slice(0,id)+"Z";
 
-  // trace("res", block.value,res);
-  
 }
 
 async function getUP(){
   const res1:any = await _userStore.getBlock(upBlockNum.value);
+  addBlock(res1);
   
-  
-  if(res1.txs.length>0){
-    trace("res1", res1);
-    for(let i=0;i<res1.txs.length;i++){
-      txList.value.push({tx:res1.txs[i],block:upBlockNum.value,txhash:getHash(res1.block.data.txs[i])} as any);
-    }
-    localStorage.setItem("txList", JSON.stringify(txList.value));
-  }
-  trace("txList", txList.value);
+  // if(res1.txs.length>0){
+  //   trace("res1", res1);
+  //   for(let i=0;i<res1.txs.length;i++){
+  //     txList.value.push({tx:res1.txs[i],block:upBlockNum.value,txhash:getHash(res1.block.data.txs[i])} as any);
+  //   }
+  //   localStorage.setItem("txList", JSON.stringify(txList.value));
+  // }
+  // trace("txList", txList.value);
   upBlockNum.value += 1;
 
-  if((!tx.value)||JSON.stringify(tx.value)?.length<3){
-    tx.value = txList.value[0];
-  }
+  // if((!tx.value)||JSON.stringify(tx.value)?.length<3){
+  //   tx.value = txList.value[0];
+  // }
 }
 
-async function getDown(){
-  downBlockNum.value --;
-  const res1:any = await _userStore.getBlock(downBlockNum.value);
-  trace("res1", res1);
-  if(res1.txs.length>0){
-    for(let i=0;i<res1.txs.length;i++){
-      txList.value.unshift(res1.txs[i] as any);
-    }
-  }
-}
+// async function getDown(){
+//   downBlockNum.value --;
+//   const res1:any = await _userStore.getBlock(downBlockNum.value);
+//   trace("res1", res1);
+//   if(res1.txs.length>0){
+//     for(let i=0;i<res1.txs.length;i++){
+//       txList.value.unshift(res1.txs[i] as any);
+//     }
+//   }
+// }
 
 // function handleClick() {
 //   _userStore.add();
@@ -182,18 +241,91 @@ async function getDown(){
 // }
 
 
+onUnmounted(() => {
+  clearInterval(tid.value)
+});
+
 </script>
 
 <style lang="scss" scoped>
 .home{
   position: relative;
   text-align: left;
-  color: white;
+  color: var(--bmq-text);
+  width: 1160px;
+  max-width: 100%;
+  margin: 0 auto;
+
+  .t-color2{
+    color: var(--bmq-text2);
+  }
 
   .h-title{
     position: relative;
     padding: 10px;
-    background-color: #333;
+    .block-height{
+      position: relative;
+      margin: 24px auto;
+      font-size: 20px;
+      font-weight: 600;
+
+    }
+
+    
+  }
+  .con-pane{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .latest-block,.latest-txs{
+    position: relative;
+    width: calc(50% - 16px);
+    padding: 16px;
+    border-radius: 24px;
+    border: 1px solid var(--bmq-bg2);
+    .b-title{
+      font-size: 24px;
+      font-weight: 600;
+      margin: 12px 0 24px;
+    }
+    .b-list{
+
+      .b-item{
+        padding-bottom: 6px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: solid 1px var(--bmq-bg2);
+        
+        margin-bottom: 12px;
+        .b-item-t1{
+          padding: 10px;
+          border-radius: 6px;
+          width: 40px;
+          text-align: center;
+          background-color: var(--bmq-bg2);
+        }
+        .b-item-t2{
+          width: 100px;
+          text-align: center;
+        }
+        .b-item-t3{
+          width: 200px;
+          text-align: center;
+        }
+      }
+    }
+
+  }
+  .latest-txs{
+    .b-item{
+        .b-item-t1{
+          border-radius: 40px !important;
+        }
+      }
   }
   .h-block{
     position: relative;
@@ -201,7 +333,6 @@ async function getDown(){
     display: flex;
     justify-content: space-between;
     padding: 10px;
-    background-color: #333;
     .box{
       width: 50%;
       padding: 10px;

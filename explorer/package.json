@@ -1,7 +1,7 @@
 {
-  "name": "move-ex-demo1",
+  "name": "move-explorer-cosmos",
   "private": true,
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "scripts": {
     "dev": "vite --mode dev",

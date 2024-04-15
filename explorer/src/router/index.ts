@@ -9,8 +9,15 @@ export const constantRoutes = [
     },
   },
   {
-    path: "/login",
-    component: () => import("@/views/login/index.vue"),
+    path: "/block",
+    component: () => import("@/views/block/index.vue"),
+    meta: {
+      isParentView: true,
+    },
+  },
+  {
+    path: "/tx",
+    component: () => import("@/views/tx/index.vue"),
     meta: {
       isParentView: true,
     },
