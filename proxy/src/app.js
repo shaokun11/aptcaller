@@ -438,7 +438,10 @@ const chain_check = (req, res, next) => {
     next();
 };
 
-app.use("/query.latestTx", async function (req, res, next) {
+
+const router_query = express.Router();
+
+router_query.get("/latestTx", async function (req, res) {
     const count = req.query.count || 10
     const ret = await db.get(count)
     res.json(ret.map(it => ({
@@ -447,6 +450,8 @@ app.use("/query.latestTx", async function (req, res, next) {
         timestamp: it.timestamp || ""
     })))
 })
+
+app.use("/query", router_query)
 
 app.use('/:chain/v1', chain_check, bcs_formatter, router);
 
