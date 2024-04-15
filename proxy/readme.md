@@ -1,17 +1,7 @@
-### 主题
-提供move-vm和move-evm的请求入口,使之匹配aptos的请求接口
-
-### 使用方式
-
-1. 更新.env的变量
-```
-URL
-
-
-```
-
-2. 启动服务
-
+### Title
+Shared Sequencer Gateway
+### Usage
+2. Start the service.
 ```bash
 npm i 
 npm start

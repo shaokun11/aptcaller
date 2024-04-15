@@ -1,10 +1,7 @@
-### Main Content
-
-This repository provides an EVM proxy solution designed to facilitate the delegation of EVM (Ethereum Virtual Machine) requests to move-evm.
+### Title
+Shared Sequencer Move-Evm Gateway
 
 ### Usage
-
-To utilize the EVM proxy effectively, please follow these instructions:
 
 1. Update the `.env*` file with the required configuration parameters.
 
