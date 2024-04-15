@@ -16,8 +16,8 @@ const { proxy } = getCurrentInstance();
 let res = $ref('null');
 
 async function handleClick2() {
-  proxy.submitOk('保存成功');
-  proxy.submitFail('操作失败');
+  proxy.submitOk('############');
+  proxy.submitFail('############');
 }
 </script>
 

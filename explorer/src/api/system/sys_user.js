@@ -3,33 +3,29 @@ import request from '@/utils/request';
 const BASE_API = '/web/api/system/user';
 
 export default {
-  // 获取验证码
   getCaptcha() {
     return request({
       url: '/captcha?t=' + new Date().getTime().toString(),
       method: 'get',
     });
   },
-  // 登录
   login(data) {
     return request({
       url: '/auth/login',
       method: 'post',
       data,
       // headers: {
-      //   // 客户端信息Base64明文：web:123456
+      //   // 
       //   Authorization: 'Basic d2ViOjEyMzQ1Ng==',
       // },
     });
   },
-  // 注销
   logout() {
     return request({
       url: '/auth/logout',
       method: 'delete',
     });
   },
-  // 获取用户权限
   getUserPerm() {
     return request({
       url: '/web/api/system/perm/getUserPerm',
@@ -89,7 +85,6 @@ export default {
       },
     });
   },
-  // 保存用户角色
   saveRoleIds(data) {
     return request({
       url: BASE_API + '/saveRoleIds',
@@ -97,7 +92,6 @@ export default {
       data: data,
     });
   },
-  // 修改密码
   updatePassword(data) {
     return request({
       url: BASE_API + '/updatePassword',

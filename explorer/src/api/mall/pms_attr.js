@@ -40,7 +40,6 @@ export default {
       params: params,
     })
   },
-  // ==========================================  上： 属性key  下：属性value
   listValue(query, headers) {
     return request({
       url: VALUE_BASE_API + '/list',

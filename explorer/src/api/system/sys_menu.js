@@ -33,9 +33,7 @@ export default {
       },
     })
   },
-  /**
-   * 获取菜单关联按钮权限信息
-   */
+  
   getPermListByMenuId(id) {
     return request({
       url: BASE_API + '/getPermListByMenuId',
@@ -45,9 +43,6 @@ export default {
       },
     })
   },
-  /**
-   * 删除菜单关联按钮权限
-   */
   deleteMenuReBtnPerm(id) {
     return request({
       url: BASE_API + '/deleteMenuReBtnPerm',
@@ -57,9 +52,6 @@ export default {
       },
     })
   },
-  /**
-   * 新增菜单关联按钮权限
-   */
   addMenuReBtnPerm(data) {
     return request({
       url: BASE_API + '/addMenuReBtnPerm',
@@ -67,9 +59,6 @@ export default {
       data,
     })
   },
-  /**
-   * 更新菜单关联按钮权限
-   */
   updateMenuReBtnPerm(data) {
     return request({
       url: BASE_API + '/updateMenuReBtnPerm',

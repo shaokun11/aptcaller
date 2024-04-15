@@ -12,7 +12,7 @@ const _ethereum: any = window["ethereum"];
 const projectId = '7e48604750ff839dfde67bffc47f08ec';
 var provider: Provider;
 /**
- * 退出
+ * ######
  * @returns 
  */
 export function logout() {
@@ -32,7 +32,7 @@ export function logout() {
     }
 }
 /**
- * 链接钱包
+ * ############
  * @param type "injected" | "walletconnect"
  * @param callback 
  * @returns 
@@ -71,7 +71,7 @@ export async function connect(type: "metamask" | "walletconnect", callback: (dat
     return userInfo
 }
 /**
- * 导入token
+ * ######token
  * @param token 
  * @returns 
  */
@@ -91,7 +91,7 @@ export async function importToken(token: tokenItem) {
 }
 let walletDisconnectTimer: NodeJS.Timeout | null;
 /**
- * 切账号 切链提示
+ * ######### ############
  * @param _provider 
  * @param callback 
  */
@@ -133,7 +133,7 @@ function eventsOn(_provider: Provider, callback: (data: { account: string; chain
     })
 }
 /**
- * 一键添加切换智能链
+ * ###########################
  * @param chainid
  * @returns
  */
@@ -153,8 +153,8 @@ export async function changeMetamaskChain(chainid: 1 | 5 | 97 | 280 | 324 | 4002
     }
 }
 /**
- * 判断是否为以太坊地址
- * @param token_address 地址
+ * ##############################
+ * @param token_address ######
  * @returns bool
  */
 export async function isETHAddress(token_address: string) {
@@ -170,7 +170,7 @@ export async function isETHAddress(token_address: string) {
     }
 }
 /**
- * 查询token的信息
+ * ######token#########
  * @param param 
  * @param chainid 
  * @returns 
@@ -183,12 +183,12 @@ export function getToken(param: string) {
     return tokens.find(item => (item.id === param || item.symbol === param)) ?? { decimals: 18, id: "", symbol: "unknow", chainid: 1 };
 }
 /**
- * 执行合约
- * @param contract 合约实例
- * @param methodName 方法
+ * ############
+ * @param contract ############
+ * @param methodName ######
  * @param value value
- * @param params 参数
- * @param callback 回调
+ * @param params ######
+ * @param callback ######
  */
 export async function executeContract(contract: any, methodName: string, value: string, params: any, callback: (code: number, hash: string) => void) {
     let b = false;

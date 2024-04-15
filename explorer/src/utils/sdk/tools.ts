@@ -4,7 +4,7 @@ import { BigNumber } from "bignumber.js";
 dayjs.extend(advancedFormat);
 BigNumber.config({ ROUNDING_MODE: 1 });
 BigNumber.config({ EXPONENTIAL_AT: 1e9 });
-//大数转常数
+//###############
 export function convertBigNumberToNormal(
   _number: string | BigNumber,
   decimals = 18,
@@ -17,7 +17,7 @@ export function convertBigNumberToNormal(
   );
   return result.toFixed(fix);
 }
-//常数转大数
+//###############
 export function convertNormalToBigNumber(
   number: string | number,
   decimals = 18,
@@ -28,25 +28,25 @@ export function convertNormalToBigNumber(
     .minus(fix)
     .toFixed(0);
 }
-//百分数
+//#########
 export function calculatePercentage(numerator: string, denominator: string) {
   return new BigNumber(numerator)
     .dividedBy(new BigNumber(denominator))
     .toFixed();
 }
-//加 x+y
+//### x+y
 export function add(number1: string, number2: string, fix = 10) {
   return new BigNumber(number1).plus(new BigNumber(number2)).toFixed(fix);
 }
-//减 x-y
+//### x-y
 export function sub(number1: string, number2: string, fix = 10) {
   return new BigNumber(number1).minus(new BigNumber(number2)).toFixed(fix);
 }
-//乘 x*y
+//### x*y
 export function mul(number1: string, number2: string, fix = 10) {
   return new BigNumber(number1).times(new BigNumber(number2)).toFixed(fix);
 }
-//除  x/y
+//###  x/y
 export function div(number1: string, number2: string, fix = 10) {
   return new BigNumber(number1).div(new BigNumber(number2)).toFixed(fix);
 }
@@ -56,7 +56,7 @@ export function convertToPaddedUint8Array(str: string, length: number) {
   );
   return Uint8Array.from([...new Uint8Array(length - value.length), ...value]);
 }
-//保留N位并除去末尾多余的0
+//######N###########################0
 export function toFixedCutZero(
   num: number | string,
   fix = 2,
@@ -64,7 +64,7 @@ export function toFixedCutZero(
 ) {
   return toFormatNumber(num, fix, thousand, true);
 }
-//保留N位，截断不进位
+//######N###，###############
 export function toFixedNumber(num: number | string, fix = 2, thousand = false) {
   return toFormatNumber(num, fix, thousand, false);
 }
@@ -81,7 +81,7 @@ monthNames[8] = "September";
 monthNames[9] = "October";
 monthNames[10] = "November";
 monthNames[11] = "December";
-//月份的映射
+//###############
 export function toMonthName(monthNumber: number) {
   return monthNames[monthNumber];
 }
@@ -89,11 +89,11 @@ function componentToHex(c: number) {
   var hex = c.toString(16);
   return hex.length == 1 ? "0" + hex : hex;
 }
-//rgb转#
+//rgb####
 export function rgbToHex(r: number, g: number, b: number) {
   return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }
-// //当前页面的 URL 中查找该查询参数的值并返回.eg:***?id=123&name=hhh    gpu('id')=>123
+// //############### URL #######################################.eg:***?id=123&name=hhh    gpu('id')=>123
 // export function gup(name: string) {
 //     name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
 //     var regexS = "[\\?&]" + name + "=([^&#]*)";
@@ -104,7 +104,7 @@ export function rgbToHex(r: number, g: number, b: number) {
 //     else
 //         return results[1];
 // }
-//将value转换到min到rangeSize的区间内
+//###value#########min###rangeSize############
 export function wrap(value: number, min: number, rangeSize: number) {
   rangeSize -= min;
   while (value < min) {
@@ -112,20 +112,20 @@ export function wrap(value: number, min: number, rangeSize: number) {
   }
   return value % rangeSize;
 }
-//将v从[i1,i2]的区间转换到[o1,o2]的区间
+//###v###[i1,i2]##################[o1,o2]#########
 export function map(v: number, i1: number, i2: number, o1: number, o2: number) {
   return o1 + ((o2 - o1) * (v - i1)) / (i2 - i1);
 }
-//千分位
+//#########
 export function numberWithCommas(x: number) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-//放缩法四舍五入
+//#####################
 export function roundNumber(num: number, dec: number) {
   var result = Math.round(num * Math.pow(10, dec)) / Math.pow(10, dec);
   return result;
 }
-//value是个字符串，ia是转换后的ASCII码值，off是起始偏移，size是运算多少位，返回的是ASCII码数值的和
+//value###############，ia###############ASCII######，off###############，size##################，############ASCII###############
 export function dumpString(
   value: string,
   ia: number[],
@@ -147,7 +147,7 @@ export const toHex = (num: Number | string) => {
   const val = Number(num);
   return "0x" + val.toString(16);
 };
-//左边添加0
+//############0
 export function padLeft(value: string, size: number) {
   if (size < value.length) {
     printf("Incompatible size");
@@ -158,7 +158,7 @@ export function padLeft(value: string, size: number) {
   }
   return value;
 }
-//转千分位
+//############
 export function toThousands(num: number | string) {
   num = num + "";
   if (+num < 1000) return num;
@@ -170,7 +170,7 @@ export function toThousands(num: number | string) {
     return num.replace(reg, "$&,");
   }
 }
-//处理数值格式
+//##################
 export function toFormatNumber(
   num: number | string,
   fix = 2,
@@ -195,7 +195,7 @@ export function toFormatNumber(
   }
   return str;
 }
-//金额转M B单位显示
+//#########M B############
 export function formatAmount(str: number | string, fix = 0) {
   let num = +str;
   if (num >= 1000000000) {
@@ -206,7 +206,7 @@ export function formatAmount(str: number | string, fix = 0) {
     return num.toFixed(fix);
   }
 }
-//去掉数值前面多余的0
+//###########################0
 export function toCutFrontZero(num: string) {
   let str = num + "";
   while (str.length > 1 && str.startsWith("0") && str[1] !== ".") {
@@ -214,13 +214,13 @@ export function toCutFrontZero(num: string) {
   }
   return str;
 }
-//获取截止时间
+//##################
 export function getDeadLine(delay: number) {
   return Math.floor(new Date().getTime() / 1000 + 60 * delay);
 }
-//异步延时
+//############
 export const sleep = (ms: number) => new Promise((res) => setTimeout(res, ms));
-//获取当前设备的类型 0：PC  1：Mobile
+//########################### 0：PC  1：Mobile
 export function getDeviceType() {
   let flag = navigator.userAgent.match(
     /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
@@ -228,7 +228,7 @@ export function getDeviceType() {
   return flag ? 1 : 0;
 }
 /**
- * 格式化时间
+ * ###############
  * @param timestamp
  * @param formatStr "ddd, MMM D, YYYY, h:mm:ss A"|'YYYY/MM/DD HH:mm:ss'
  */
@@ -238,7 +238,7 @@ export function formatTime(timestamp: number, formatStr: string) {
   }
   return dayjs(timestamp).format(formatStr);
 }
-//打log-----------------------------------
+//###log-----------------------------------
 let isPrintf = localStorage.getItem("printf");
 
 export function printf(message?: string, ...optionalParams: any[]) {
@@ -253,9 +253,9 @@ export function printf(message?: string, ...optionalParams: any[]) {
   }
 }
 /**
- * 封装请求
- * @param url 请求链接
- * @param query 请求body | 可空
+ * ############
+ * @param url ############
+ * @param query ######body | ######
  * @returns
  */
 export async function request(url: string, query?: object) {

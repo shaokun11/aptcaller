@@ -55,13 +55,13 @@ const _s = storeToRefs(_userStore);
 // const { count,getBlockLatest } = _s;
 
 
-const maxTxNum = 100;             //最大拉取交易数
-const upBlockNum = ref(0);      //最新向上更新的区块
-const downBlockNum = ref(0);    //最新向下更新的区块
-const txList = ref<any[]>([]);           //交易列表
+const maxTxNum = 100;             //#####################
+const upBlockNum = ref(0);      //###########################
+const downBlockNum = ref(0);    //###########################
+const txList = ref<any[]>([]);           //############
 
-const inp = ref("");   //查询交易
-const block = ref(0);   //最新区块
+const inp = ref("");   //############
+const block = ref<number|string>(0);   //############
 const tx = ref<any>({});
 const curHash = ref("");
 const chain = ref("");
@@ -85,7 +85,7 @@ function getHash(str:string){
   const txHash = toHex(sha256(Buffer.from(str,'base64')))
 // const s256 = CryptoJS.SHA256(Buffer.from(str,'base64'));
 // const hash = s256.toString(CryptoJS.enc.Hex);
-console.log("hash",txHash,str);  // 输出SHA-256哈希值的十六进制表示
+console.log("hash",txHash,str);  // ######SHA-256##############################
   return txHash;
 }
 
@@ -101,7 +101,7 @@ function getchain(item:any){
 
 async function check(){
   let a = inp.value;
-  //去除前后空格
+  //##################
   a = a.trim();
   console.log("a=",a,inp.value);
   if(a.length==64){
@@ -110,10 +110,10 @@ async function check(){
       chain.value = getchain(res);
       tx.value = res as any;
     }else{
-      tx.value = {txhash:"未找到交易"} as any;
+      tx.value = {txhash:"###############"} as any;
     }
   }else{
-    tx.value = {txhash:"交易hash长度不对"} as any;
+    tx.value = {txhash:"######hash############"} as any;
   }
 }
 function selHash(item:any){
@@ -209,7 +209,7 @@ async function getDown(){
       display: inline-flex;
       flex-direction: column;
 
-      .txt{ //自动换行
+      .txt{ //############
         word-wrap: break-word;
 
         .txt-on{

@@ -86,7 +86,7 @@ export const userStore = defineStore({
       //   localStorage.setItem(process.env.VITE_APP_USER_KEY||'user', JSON.stringify(user));
     },
 
-    getBlockLatest(){   //查询最新block数据
+    getBlockLatest(){   
       return new Promise((resolve, reject) => {
         fetch(`${this.api}/cosmos/base/tendermint/v1beta1/blocks/latest`)
           .then((res) => res.json())
@@ -99,7 +99,6 @@ export const userStore = defineStore({
       });
     },
 
-    //查询block数据
     getBlock(height: number|string) {
       return new Promise((resolve, reject) => {
         fetch(`${this.api}/cosmos/tx/v1beta1/txs/block/${height}`)
@@ -113,7 +112,6 @@ export const userStore = defineStore({
       });
     },
 
-    //查询交易数据
     getTx(hash: string) {
       return new Promise((resolve, reject) => {
         fetch(`${this.api}/cosmos/tx/v1beta1/txs/${hash}`)
@@ -130,9 +128,9 @@ export const userStore = defineStore({
   },
 
   //   persist: {
-  //     enabled: true, // 开启缓存  默认会存储在本地localstorage
-  //     storage: localStorage, // 缓存使用方式 sessionStorage
-  //     paths: [], // 需要缓存键
+  //     enabled: true, // localstorage
+  //     storage: localStorage, //  sessionStorage
+  //     paths: [], // 
   //   },
 });
 

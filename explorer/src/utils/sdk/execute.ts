@@ -2,7 +2,7 @@ import { web3, executeContract, getToken } from "./utils";
 import { convertNormalToBigNumber } from "./tools";
 import { userInfo, ContractAddress, tokenItem, ERC20MOCK, ZKPAYROLLL1, ZKPAYROLLL2, STAKEPOOL } from "./config";
 /**
- * 对token授权
+ * ###token######
  * @param token_address
  * @param callback
  */
@@ -26,11 +26,11 @@ export async function mint(token: tokenItem, callback: (code: number, hash: stri
   executeContract(contract, "mint", "0", [userInfo.account, bigAmount], callback);
 }
 /**
- * 转账
- * @param token_address 币地址
- * @param to_address 收款地址
- * @param amount 数量 常数
- * @param callback 回调
+ * ######
+ * @param token_address #########
+ * @param to_address ############
+ * @param amount ###### ######
+ * @param callback ######
  */
 export async function transfer(token_address: string, to_address: string, amount: string, callback: (code: number, hash: string) => void) {
   let contract = new web3.eth.Contract(ERC20MOCK, token_address);
@@ -38,12 +38,12 @@ export async function transfer(token_address: string, to_address: string, amount
   executeContract(contract, "transfer", "0", [to_address, bigAmount], callback);
 }
 /**
- * 从**转账
- * @param token_address 币的地址
- * @param from_address 出账地址
- * @param to_address 入账地址
- * @param amount 数量 常数
- * @param callback 回调
+ * ###**######
+ * @param token_address ############
+ * @param from_address ############
+ * @param to_address ############
+ * @param amount ###### ######
+ * @param callback ######
  */
 export async function transferFrom(token_address: string, from_address: string, to_address: string, amount: string, callback: (code: number, hash: string) => void) {
   let contract = new web3.eth.Contract(ERC20MOCK, token_address);
@@ -51,7 +51,7 @@ export async function transferFrom(token_address: string, from_address: string, 
   executeContract(contract, "transferFrom", "0", [from_address, to_address, bigAmount], callback);
 }
 /**
- * sign签名
+ * sign######
  * @param msg 
  * @param callback 
  */

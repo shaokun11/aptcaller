@@ -6,26 +6,23 @@ import AutoImport from "unplugin-auto-import/vite";
 
 import ReactivityTransform from "@vue-macros/reactivity-transform/vite";
 
-// https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
-  // 获取`.env`环境配置文件
   const env = loadEnv(mode, process.cwd());
 
   return {
     plugins: [
       vue(),
-      ReactivityTransform(), // 启用响应式语法糖 $ref ...
-      // 解决 `import { ref , reactive ..... } from 'vue'` 大量引入的问题
+      ReactivityTransform(), 
+      //  `import { ref , reactive ..... } from 'vue'` 
       AutoImport({
         imports: ["vue", "vue-router"],
       }),
     ],
     assetsDir: "static-hash",
     publicPath: "./",
-    // 反向代理解决跨域问题
     server: {
-      // host: 'localhost', // 只能本地访问
-      host: "0.0.0.0", // 局域网别人也可访问
+      // host: 'localhost', 
+      host: "0.0.0.0", 
       port: Number(env.VITE_APP_PORT),
       open: false,
       proxy: {
@@ -45,7 +42,7 @@ export default defineConfig(({ mode }) => {
         },
       ],
     },
-    // 引入scss全局变量
+    // scss Global
     // css: {
     //   preprocessorOptions: {
     //     scss: {

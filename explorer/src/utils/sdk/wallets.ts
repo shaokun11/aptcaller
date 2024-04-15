@@ -129,7 +129,7 @@ async function handleDisconnect() {
     }
 }
 /**
- * 退出
+ * ######
  * @returns 
  */
 export function logout() {
@@ -149,7 +149,7 @@ export function logout() {
     }
 }
 /**
- * 导入token
+ * ######token
  * @param token 
  * @returns 
  */
@@ -168,7 +168,7 @@ export async function importToken(token: tokenItem) {
     })
 }
 /**
- * 一键添加切换智能链
+ * ###########################
  * @param chainid
  * @returns
  */
@@ -190,8 +190,8 @@ export async function changeMetamaskChain(chainid: 1 | 5 | 97 | 280 | 324 | 336 
     }
 }
 /**
- * 判断是否为以太坊地址
- * @param token_address 地址
+ * ##############################
+ * @param token_address ######
  * @returns bool
  */
 export async function isETHAddress(token_address: string) {
@@ -207,7 +207,7 @@ export async function isETHAddress(token_address: string) {
     }
 }
 /**
- * 查询token的信息
+ * ######token#########
  * @param param 
  * @param chainid 
  * @returns 
@@ -220,12 +220,12 @@ export function getToken(param: string) {
     return tokens.find(item => (item.id === param || item.symbol === param)) ?? { decimals: 18, id: "", symbol: "unknow", chainid: 1 };
 }
 /**
- * 执行合约
- * @param contract 合约实例
- * @param methodName 方法
+ * ############
+ * @param contract ############
+ * @param methodName ######
  * @param value value
- * @param params 参数
- * @param callback 回调
+ * @param params ######
+ * @param callback ######
  */
 export async function executeContract(contract: any, methodName: string, value: string, params: any, callback: (code: number, hash: string) => void) {
     let b = false;

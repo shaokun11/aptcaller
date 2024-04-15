@@ -39,7 +39,7 @@ export const chainIdDict = {
   421613: "Arbitrum Testnet",
 };
 
-export const isOnLine = true;//是否是线上
+export const isOnLine = true;
 
 export interface IuserInfo { account: string, chainID: 1 | 5 | 280 | 324 | 59140 | 59144 | 11155111 | 534351 | 534352, chain: string, message: string, providerInfo: any }
 
@@ -58,8 +58,8 @@ export const ContractAddress = {
     "stakingPool": "0xb5EA2984afF668234477740E50DeD90C52653270",
     "rpc": "",
     "scan": "https://etherscan.io/",
-    // "gql": "https://graphql.cedro.finance/subgraphs/name/cedro/server",//线上
-    "gql": "https://graphv2.multiple.fi/subgraphs/name/cedro/server1",//测试站
+    // "gql": "https://graphql.cedro.finance/subgraphs/name/cedro/server",//######
+    "gql": "https://graphv2.multiple.fi/subgraphs/name/cedro/server1",//#########
   },
   
   5: {//Goerli Testnet
@@ -69,8 +69,8 @@ export const ContractAddress = {
     "stakingPool": "0xb5EA2984afF668234477740E50DeD90C52653270",
     "rpc": "",
     "scan": "https://goerli.etherscan.io/",
-    // "gql": "https://graphql.cedro.finance/subgraphs/name/cedro/server",//线上
-    "gql": "https://graphv2.multiple.fi/subgraphs/name/cedro/server1",//测试站
+    // "gql": "https://graphql.cedro.finance/subgraphs/name/cedro/server",//######
+    "gql": "https://graphv2.multiple.fi/subgraphs/name/cedro/server1",//#########
   },
   280: {//zkSync Era Testnet
     "L1": "",

@@ -1,7 +1,7 @@
 import { request } from "./tools";
 import { userInfo, ContractAddress } from "./config";
 /**
- * 交易阶段的榜单
+ * #####################
  * @returns 
  */
 export async function getHealthList() {
@@ -15,7 +15,7 @@ export async function getHealthList() {
   return data.data.borrowUsersEntity?.users ?? [];
 }
 /**
- * 检查owner
+ * ######owner
  * @param ids 
  * @returns 
  */

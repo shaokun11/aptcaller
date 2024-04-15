@@ -9,7 +9,6 @@
       <!-- <a-menu v-model:selectedKeys="selectedKeys" mode="horizontal" :theme="theme">
         <a-menu-item  key="1"><i>sub1</i></a-menu-item>
         <a-menu-item key="2"><i>option 2</i></a-menu-item>
-        <a-menu-item key="3"><i>收缩全部子菜单</i></a-menu-item>
       </a-menu> -->
     </a-flex>
 

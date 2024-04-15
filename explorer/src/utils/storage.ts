@@ -1,5 +1,5 @@
 /**
- * window.localStorage => 浏览器永久存储，用于长久保存整个网站的数据，保存的数据没有过期时间，直到手动去删除。
+ * window.localStorage
  */
 export const localStorage = {
   set(key: string, val: any) {
@@ -18,7 +18,7 @@ export const localStorage = {
 };
 
 /**
- * window.sessionStorage => 浏览器本地存储，数据保存在当前会话中，在关闭窗口或标签页之后将会删除这些数据。
+ * window.sessionStorage 
  */
 export const sessionStorage = {
   set(key: string, val: any) {
