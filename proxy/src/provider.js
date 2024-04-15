@@ -3,6 +3,7 @@ const _ = require('lodash');
 const { execaCommand } = require('execa');
 const { URL } = require('./const');
 const { sleep } = require('./helper');
+const { db } = require('./db');
 async function exe_cmd(cmd) {
     return new Promise(resolve => {
         let ret = '';
@@ -82,7 +83,7 @@ async function getResponse(url, max = 10) {
         await sleep(500);
     }
 }
-function saveToDataLayer (data) {
+function saveToDataLayer(data) {
     const store = process.env.CELESTIA_DATA_STORE;
     const key = process.env.CELESTIA_AUTH_TOKEN;
     const space = "0x61707463616C6C6572"  // aptcaller
@@ -103,6 +104,7 @@ exports.sendSubmitTx = async function sendSubmitTx(body, header) {
     const url = `${URL}/cosmos/tx/v1beta1/txs/${hash}`;
     await new Promise(resolve => setTimeout(resolve, 1000));
     const tx_result = await getResponse(url);
+    await db.save(hash, tx_result.tx_response.height);
     const ret = tx_result.tx_response.events.find(it => it.type === 'SubmitTransactionEvent');
     return parseRet({
         aptRes: {

@@ -3,9 +3,11 @@ require('express-async-errors');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const { call, sendSubmitTx, post ,saveToDataLayer} = require('./provider');
+const { call, sendSubmitTx, post, saveToDataLayer } = require('./provider');
 const { PORT, URL: url } = require('./const');
 const { APTOS_MIME_TYPE } = require('./mime');
+const { db } = require('./db');
+
 const app = express();
 
 const URL = url + '/aptcaller/aptcaller/';
@@ -403,7 +405,7 @@ const bcs_formatter = (req, res, next) => {
         'Content-Type': send_format,
         Accept: rev_format,
         chain: req.params.chain,
-        dataLayer:""
+        dataLayer: ""
     };
     req.req_header = Buffer.from(JSON.stringify(header)).toString('hex');
     res.sendData = data => {
@@ -435,6 +437,15 @@ const chain_check = (req, res, next) => {
     }
     next();
 };
+
+app.use("/query", async function (req, res, next) {
+    const count = req.query.count
+    const ret = await db.get(count)
+    res.json(ret.map(it => ({
+        tx: it.tx,
+        height: it.height
+    })))
+})
 
 app.use('/:chain/v1', chain_check, bcs_formatter, router);
 
