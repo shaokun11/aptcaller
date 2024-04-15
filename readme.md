@@ -26,5 +26,3 @@ ignite chain serve
 This project is licensed under the [MIT License](LICENSE).
 
 ---
-
-© 2024 Ignite. All rights reserved.
