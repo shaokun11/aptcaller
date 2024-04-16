@@ -2,7 +2,6 @@ package keeper
 
 import (
 	"context"
-	"strconv"
 
 	"aptcaller/x/aptcaller/types"
 
@@ -29,13 +28,13 @@ func (k msgServer) SubmitTransaction(goCtx context.Context, msg *types.MsgSubmit
 	// 	return nil, status.Error(codes.InvalidArgument, "parse body error")
 	// }
 	// res, err := apt.Post(finalURL, string(body), msg.Header)
-	ctx.EventManager().EmitEvent(
-		sdk.NewEvent("SubmitTransactionEvent",
-			sdk.NewAttribute("body", msg.Body),
-			sdk.NewAttribute("header", "header"),
-			sdk.NewAttribute("code", strconv.FormatUint(uint64(200), 10)),
-		),
-	)
+	// ctx.EventManager().EmitEvent(
+	// 	sdk.NewEvent("SubmitTransactionEvent",
+	// 		sdk.NewAttribute("body", msg.Body),
+	// 		sdk.NewAttribute("header", "header"),
+	// 		sdk.NewAttribute("code", strconv.FormatUint(uint64(200), 10)),
+	// 	),
+	// )
 	ret := types.MsgSubmitTransactionResponse{
 		AptRes: &types.AptRes{
 			Body:   msg.Body,
