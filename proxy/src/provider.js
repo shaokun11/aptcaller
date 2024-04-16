@@ -113,9 +113,15 @@ function saveToDataLayer(data, hash) {
 }
 exports.saveToDataLayer = saveToDataLayer;
 
+let COUNTER = 0
+
 exports.sendSubmitTx = async function sendSubmitTx(body, header) {
     const { tx_result, hash } = await locker_submit_tx.acquire("locker:tx", async function (done) {
-        const cmd = `aptcallerd tx aptcaller submit-transaction ${header} ${body} --log_format json --from alice --chain-id aptcaller -y`;
+        let from = 'alice';
+        if (COUNTER % 2 === 0) {
+            from = 'bob';
+        }
+        const cmd = `aptcallerd tx aptcaller submit-transaction ${header} ${body} --log_format json --from ${from} --chain-id aptcaller -y`;
         try {
             const res = await exe_cmd(cmd);
             const line = await res.split('\n').find(it => it.includes('txhash'));
@@ -128,6 +134,7 @@ exports.sendSubmitTx = async function sendSubmitTx(body, header) {
             done(error);
         }
     })
+    COUNTER++;
     await saveToDataLayer(body, hash);
     await db.save(hash, tx_result.tx_response.height, tx_result.tx_response.timestamp);
     const ret = tx_result.tx_response.events.find(it => it.type === 'SubmitTransactionEvent');
