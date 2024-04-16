@@ -48,6 +48,7 @@ function faucetMevm(to, chain) {
 const SUPPORT_CHAIN_INDEX = [1, 2];
 
 router.post('/mevm', async function (req, res) {
+    console.log("request faucet body", req.body)
     const eth = req.body.address;
     let chain = req.body.chain;
     if (!ethers.isAddress(eth)) {
