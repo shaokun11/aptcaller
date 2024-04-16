@@ -21,6 +21,21 @@ git clone <this_repo>
 ignite chain serve
 ```
 
+### Dev Rpc
+
+| title | info | 
+| --- | --- |
+| Rollup1 Explorer  | https://explorer.test1.m1.movementlabs.xyz/ |
+| Rollup2 Explorer  | https://explorer.test2.m1.movementlabs.xyz/ |
+| Cosmos Explorer | https://explorer.shared.m1.movementlabs.xyz/ |
+| Rollup1 EVM RPC | https://api.mevm.m1.movementlabs.xyz/node1/  |
+| Rollup1 EVM RPC chainId  | 10000001 |
+| Rollup2 EVM RPC | https://api.mevm.m1.movementlabs.xyz/node2/ |
+| Rollup2 EVM RPC chainId | 10000002 |
+| Rollup1 MoveVM RPC  | https://api.aptos.m1.movementlabs.xyz/apt1/v1 |
+| Rollup2 MoveVM RPC | https://api.aptos.m1.movementlabs.xyz/apt2/v1 |
+
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
