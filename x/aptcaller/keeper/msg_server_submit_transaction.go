@@ -2,16 +2,11 @@ package keeper
 
 import (
 	"context"
-	"encoding/hex"
-	"fmt"
 	"strconv"
 
-	"aptcaller/apt"
 	"aptcaller/x/aptcaller/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 )
 
 func (k msgServer) SubmitTransaction(goCtx context.Context, msg *types.MsgSubmitTransaction) (*types.MsgSubmitTransactionResponse, error) {
@@ -24,29 +19,29 @@ func (k msgServer) SubmitTransaction(goCtx context.Context, msg *types.MsgSubmit
 		AptTx:   msg.Body,
 		Id:      0,
 	})
-	chainUrl, err := apt.ParseChain(msg.Header)
-	if err != nil {
-		return nil, err
-	}
-	finalURL := fmt.Sprintf("%s/transactions", chainUrl)
-	body, err := hex.DecodeString(msg.Body)
-	if err != nil {
-		return nil, status.Error(codes.InvalidArgument, "parse body error")
-	}
-	res, err := apt.Post(finalURL, string(body), msg.Header)
+	// chainUrl, err := apt.ParseChain(msg.Header)
+	// if err != nil {
+	// 	return nil, err
+	// }
+	// finalURL := fmt.Sprintf("%s/transactions", chainUrl)
+	// body, err := hex.DecodeString(msg.Body)
+	// if err != nil {
+	// 	return nil, status.Error(codes.InvalidArgument, "parse body error")
+	// }
+	// res, err := apt.Post(finalURL, string(body), msg.Header)
 	ctx.EventManager().EmitEvent(
 		sdk.NewEvent("SubmitTransactionEvent",
-			sdk.NewAttribute("body", res.AptRes.Body),
-			sdk.NewAttribute("header", res.AptRes.Header),
-			sdk.NewAttribute("code", strconv.FormatUint(uint64(res.AptRes.Code), 10)),
+			sdk.NewAttribute("body", msg.Body),
+			sdk.NewAttribute("header", "header"),
+			sdk.NewAttribute("code", strconv.FormatUint(uint64(200), 10)),
 		),
 	)
 	ret := types.MsgSubmitTransactionResponse{
 		AptRes: &types.AptRes{
-			Body:   res.AptRes.Body,
-			Header: res.AptRes.Header,
-			Code:   res.AptRes.Code,
+			Body:   msg.Body,
+			Header: "header",
+			Code:   200,
 		},
 	}
-	return &ret, err
+	return &ret, nil
 }
