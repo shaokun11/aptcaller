@@ -14,7 +14,7 @@ const account = aptos.AptosAccount.fromAptosAccountObject({
 });
 
 async function sendTx(chainIndex, payload) {
-    const client = new aptos.AptosClient(NODE_URLS[chainIndex]);
+    const client = new aptos.AptosClient(NODE_URLS[chainIndex - 1]);
     const txnRequest = await client.generateTransaction(account.address().hexString, payload);
     const signedTxn = await client.signTransaction(account, txnRequest);
     const transactionRes = await client.submitTransaction(signedTxn);
@@ -26,26 +26,26 @@ function toBuffer(hex) {
     return new HexString(hex).toUint8Array();
 }
 
-async function faucetApt(to, chain) {
+function faucetApt(to, chain) {
     const payload = {
         type: 'entry_function_payload',
         function: '0x1::aptos_account::transfer',
         type_arguments: [],
         arguments: [to, 1e8],
     };
-    return await sendTx(chain, payload);
+    return sendTx(chain, payload);
 }
 
-async function faucetMevm(to, chain) {
+function faucetMevm(to, chain) {
     let payload = {
         function: `0x1::evm::deposit`,
         type_arguments: [],
         arguments: [toBuffer(to), toBuffer(toBeHex((1e18).toString()))],
     };
-    return await sendTx(chain, payload);
+    return sendTx(chain, payload);
 }
 
-const SUPPORT_CHAIN_INDEX = [0, 1];
+const SUPPORT_CHAIN_INDEX = [1, 2];
 
 router.post('/mevm', async function (req, res) {
     const eth = req.body.address;
