@@ -85,7 +85,7 @@ async function getResponse(url, max = 10) {
 function saveToDataLayer(data) {
     const store = process.env.CELESTIA_DATA_STORE;
     const key = process.env.CELESTIA_AUTH_TOKEN;
-    const space = "0x4d6f76656d656e7453686172656453657175656e636572"  // MovementSharedSequencer
+    const space = "0x4d6f76655353"  // MovementSharedSequencer short form:MoveSS
     const data_hex = Buffer.from(data).toString('hex');
     const cmd = `celestia blob submit ${space} ${data_hex} --token ${key} --node.store ${store}`;
     return exe_cmd(cmd);
