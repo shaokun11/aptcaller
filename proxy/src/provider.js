@@ -115,12 +115,13 @@ exports.saveToDataLayer = saveToDataLayer;
 let COUNTER = 0
 
 exports.sendSubmitTx = async function sendSubmitTx(body, header) {
-    const { tx_result, hash } = await locker_submit_tx.acquire("locker:tx", async function (done) {
-        let from = 'alice';
-        if (COUNTER % 2 === 0) {
-            from = 'bob';
-        }
-        COUNTER++;
+    let from = 'alice';
+    if (COUNTER % 2 === 0) {
+        from = 'bob';
+    }
+    COUNTER++;
+    const { tx_result, hash } = await locker_submit_tx.acquire("locker:tx:" + from, async function (done) {
+        console.log('send tx from:', from)  
         const cmd = `aptcallerd tx aptcaller submit-transaction ${header} ${body} --log_format json --from ${from} --chain-id aptcaller -y`;
         try {
             const res = await exe_cmd(cmd);
