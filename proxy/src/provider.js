@@ -104,7 +104,8 @@ function saveToDataLayer(data, hash) {
                 console.log('%s save to celestia data layer success', hash, res);
             })
             .catch(err => {
-                done(err);
+                //now  ignore this error
+                done(null, "");
                 console.log('%s save to celestia data layer fail', hash, err);
             });
     })
@@ -121,7 +122,7 @@ exports.sendSubmitTx = async function sendSubmitTx(body, header) {
     }
     COUNTER++;
     const { tx_result, hash } = await locker_submit_tx.acquire("locker:tx:" + from, async function (done) {
-        console.log('send tx from:', from)  
+        console.log('send tx from:', from)
         const cmd = `aptcallerd tx aptcaller submit-transaction ${header} ${body} --log_format json --from ${from} --chain-id aptcaller -y`;
         try {
             const res = await exe_cmd(cmd);
