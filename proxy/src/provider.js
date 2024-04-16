@@ -5,18 +5,22 @@ const { URL } = require('./const');
 const { sleep } = require('./helper');
 const { db } = require('./db');
 async function exe_cmd(cmd) {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
         let ret = '';
         const res = execaCommand(cmd, {
             stdio: ['inherit', 'pipe'],
         });
         res.stdout.on('data', data => {
             const str = data.toString();
-            process.stdout.write(str);
+            // process.stdout.write(str);
             ret += str;
         });
         res.stdout.on('end', () => {
             resolve(ret);
+        });
+        res.stderr.on('data', data => {
+            const str = data.toString();
+            reject(str);
         });
     });
 }
@@ -82,27 +86,32 @@ async function getResponse(url, max = 10) {
         await sleep(1000);
     }
 }
-function saveToDataLayer(data) {
+function saveToDataLayer(data, hash) {
     const store = process.env.CELESTIA_DATA_STORE;
     const key = process.env.CELESTIA_AUTH_TOKEN;
     const space = '0x4d6f76655353'; // MovementSharedSequencer short form:MoveSS
     const data_hex = Buffer.from(data).toString('hex');
     const cmd = `celestia blob submit ${space} ${data_hex} --token ${key} --node.store ${store}`;
-    return exe_cmd(cmd);
+    exe_cmd(cmd)
+        .then(res => {
+            console.log('%s save to celestia data layer success', hash, res);
+        })
+        .catch(err => {
+            console.log('%s save to celestia data layer fail', hash, err);
+        });
 }
 exports.saveToDataLayer = saveToDataLayer;
 
 exports.sendSubmitTx = async function sendSubmitTx(body, header) {
-    let header_ = JSON.parse(Buffer.from(header, 'hex').toString('utf8'));
-    header_.dataLayer = await saveToDataLayer(body);
-    header_ = Buffer.from(JSON.stringify(header_)).toString('hex');
-    const cmd = `aptcallerd tx aptcaller submit-transaction ${header_} ${body} --log_format json --from alice --chain-id aptcaller -y`;
+    const cmd = `aptcallerd tx aptcaller submit-transaction ${header} ${body} --log_format json --from alice --chain-id aptcaller -y`;
     const res = await exe_cmd(cmd);
     const line = await res.split('\n').find(it => it.includes('txhash'));
     const hash = line.split(' ')[1].trim();
     const url = `${URL}/cosmos/tx/v1beta1/txs/${hash}`;
+    console.log("submit tx hash: ", hash);
     await new Promise(resolve => setTimeout(resolve, 1000));
     const tx_result = await getResponse(url);
+    await saveToDataLayer(body, hash);
     await db.save(hash, tx_result.tx_response.height, tx_result.tx_response.timestamp);
     const ret = tx_result.tx_response.events.find(it => it.type === 'SubmitTransactionEvent');
     return parseRet({
