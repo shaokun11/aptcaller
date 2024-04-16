@@ -1,0 +1,57 @@
+// flex ********************************************
+.flex {
+  display: flex;
+}
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+.flex-wrap {
+  display: flex;
+  flex-wrap: wrap; 
+}
+// .flex-1{flex:1}
+@for $i from 1 through 6 {
+  .flex-#{$i} {
+    flex: #{$i};
+  }
+}
+$direction: (
+  'r': row,
+  'rr': row-reverse,
+  'c': column,
+  'cr': column-reverse
+);
+$justify: (
+  'start': flex-start,
+  'center': center,
+  'end': flex-end,
+  'between': space-between,
+  'around': space-around
+);
+$align: (
+  'start': flex-start,
+  'center': center,
+  'end': flex-end,
+  'stretch': stretch
+);
+
+@each $alignKey, $alignVal in $align {
+  @each $justifyKey, $justifyVal in $justify {
+    @each $directionKey, $directionVal in $direction {
+      // flex-start-center
+      .flex-#{$justifyKey}-#{$alignKey} {
+        display: flex;
+        justify-content: #{$justifyVal};
+        align-items: #{$alignVal};
+      }
+      // flex-r-start-center
+      .flex-#{$directionKey}-#{$justifyKey}-#{$alignKey} {
+        display: flex;
+        flex-direction: #{$directionVal};
+        justify-content: #{$justifyVal};
+        align-items: #{$alignVal};
+      }
+    }
+  }
+}
