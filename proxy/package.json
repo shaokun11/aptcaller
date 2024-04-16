@@ -13,6 +13,7 @@
   "dependencies": {
     "@cosmos-client/core": "^0.47.4",
     "aptos": "^1.21.0",
+    "async-lock": "^1.4.1",
     "body-parse": "^0.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",

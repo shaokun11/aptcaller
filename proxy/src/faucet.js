@@ -4,6 +4,7 @@ const router = express.Router();
 const aptos = require('aptos');
 const { toBeHex, ethers } = require('ethers');
 const HexString = aptos.HexString;
+
 const NODE_URLS = [
     'https://api.aptos.m1.movementlabs.xyz/apt1/v1',
     'https://api.aptos.m1.movementlabs.xyz/apt2/v1',

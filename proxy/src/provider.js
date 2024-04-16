@@ -4,6 +4,11 @@ const { execaCommand } = require('execa');
 const { URL } = require('./const');
 const { sleep } = require('./helper');
 const { db } = require('./db');
+const AsyncLocker = require("async-lock");
+const locker_submit_tx = new AsyncLocker({
+    maxExecutionTime: 120 * 1000,
+});
+const locker_send_datalayer = new AsyncLocker();
 async function exe_cmd(cmd) {
     return new Promise((resolve, reject) => {
         let ret = '';
@@ -92,19 +97,31 @@ function saveToDataLayer(data, hash) {
     const space = '0x4d6f76655353'; // MovementSharedSequencer short form:MoveSS
     const data_hex = Buffer.from(data).toString('hex');
     const cmd = `celestia blob submit ${space} ${data_hex} --token ${key} --node.store ${store}`;
-    exe_cmd(cmd)
-        .then(res => {
-            console.log('%s save to celestia data layer success', hash, res);
-        })
-        .catch(err => {
-            console.log('%s save to celestia data layer fail', hash, err);
-        });
+    locker_send_datalayer.acquire("locker:data", async function (done) {
+        exe_cmd(cmd)
+            .then(res => {
+                done(null, res);
+                console.log('%s save to celestia data layer success', hash, res);
+            })
+            .catch(err => {
+                done(err);
+                console.log('%s save to celestia data layer fail', hash, err);
+            });
+    })
+
 }
 exports.saveToDataLayer = saveToDataLayer;
 
 exports.sendSubmitTx = async function sendSubmitTx(body, header) {
-    const cmd = `aptcallerd tx aptcaller submit-transaction ${header} ${body} --log_format json --from alice --chain-id aptcaller -y`;
-    const res = await exe_cmd(cmd);
+    const res = await locker_submit_tx.acquire("locker:tx", async function (done) {
+        const cmd = `aptcallerd tx aptcaller submit-transaction ${header} ${body} --log_format json --from alice --chain-id aptcaller -y`;
+        try {
+            const res = await exe_cmd(cmd);
+            done(null, res);
+        } catch (error) {
+            done(error);
+        }
+    })
     const line = await res.split('\n').find(it => it.includes('txhash'));
     const hash = line.split(' ')[1].trim();
     const url = `${URL}/cosmos/tx/v1beta1/txs/${hash}`;
