@@ -23,6 +23,7 @@ async function sendTx(payload) {
         // await client.waitForTransaction(transactionRes.hash);
         ret.push(transactionRes.hash);
     }
+    return ret
 }
 
 function toBuffer(hex) {
