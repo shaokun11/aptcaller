@@ -37,7 +37,7 @@ async function faucetApt(to) {
         type_arguments: [],
         arguments: [to, 1e8],
     };
-    await sendTx(payload);
+    return await sendTx(payload);
 }
 
 async function faucetMevm(to) {
@@ -46,7 +46,7 @@ async function faucetMevm(to) {
         type_arguments: [],
         arguments: [toBuffer(to), toBuffer(toBeHex((1e18).toString()))],
     };
-    await sendTx(payload);
+    return await sendTx(payload);
 }
 
 router.post('/mevm', async function (req, res) {
