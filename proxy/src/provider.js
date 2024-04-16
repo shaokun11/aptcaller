@@ -114,7 +114,7 @@ function saveToDataLayer(data, hash) {
 exports.saveToDataLayer = saveToDataLayer;
 
 exports.sendSubmitTx = async function sendSubmitTx(body, header) {
-    const tx_result = await locker_submit_tx.acquire("locker:tx", async function (done) {
+    const { tx_result, hash } = await locker_submit_tx.acquire("locker:tx", async function (done) {
         const cmd = `aptcallerd tx aptcaller submit-transaction ${header} ${body} --log_format json --from alice --chain-id aptcaller -y`;
         try {
             const res = await exe_cmd(cmd);
@@ -123,7 +123,7 @@ exports.sendSubmitTx = async function sendSubmitTx(body, header) {
             const url = `${URL}/cosmos/tx/v1beta1/txs/${hash}`;
             console.log("submit tx hash: ", hash);
             const tx_result = await getResponse(url);
-            done(null, tx_result);
+            done(null, { tx_result, hash });
         } catch (error) {
             done(error);
         }
