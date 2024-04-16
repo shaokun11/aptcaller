@@ -85,17 +85,17 @@ async function getResponse(url, max = 10) {
 function saveToDataLayer(data) {
     const store = process.env.CELESTIA_DATA_STORE;
     const key = process.env.CELESTIA_AUTH_TOKEN;
-    const space = "0x4d6f76655353"  // MovementSharedSequencer short form:MoveSS
+    const space = '0x4d6f76655353'; // MovementSharedSequencer short form:MoveSS
     const data_hex = Buffer.from(data).toString('hex');
     const cmd = `celestia blob submit ${space} ${data_hex} --token ${key} --node.store ${store}`;
     return exe_cmd(cmd);
 }
-exports.saveToDataLayer = saveToDataLayer
+exports.saveToDataLayer = saveToDataLayer;
 
 exports.sendSubmitTx = async function sendSubmitTx(body, header) {
-    let header_ = JSON.parse(Buffer.from(header, "hex").toString('utf8'))
-    header_.dataLayer = await saveToDataLayer(body)
-    header_ = Buffer.from(JSON.stringify(header_)).toString('hex')
+    let header_ = JSON.parse(Buffer.from(header, 'hex').toString('utf8'));
+    header_.dataLayer = await saveToDataLayer(body);
+    header_ = Buffer.from(JSON.stringify(header_)).toString('hex');
     const cmd = `aptcallerd tx aptcaller submit-transaction ${header_} ${body} --log_format json --from alice --chain-id aptcaller -y`;
     const res = await exe_cmd(cmd);
     const line = await res.split('\n').find(it => it.includes('txhash'));

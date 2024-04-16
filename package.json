@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "aptos": "^1.21.0",
+    "ethers": "^6.11.1"
+  }
+}

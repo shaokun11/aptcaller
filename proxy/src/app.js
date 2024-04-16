@@ -6,10 +6,9 @@ const cors = require('cors');
 const { call, sendSubmitTx, post, saveToDataLayer } = require('./provider');
 const { PORT, URL: url } = require('./const');
 const { APTOS_MIME_TYPE } = require('./mime');
-const { db } = require('./db');
-
+const { router_query } = require('./query');
+const { router_faucet } = require('./faucet');
 const app = express();
-
 const URL = url + '/aptcaller/aptcaller/';
 
 app.use(cors());
@@ -30,7 +29,7 @@ app.use(
         ...limit,
     }),
 );
-app.set("trust proxy", true);
+app.set('trust proxy', true);
 const router = express.Router();
 
 function parsePage(req) {
@@ -45,8 +44,8 @@ function setHeader(header, res) {
     if (!header) return;
     if (Object.keys(header).length < 7) return;
     for (let [k, v] of Object.entries(header)) {
-        if (k === "X-APTOS-CURSOR" && v.length === 0) {
-            continue
+        if (k === 'X-APTOS-CURSOR' && v.length === 0) {
+            continue;
         }
         res.setHeader(k, v);
     }
@@ -78,7 +77,8 @@ router.get('/accounts/:address/resources', async (req, res) => {
     }
     const url =
         URL +
-        `get_account_resources/${option.header}/${option.address}/${option.ledger_version || "0"}/${option.limit || 0
+        `get_account_resources/${option.header}/${option.address}/${option.ledger_version || '0'}/${
+            option.limit || 0
         }/${option.start || 0}`;
     const result = await call(url);
     res.sendData(result);
@@ -96,7 +96,8 @@ router.get('/accounts/:address/modules', async (req, res) => {
     }
     const url =
         URL +
-        `get_account_modules/${option.header}/${option.account}/${option.ledger_version || "0"}/${option.limit || 0
+        `get_account_modules/${option.header}/${option.account}/${option.ledger_version || '0'}/${
+            option.limit || 0
         }/${option.start || 0}`;
     const result = await call(url);
     res.sendData(result);
@@ -131,7 +132,7 @@ router.get('/accounts/:address/module/:module_name', async (req, res) => {
     }
     const url =
         URL +
-        `get_account_module/${option.header}/${option.account}/${option.module_name}/${option.ledger_version || "0"}`;
+        `get_account_module/${option.header}/${option.account}/${option.module_name}/${option.ledger_version || '0'}`;
     const result = await call(url);
     res.sendData(result);
 });
@@ -180,7 +181,8 @@ router.get('/accounts/:address/events/:creation_number', async (req, res) => {
     };
     const url =
         URL +
-        `get_events_by_creation_number/${option.header}/${option.address}/${option.creation_number
+        `get_events_by_creation_number/${option.header}/${option.address}/${
+            option.creation_number
         }/${option.limit || 0}/${option.start || 0}`;
     const result = await call(url);
     res.sendData(result);
@@ -200,7 +202,8 @@ router.get('/accounts/:address/events/:event_handle/:field_name', async (req, re
     };
     const url =
         URL +
-        `get_events_by_event_handle/${option.header}/${option.address}/${option.event_handle}/${option.field_name
+        `get_events_by_event_handle/${option.header}/${option.address}/${option.event_handle}/${
+            option.field_name
         }/${option.limit || 0}/${option.start || 0}`;
     const result = await call(url);
     res.sendData(result);
@@ -308,7 +311,7 @@ router.post('/view', async (req, res) => {
     const result = await post(url, {
         body: JSON.stringify(req.body),
         header: req.req_header,
-        ledgerVersion: req.query?.ledger_version || "0",
+        ledgerVersion: req.query?.ledger_version || '0',
     });
     res.sendData(result);
 });
@@ -337,7 +340,7 @@ router.post('/tables/:table_handle/item', async (req, res) => {
         body: option.body,
         header: req.req_header,
         tableHandle: req.req_header,
-        ledgerVersion: option.ledger_version || "0",
+        ledgerVersion: option.ledger_version || '0',
     });
     res.sendData(result);
 });
@@ -357,7 +360,7 @@ router.post('/tables/:table_handle/raw_item', async (req, res) => {
         body: option.body,
         header: req.req_header,
         tableHandle: option.table_handle,
-        ledgerVersion: option.ledger_version || "0",
+        ledgerVersion: option.ledger_version || '0',
     });
     res.sendData(result);
 });
@@ -405,7 +408,7 @@ const bcs_formatter = (req, res, next) => {
         'Content-Type': send_format,
         Accept: rev_format,
         chain: req.params.chain,
-        dataLayer: ""
+        dataLayer: '',
     };
     req.req_header = Buffer.from(JSON.stringify(header)).toString('hex');
     res.sendData = data => {
@@ -438,20 +441,8 @@ const chain_check = (req, res, next) => {
     next();
 };
 
-
-const router_query = express.Router();
-
-router_query.get("/latestTx", async function (req, res) {
-    const count = req.query.count || 10
-    const ret = await db.get(count)
-    res.json(ret.map(it => ({
-        tx: it.tx,
-        height: it.height,
-        timestamp: it.timestamp || ""
-    })))
-})
-
-app.use("/query", router_query)
+app.use('/query', router_query);
+app.use('/faucet', router_faucet);
 
 app.use('/:chain/v1', chain_check, bcs_formatter, router);
 

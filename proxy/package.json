@@ -12,9 +12,11 @@
   "license": "ISC",
   "dependencies": {
     "@cosmos-client/core": "^0.47.4",
+    "aptos": "^1.21.0",
     "body-parse": "^0.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
+    "ethers": "^6.11.1",
     "execa": "npm:@esm2cjs/execa@^6.1.1-cjs.1",
     "express": "^4.19.2",
     "express-async-errors": "^3.1.1",
