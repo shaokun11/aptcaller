@@ -4,7 +4,11 @@ const router = express.Router();
 const aptos = require('aptos');
 const { toBeHex, ethers } = require('ethers');
 const HexString = aptos.HexString;
-
+const AsyncLocker = require("async-lock");
+const { sleep } = require('./helper');
+const locker_send_tx = new AsyncLocker({
+    maxExecutionTime: 120 * 1000,
+});
 const NODE_URLS = [
     'https://api.aptos.m1.movementlabs.xyz/apt1/v1',
     'https://api.aptos.m1.movementlabs.xyz/apt2/v1',
@@ -15,12 +19,19 @@ const account = aptos.AptosAccount.fromAptosAccountObject({
 });
 
 async function sendTx(chainIndex, payload) {
-    const client = new aptos.AptosClient(NODE_URLS[chainIndex - 1]);
-    const txnRequest = await client.generateTransaction(account.address().hexString, payload);
-    const signedTxn = await client.signTransaction(account, txnRequest);
-    const transactionRes = await client.submitTransaction(signedTxn);
-    // await client.waitForTransaction(transactionRes.hash);
-    return transactionRes.hash;
+    return locker_send_tx.acquire('locker:send_tx', async function (done) {
+        try {
+            const client = new aptos.AptosClient(NODE_URLS[chainIndex - 1]);
+            const txnRequest = await client.generateTransaction(account.address().hexString, payload);
+            const signedTxn = await client.signTransaction(account, txnRequest);
+            const transactionRes = await client.submitTransaction(signedTxn);
+            await sleep(1000)
+            // await client.waitForTransaction(transactionRes.hash);
+            done(null, transactionRes.hash);
+        } catch (error) {
+            done(error);
+        }
+    });
 }
 
 function toBuffer(hex) {
