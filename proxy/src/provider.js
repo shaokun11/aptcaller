@@ -81,6 +81,7 @@ async function getResponse(url, max = 20) {
     while (counter < max) {
         try {
             let res = await fetch(url).then(res => res.json());
+            console.log("----url-", res?.tx_response?.height)
             if (res?.tx_response?.height) {
                 return res;
             }
@@ -113,20 +114,20 @@ function saveToDataLayer(data, hash) {
 exports.saveToDataLayer = saveToDataLayer;
 
 exports.sendSubmitTx = async function sendSubmitTx(body, header) {
-    const res = await locker_submit_tx.acquire("locker:tx", async function (done) {
+    const tx_result = await locker_submit_tx.acquire("locker:tx", async function (done) {
         const cmd = `aptcallerd tx aptcaller submit-transaction ${header} ${body} --log_format json --from alice --chain-id aptcaller -y`;
         try {
             const res = await exe_cmd(cmd);
-            done(null, res);
+            const line = await res.split('\n').find(it => it.includes('txhash'));
+            const hash = line.split(' ')[1].trim();
+            const url = `${URL}/cosmos/tx/v1beta1/txs/${hash}`;
+            console.log("submit tx hash: ", hash);
+            const tx_result = await getResponse(url);
+            done(null, tx_result);
         } catch (error) {
             done(error);
         }
     })
-    const line = await res.split('\n').find(it => it.includes('txhash'));
-    const hash = line.split(' ')[1].trim();
-    const url = `${URL}/cosmos/tx/v1beta1/txs/${hash}`;
-    console.log("submit tx hash: ", hash);
-    const tx_result = await getResponse(url);
     await saveToDataLayer(body, hash);
     await db.save(hash, tx_result.tx_response.height, tx_result.tx_response.timestamp);
     const ret = tx_result.tx_response.events.find(it => it.type === 'SubmitTransactionEvent');
