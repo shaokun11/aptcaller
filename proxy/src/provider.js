@@ -81,7 +81,6 @@ async function getResponse(url, max = 20) {
     while (counter < max) {
         try {
             let res = await fetch(url).then(res => res.json());
-            console.log("----url-", res?.tx_response?.height)
             if (res?.tx_response?.height) {
                 return res;
             }
