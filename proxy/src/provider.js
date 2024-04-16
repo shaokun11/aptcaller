@@ -72,14 +72,14 @@ async function getResponse(url, max = 10) {
     while (counter < max) {
         try {
             let res = await fetch(url).then(res => res.json());
-            if (res.tx_response) {
+            if (res?.tx_response?.height) {
                 return res;
             }
             throw 'tx_response not found';
         } catch (error) {
             counter++;
         }
-        await sleep(500);
+        await sleep(1000);
     }
 }
 function saveToDataLayer(data) {

@@ -201,7 +201,7 @@ async function checkAddressNonce(info) {
         } catch (error) {
             continue;
         }
-        if (Date.now() - startTs > 30 * 1000) {
+        if (Date.now() - startTs > 60 * 1000) {
             throw 'Timeout to Discard. Please send tx follow address nonce order';
         }
         await sleep(0.5);
@@ -488,7 +488,7 @@ async function sendTx(payload, wait = false, option = {}) {
         const txnRequest = await client.generateTransaction(SENDER_ADDRESS, payload, {
             ...option,
             max_gas_amount: 2 * 1e6,
-            expiration_timestamp_secs: Math.trunc(Date.now() / 1000) + 10,
+            expiration_timestamp_secs: Math.trunc(Date.now() / 1000) + 30,
         });
         const signedTxn = await client.signTransaction(SENDER_ACCOUNT, txnRequest);
         const transactionRes = await client.submitTransaction(signedTxn);
