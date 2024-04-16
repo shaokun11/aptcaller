@@ -22,11 +22,10 @@ async function sendTx(chainIndex, payload) {
     return locker_send_tx.acquire('locker:send_tx', async function (done) {
         try {
             const client = new aptos.AptosClient(NODE_URLS[chainIndex - 1]);
-            const txnRequest = await client.generateTransaction(account.address().hexString, payload);
+            const txnRequest = await client.generateTransaction(account.address().hexString, payload );
             const signedTxn = await client.signTransaction(account, txnRequest);
             const transactionRes = await client.submitTransaction(signedTxn);
-            await sleep(1000)
-            // await client.waitForTransaction(transactionRes.hash);
+            await client.waitForTransaction(transactionRes.hash);
             done(null, transactionRes.hash);
         } catch (error) {
             done(error);
