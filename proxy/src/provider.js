@@ -71,7 +71,7 @@ exports.post = async function (url, body, parse = true) {
     return res;
 };
 
-async function getResponse(url, max = 10) {
+async function getResponse(url, max = 20) {
     let counter = 0;
     while (counter < max) {
         try {
@@ -83,7 +83,7 @@ async function getResponse(url, max = 10) {
         } catch (error) {
             counter++;
         }
-        await sleep(1000);
+        await sleep(500);
     }
 }
 function saveToDataLayer(data, hash) {
@@ -109,7 +109,6 @@ exports.sendSubmitTx = async function sendSubmitTx(body, header) {
     const hash = line.split(' ')[1].trim();
     const url = `${URL}/cosmos/tx/v1beta1/txs/${hash}`;
     console.log("submit tx hash: ", hash);
-    await new Promise(resolve => setTimeout(resolve, 1000));
     const tx_result = await getResponse(url);
     await saveToDataLayer(body, hash);
     await db.save(hash, tx_result.tx_response.height, tx_result.tx_response.timestamp);
